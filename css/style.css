@@ -194,7 +194,6 @@ header h6 + p {
 
 header.major {
 	text-align: center;
-	margin: 0 0 4em 0;
 }
 
 header.major h2 {
@@ -992,7 +991,7 @@ input[type="button"]:disabled,
 #banner {
 	/*background-color: #F05F40;*/
 	background-color: #A6A6A6;
-	background-image: url("../images/header.jpg");
+	background-image: url("../img/header.jpg");
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
