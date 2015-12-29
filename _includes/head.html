@@ -1,0 +1,28 @@
+<head>
+    <title>{% if page.title %}{{ site.theme.title }} | {{ page.title }}{% else %}{{ site.theme.title }}{% endif %}</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="{% if page.resume %}{{ page.resume | strip_html | strip_newlines }}{% else %}{{ site.theme.description }}{% endif %}">
+    <meta name="keywords" content="{% if site.theme.keywords %} {{ site.theme.keywords }} {% endif %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-Frame-Options" content="sameorigin">
+    <meta name="viewport" content="width=device-width">
+    <meta name="Googlebot" content="all"/>
+    <meta name="Robots" content="index,follow"/>
+    <meta name="author" content="{% if site.theme.autor %} {{ site.theme.autor }} {% endif %}"/>
+    <meta name="reply-to" content="{% if site.theme.reply %} {{ site.theme.reply }} {% endif %}"/>
+    <meta property="og:image" content="{{ "/img/facebook.png" | prepend: site.url }}"/>
+    <link rel="image_src" href="{{ "/img/facebook.png" | prepend: site.url }}"/>
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.theme.facebookTitle }}{% endif %}"/>
+    <meta property="og:type" content="Website"/>
+    <meta property="og:description" content="{% if page.resume %}{{ page.resume | strip_html | strip_newlines }}{% else %}{{ site.theme.facebookDescription|raw }}{% endif %}"/>
+    <meta property="og:url" content="{% if page.resume %}{{ page.url| prepend: site.url }}{% else %} {{ site.url }} {% endif %}"/>
+    <noscript>
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/skel.css" />
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css" />
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/style-xlarge.css" />
+    </noscript>
+    {% if site.theme.katex %}
+    <link rel="stylesheet" href="{{ "/css/katex.min.css" | prepend: site.baseurl }}" />
+    <script src="{{ "/js/katex.min.js" | prepend: site.baseurl }}"></script>
+    {% endif %}
+</head>
