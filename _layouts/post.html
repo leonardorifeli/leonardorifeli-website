@@ -19,7 +19,9 @@ layout: default
             <a href="{{ page.next.url }}" class="float-right">Next post &rarr;</a> {% endif %}
         </footer>
 
-        {% if site.theme.disqus_shortname %}
+        <br/>
+
+        {% if site.theme.disqus_shortname and page.comments == true %}
         <div class="comments">
             {% include disqus.html %}
         </div>
