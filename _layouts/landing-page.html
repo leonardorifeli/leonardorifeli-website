@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+{% include /head.html %}
+
+<body id="top">
+
+    {% include /header.html %}
+
+    <section id="banner">
+        <div class="inner">
+
+            <img src="{{ site.theme.image_home }}" class="img-main">
+
+            {{ site.theme.header_text }}
+        </div>
+    </section>
+
+    {{ content }}
+
+    {% include /footer.html %}
+
+</body>
+
+</html>
