@@ -1107,3 +1107,7 @@ input[type="button"]:disabled,
 #footer .icons a {
 	color: #bbb;
 }
+
+.center{
+	text-align: center;
+}
