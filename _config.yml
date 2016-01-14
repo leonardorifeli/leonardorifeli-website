@@ -8,7 +8,7 @@ theme:
   keywords: "joinville, back-end, php, developers brazil, developer, desenvolvedor araraquara, desenvolvedor web, conhecimento, engenharia de computação, engenharia, automação, programação, desenvolvimento, robotica, i.a, inteligencia artificial, dicas de desenvolvimento, dicas de engenharia, logatti, leonardo, leonardo rifeli, augusto rifeli, rifeli, Rifeli"
   description: "Meu nome é Leonardo Rifeli, tenho 20 anos e resido em Joinville (SC). Atuo há cerca de três anos no mercado Web, desde então venho adquirindo e aprimorando minhas experiências. Atuo como desenvolvedor back-end na agência taginterativa.com.br. Estou cursando bacharelado em Engenharia de Computação. Contribuo para projetos open source e para a comunidade web como um todo."
   autor: "Leonardo Rifeli"
-  reply: "me@leonardorifeli.com"
+  reply: "leonardorifeli@gmail.com"
   facebookTitle: Leonardo Rifeli
   facebookDescription: "teste"
 
@@ -18,7 +18,7 @@ theme:
      <p>"My job is to not be easy on people. My job is to make them better." (Steve Jobs).</p>
 
   rss: false
-  email: "me@leonardorifeli.com"
+  email: "leonardorifeli@gmail.com"
   bitbucket: leonardorifeli
   facebook: "leonardorifeli"
   github: "leonardorifeli"
