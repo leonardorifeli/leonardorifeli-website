@@ -89,49 +89,13 @@ Abaixo segue o exemplo:
 <script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=ReaderAnnotation.php"></script>
 <span class="space">&nbsp;</span>
 
-## Resultado (você já deve ter execudado os exemplos)
+## Resultado (você já deve ter executado os exemplos)
 
 {:.center}
 ![alt text](/img/posts/2016-01-custom-annotations/happy.gif "Using the annotation PeopleAnnotation")
 
-{% highlight php %}
-CLASS ANNOTATIONS:
-array (size=1)
-  0 =>
-    object(PeopleAnnotation)[11]
-      public 'description' => string 'Get all information about a people' (length=34)
-      public 'type' => string 'class' (length=5)
-OBJECT ANNOTATIONS:
-array (size=1)
-  0 =>
-    object(PeopleAnnotation)[15]
-      public 'description' => string 'Get all information about a people' (length=34)
-      public 'type' => string 'class' (length=5)
-PROPERTY ANNOTATION NAME:
-array (size=1)
-  0 =>
-    object(PeopleAnnotation)[18]
-      public 'description' => string 'Use to people name' (length=18)
-      public 'type' => string 'attribute' (length=9)
-PROPERTY ANNOTATION BIRTH DATE
-array (size=1)
-  0 =>
-    object(PeopleAnnotation)[19]
-      public 'description' => string 'Use to people birth date' (length=24)
-      public 'type' => string 'attribute' (length=9)
-Method ANNOTATIONS getName:
-array (size=1)
-  0 =>
-    object(PeopleAnnotation)[19]
-      public 'description' => string 'Use to people birth date' (length=24)
-      public 'type' => string 'attribute' (length=9)
-Method ANNOTATIONS getBirthDate:
-array (size=1)
-  0 =>
-    object(PeopleAnnotation)[19]
-      public 'description' => string 'Use to people birth date' (length=24)
-      public 'type' => string 'attribute' (length=9)
-{% endhighlight %}
+<script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=result.txt"></script>
+<span class="space">&nbsp;</span>
 
 ## Referências
 
@@ -145,4 +109,4 @@ A utilização de **annotation** pode facilitar diversas condições, salientand
 
 Quaisquer feedbacks serão bem-vindos, fique à vontade para comentar e/ou implementar alguma informação.
 
-Até breve méros mortais e eternos apredizes (todos somos)!
+Até breve méros mortais e eternos aprendizes (todos somos).
