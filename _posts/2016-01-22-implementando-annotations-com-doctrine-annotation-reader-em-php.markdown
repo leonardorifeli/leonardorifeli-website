@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "Implementando annotations com doctrine annotation reader em PHP"
-date: 2016-01-18
+date: 2016-01-22
 categories: Development
 subcategorie: PHP
-comments: false
+comments: true
 author: Leonardo Rifeli
 isResume: 1
 resume: Em geral, é possível utilizar annotations para facilitar informações estáticas dentro de classes, atributos e/ou métodos. Podendo assim, tentar (eu escrevi TENTAR) atingir maior legibilidade do seu código. Vem comigo para essa aventura!
@@ -84,7 +84,7 @@ Classes nativas utilizadas no exemplo:
 * **[ReflectionProperty()](http://php.net/manual/pt_BR/class.reflectionproperty.php){:target="_blank"}**;
 * **[ReflectionMethod()](http://php.net/manual/pt_BR/class.reflectionmethod.php){:target="_blank"}**.
 
-Abaixo segue o exemplo:
+Abaixo o exemplo:
 
 <script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=ReaderAnnotation.php"></script>
 <span class="space">&nbsp;</span>
