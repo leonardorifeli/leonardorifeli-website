@@ -157,8 +157,8 @@ Sempre que precisar de uma conexão quase em tempo real de baixa latência entre
 Alguns exemplos de casos de uso:
 
 * usuários editando um mesmo registro;
-* Chats;
-* Links que precisam de rápida atualização;
+* chats;
+* links que precisam de rápida atualização;
 * jogos on-line de vários players;
 * atualização em tempo real de redes sociais.
 
