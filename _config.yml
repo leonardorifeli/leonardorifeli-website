@@ -17,7 +17,7 @@ theme:
 
      <p>"My job is to not be easy on people. My job is to make them better." (Steve Jobs).</p>
 
-  rss: false
+  rss: true
   email: "leonardorifeli@gmail.com"
   bitbucket: leonardorifeli
   facebook: "leonardorifeli"
