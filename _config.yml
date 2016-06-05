@@ -4,14 +4,14 @@ markdown: kramdown
 
 theme:
   title: Leonardo Rifeli
-  image_home: https://leonardorifeli.com/img/website-avatar.png
+  image_home: http://leonardorifeli.com/img/website-avatar.png
   keywords: "joinville, back-end, php, developers brazil, developer, desenvolvedor araraquara, desenvolvedor web, conhecimento, engenharia de computação, engenharia, automação, programação, desenvolvimento, robotica, i.a, inteligencia artificial, dicas de desenvolvimento, dicas de engenharia, logatti, leonardo, leonardo rifeli, augusto rifeli, rifeli, Rifeli"
-  description: "Meu nome é Leonardo Rifeli, tenho 20 anos e resido em Joinville (SC). Atuo há cerca de três anos no mercado Web, desde então venho adquirindo e aprimorando minhas experiências. Atuo como desenvolvedor back-end na agência taginterativa.com.br. Estou cursando bacharelado em Engenharia de Computação. Contribuo para projetos open source e para a comunidade web como um todo."
+  description: "My name is Leonardo Rifeli, I'm 20 and I live in Joinville (SC). I'm about three years in the Web market has since come acquiring and honing my experiences. I am currently a back-end developer at the agency taginterativa.com.br. I'm studying a BA in Computer Engineering. Contribute to open source projects and the web community as a whole."
   autor: "Leonardo Rifeli"
   reply: "leonardorifeli@gmail.com"
   facebookTitle: Leonardo Rifeli
-  facebookDescription: "teste"
-
+  facebookDescription: "My name is Leonardo Rifeli, I'm 20 and I live in Joinville (SC). I'm about three years in the Web market has since come acquiring and honing my experiences. I am currently a back-end developer at the agency taginterativa.com.br. I'm studying a BA in Computer Engineering. Contribute to open source projects and the web community as a whole."
+  
   header_text: >
      <p>Future engineer, developer and a lifelong learner.</p>
 
