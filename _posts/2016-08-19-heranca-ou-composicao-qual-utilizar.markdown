@@ -23,7 +23,7 @@ Enquanto escrevo este magnífico artigo, vou ouvindo um set **Progressive House*
 
 ## Introdução
 
-Atualmente, os assuntos mais abordados e importantes na programação orientada a objeto são herança e composição, porém, é visivel que muitos programados(as) optam por utilizar a herança sem mesmo validar as alternativas dentro de cada contexto.
+Um assunto muito abordado e importante na programação orientada a objetos é a utilização de herança ou composição, porém, é visível que muitos programadores(as) optam por utilizar a herança sem mesmo validar as alternativas dentro de cada contexto.
 
 Pois bem, este artigo tem como objetivo colocar os dois assuntos na balança, com o intuito de que você entenda do que cada um é composto e qual utilizar dentro de cada contexto/relação.
 
@@ -33,16 +33,16 @@ A herança e a composição são duas abordagens diferentes para obter-se a reut
 
 ## Herança
 
-Na herança, uma classe herda (daí o termo herança) as propriedades e os métodos de sua classe-pai, de modo transitivo, ou seja, uma classe pode herdar de outra classe que herda de outra, até uma classe que não possuí uma classe-pai.
+Na herança, uma classe herda (daí o termo herança) as propriedades e os métodos de sua classe pai, de modo transitivo, ou seja, uma classe pode herdar de outra classe que herda de outra, até uma classe que não possuí uma classe pai.
 
-Com a herança, as propriedades e os métodos podem receber comportamentos diferentes na classe que herda a classe-pai, por uso da reescrita dos respectivos.
+Com a herança, as propriedades e os métodos podem se comportar de forma diferente na classe filha, por uso da reescrita dos respectivos métodos.
 
 A herença deverá ser utilizada somente quando existir uma relação **"é-um"** no contexto. No exemplo abaixo, no arquivo **Car.java**, a classe **Car** herda a classe **Automobile** e nesse contexto temos uma relação **"é-um"**, ou seja, **Car** é um **Automobile**, em nenhum momento, **Car** deixará de se comportar como **Automobile**.
 
 <script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Car.java"></script>
 <span class="space">&nbsp;</span>
 
-Verifique que a classe **Car.java** no exemplo acima, está sobrescrevendo o método **getColor()**, alterando o comportamento herdado da classe-pai **Automobile.java**.
+Verifique que a classe **Car.java** no exemplo acima, está sobrescrevendo o método **getColor()**, alterando o comportamento herdado da classe pai **Automobile.java**.
 
 <script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Automobile.java"></script>
 <span class="space">&nbsp;</span>
@@ -77,11 +77,11 @@ Classe **Job.java** e suas propriedades e métodos.
 
 A herança e a composição são de extrema imporância nas linguagens. Atualmente é raro encontrar linguagens que não as suportem. Caso contrário, seria quase impossível quebrarmos grandes solução em soluções pequenas/modulares.
 
-Sem a reutilização de comportamentos/funcionalidades não teriámos códigos com responsabilidades únicas, que fazem somente uma coisa e fazem muito bem.
+Sem a reutilização de comportamentos/funcionalidades não teríamos códigos com responsabilidades únicas, que fazem somente uma coisa e fazem muito bem.
 
-## Qual utilizar
+## Qual utilizar?
 
-Perceba, basta pensar antes de criar determinada solução, sempre tendo como objetivo, avaliar qual é a relação de um determinado problema. Em casos que exista uma relação **"é-um**, exemplos como: banana É uma fruta, carro É um automóvel, pássaro É uma ave etc. Nestes casos, utilize a herança.
+Avalie qual é a relação de um determinado problema. Em caso que exista uma relação **"é-um"** utilizamos a herança, exemplo: banana É uma fruta, carro É um automóvel, pássaro É uma ave etc.
 
 Em casos que a relação tende a apenas propriedades, funcionalidades e/ou comportamentos específicos e possuí-se uma relação **"tem-um"** , exemplos: pessoa TEM a possibilidade de trabalhar, avião TEM a possibilidade de freiar etc, nestes casos, utilizamos a compoisição, aproveitando apenas uma parte (funcionalidade, propriedade, responsabilidade etc) de outra classe.
 
