@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/leonardorifeli/leonardorifeli.github.io.svg?branch=master)](https://travis-ci.org/leonardorifeli/leonardorifeli.github.io)
+[![Build Status](https://travis-ci.org/leonardorifeli/leonardorifeli.github.io.svg?branch=gh-pages)](https://travis-ci.org/leonardorifeli/leonardorifeli.github.io)
 
 About Project
 ========================
