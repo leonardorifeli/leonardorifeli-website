@@ -83,11 +83,11 @@ Sem a reutilização de comportamentos/funcionalidades não teríamos códigos c
 
 Avalie qual é a relação de um determinado problema. Em caso que exista uma relação **"é-um"** utilizamos a herança, exemplo: banana É uma fruta, carro É um automóvel, pássaro É uma ave etc.
 
-Em casos que a relação tende a apenas propriedades, funcionalidades e/ou comportamentos específicos e possuí-se uma relação **"tem-um"** , exemplos: pessoa TEM a possibilidade de trabalhar, avião TEM a possibilidade de freiar etc, nestes casos, utilizamos a compoisição, aproveitando apenas uma parte (funcionalidade, propriedade, responsabilidade etc) de outra classe.
+Em casos que a relação tende a funcionalidades e/ou comportamentos específicos e possui uma relação **"tem-um"** , exemplos: pessoa TEM a possibilidade de trabalhar, avião TEM a possibilidade de freiar etc, nestes casos, utilize a compoisição, aproveitando apenas uma parte (funcionalidade, responsabilidade etc) de outra classe, utilizando o objeto.
 
-Pergunte-se sempre se em todo o clico de vida da aplicação e/ou do código, aquela relação será constante e imutável. Perceba no exemplo citado na relação da composição, a pessoa não **"é-um"** funcionário e não pode ser, pelo fato dessa relação ser mutável, imagine se a pessoa ficar desempregada. Por isso, uma pessoa **"tem-um"** papel de trabalho, por isso utiliza-se a composição.
+Pergunte-se sempre se em todo o clico de vida da aplicação ou do código, aquela relação será constante e imutável. Um exemplo de avaliação: Em domínio onde **People** tem relação com **Employee**, neste caso deve-se utilizar a composição, pelo fato de ser algo mutável. Nem sempre **People** terá relação com **Employee**, e se a pessoa ficar desempregada? Portanto, neste caso, o uso da composição é mais adequado do que a herança.
 
-Não use a herança apenas para obter-se a reunitilização de código, se não existe uma relação **"é-um"**, use a composição.
+Não use a herança apenas para obter a reutilização de código se não existe uma relação “é-um”. Nestes casos é mais apropriado utilizar a composição.
 
 ## Conclusão
 
