@@ -98,7 +98,7 @@ Exemplo de herança com object, sobrescrevendo toString():
 <script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=String.java"></script>
 <span class="space">&nbsp;</span>
 
-Alguns métodos herdados de Object:
+Alguns métodos herdados da classe Object:
 
 - clone();
 - equals();
