@@ -108,6 +108,12 @@ Alguns métodos herdados da classe Object:
 
 Documentação da classe Object: [clique aqui](http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html).
 
+## Referências
+
+- [Post de um amigo, Pedro Augusto](https://medium.com/@pedro.barros/heran%C3%A7a-ou-composi%C3%A7%C3%A3o-eis-a-quest%C3%A3o-7ce11fad4737#.ekombw2sy){:target="_blank"};
+- [Composition vs. Inheritance: How to Choose?](https://www.thoughtworks.com/pt/insights/blog/composition-vs-inheritance-how-choose){:target="_blank"};
+- [Herança versus Composição: qual utilizar?](http://www.devmedia.com.br/heranca-versus-composicao-qual-utilizar/26145){:target="_blank"};
+
 ## Conclusão
 
 Atualmente a composição é considerada superior à herança, pelo motivo de podermos mudar a associação entre classes em tempo de execução, podendo obter outros comportamentos. Com isso as aplicações se tornam mais reutilizáveis.
