@@ -89,6 +89,25 @@ Pergunte-se sempre se em todo o clico de vida da aplicação ou do código, aque
 
 Não use a herança apenas para obter a reutilização de código se não existe uma relação “é-um”. Nestes casos é mais apropriado utilizar a composição.
 
+## Falando em Java
+
+Apenas para abrir um parêntese no artigo, em Java, toda e qualquer classe possui uma herança, neste caso implicitamente. Toda classe em Java, sempre extenderá Object, com isso, alguns métodos são herdados.
+
+Exemplo de herança com object, sobrescrevendo toString():
+
+<script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=String.java"></script>
+<span class="space">&nbsp;</span>
+
+Alguns métodos herdados de Object:
+
+- clone();
+- equals();
+- toString();
+- hashCode();
+- entre outros.
+
+Documentação da classe Object: [clique aqui](http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html).
+
 ## Conclusão
 
 Atualmente a composição é considerada superior à herança, pelo motivo de podermos mudar a associação entre classes em tempo de execução, podendo obter outros comportamentos. Com isso as aplicações se tornam mais reutilizáveis.
