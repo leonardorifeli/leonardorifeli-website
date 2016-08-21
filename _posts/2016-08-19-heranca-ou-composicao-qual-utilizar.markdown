@@ -66,7 +66,7 @@ Nem sempre uma pessoa irá possuir um emprego, por isso, existe uma relação **
 
 Repare que, o método construtor, instancia a classe **Job.java** somente se **People** possuir um emprego, com isso, podemos acionar o método **checkAndStartJob()** para iniciar o **job**.
 
-Aqui temos uma relação **"tem-um"** e por isso utilizamos a composição. No exemplo acima, com a utilização da composição, podemos altera a classe em tempo de execução.
+Aqui temos uma relação **"tem-um"** e por isso utilizamos a composição. No exemplo acima, com a utilização da composição, podemos alterar a classe em tempo de execução.
 
 <script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Job.java"></script>
 <span class="space">&nbsp;</span>
@@ -75,7 +75,7 @@ Classe **Job.java** e suas propriedades e métodos.
 
 ## Importância
 
-A herança e a composição são de extrema imporância nas linguagens. Atualmente é raro encontrar linguagens que não as suportem. Caso contrário, seria quase impossível quebrarmos grandes solução em soluções pequenas/modulares.
+A herança e a composição são de extrema importância nas linguagens. Atualmente é raro encontrar linguagens que não as suportem. Caso contrário, seria quase impossível quebrarmos grandes soluções em soluções pequenas/modulares.
 
 Sem a reutilização de comportamentos/funcionalidades não teríamos códigos com responsabilidades únicas, que fazem somente uma coisa e fazem muito bem.
 
@@ -83,15 +83,15 @@ Sem a reutilização de comportamentos/funcionalidades não teríamos códigos c
 
 Avalie qual é a relação de um determinado problema. Em caso que exista uma relação **"é-um"** utilizamos a herança, exemplo: banana É uma fruta, carro É um automóvel, pássaro É uma ave etc.
 
-Em casos que a relação tende a funcionalidades e/ou comportamentos específicos e possui uma relação **"tem-um"** , exemplos: pessoa TEM a possibilidade de trabalhar, avião TEM a possibilidade de freiar etc, nestes casos, utilize a compoisição, aproveitando apenas uma parte (funcionalidade, responsabilidade etc) de outra classe, utilizando o objeto.
+Em casos que a relação tende a funcionalidades e/ou comportamentos específicos e possui uma relação **"tem-um"** , exemplos: pessoa TEM a possibilidade de trabalhar, avião TEM a possibilidade de freiar etc, nestes casos, utilize a composição, aproveitando apenas uma parte (funcionalidade, responsabilidade etc) de outra classe, utilizando o objeto.
 
-Pergunte-se sempre se em todo o clico de vida da aplicação ou do código, aquela relação será constante e imutável. Um exemplo de avaliação: Em domínio onde **People** tem relação com **Employee**, neste caso deve-se utilizar a composição, pelo fato de ser algo mutável. Nem sempre **People** terá relação com **Employee**, e se a pessoa ficar desempregada? Portanto, neste caso, o uso da composição é mais adequado do que a herança.
+Pergunte-se sempre se em todo o ciclo de vida da aplicação ou do código, aquela relação será constante e imutável. Um exemplo de avaliação: Em domínio onde **People** tem relação com **Employee**, neste caso deve-se utilizar a composição, pelo fato de ser algo mutável. Nem sempre **People** terá relação com **Employee**, e se a pessoa ficar desempregada? Portanto, neste caso, o uso da composição é mais adequado do que a herança.
 
 Não use a herança apenas para obter a reutilização de código se não existe uma relação “é-um”. Nestes casos é mais apropriado utilizar a composição.
 
 ## Falando em Java
 
-Apenas para abrir um parêntese no artigo, em Java, toda e qualquer classe possui uma herança, neste caso implicitamente. Toda classe em Java, sempre extenderá Object, com isso, alguns métodos são herdados.
+Apenas para abrir um parêntese no artigo, em Java, toda e qualquer classe possui uma herança, neste caso implicitamente. Toda classe em Java, sempre estenderá Object, com isso, alguns métodos são herdados.
 
 Exemplo de herança com object, sobrescrevendo toString():
 
