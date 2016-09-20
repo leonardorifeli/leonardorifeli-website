@@ -6,3 +6,5 @@ echo 'Testing travis...'
 
 bundle exec travis-lint
 bundle exec jekyll build
+
+echo "Finished build in leonardorifeli.com!"
