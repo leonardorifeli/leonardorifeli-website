@@ -10,7 +10,6 @@ script: ./build.sh
 branches:
   only:
   - gh-pages
-  - master
 
 env:
   global:
