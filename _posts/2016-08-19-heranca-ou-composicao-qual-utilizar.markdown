@@ -126,4 +126,4 @@ Portanto, utilize qual se encaixa na sua relação e no contexto do seu domínio
 
 Mêêoo, é isso, caso eu tenha esquecido de algo, adicione nos comentários, junto a sua opinião e seu ponto de vista sobre o assunto.
 
-Abraços, dev.
+Abraços, até a próxima.
