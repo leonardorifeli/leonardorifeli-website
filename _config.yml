@@ -1,5 +1,5 @@
 baseurl: ""
-url: "http://leonardorifeli.com"
+url: "https://leonardorifeli.com"
 markdown: kramdown
 
 theme_settings:
