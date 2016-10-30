@@ -30,7 +30,7 @@ O servidor atuando em modo **Master** irá gravar todas as alterações efetuada
 
 Segue abaixo um esquema de replicação **Master-Slave**:
 
-![alt text](http://leonardorifeli.com/img/posts/2015-11-01-mysql-replication.jpg "MySQL Replication")
+![alt text](https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication.jpg "MySQL Replication")
 
 **Figura 1.1** - Fonte: **Google Images**
 
@@ -38,7 +38,7 @@ Segue abaixo um esquema de replicação **Master-Slave**:
 
 Para a replicação do **MySQL**, será utilizado três instâncias **t2.micro** no **Amazon AWS**, conforme abaixo:
 
-![alt text](http://leonardorifeli.com/img/posts/2015-11-01-amazon-aws.png "Running on AWS")
+![alt text](https://leonardorifeli.com/img/posts/2015-11-01-amazon-aws.png "Running on AWS")
 
 **Instâncias - Figura 1.2**
 
@@ -52,7 +52,7 @@ Onde os respectivos atuarão em modo:
 
 Conforme esquema abaixo:
 
-![alt text](http://leonardorifeli.com/img/posts/2015-11-01-server-aws-mysql-replication.png "Server MySQL Replication")
+![alt text](https://leonardorifeli.com/img/posts/2015-11-01-server-aws-mysql-replication.png "Server MySQL Replication")
 
 **Figura 1.3**
 
@@ -172,17 +172,17 @@ MASTER_LOG_POS=0;
 
 No servidor **leonardorifeli-001** foi criado o banco **leonardorifeli**, conforme abaixo:
 
-![alt text](http://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-master.png "Server MySQL Replication leonardorifeli-001")
+![alt text](https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-master.png "Server MySQL Replication leonardorifeli-001")
 
 **Servidor Master (leonardorifeli-001) - Figura 1.4**
 
 Após esse processo, foi verificado os bancos contidos nos servidores slaves, e foi relatado que a replicação foi um sucesso. Conforme abaixo:
 
-![alt text](http://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-01.png "Server MySQL Replication leonardorifeli-001 and leonardorifeli-002")
+![alt text](https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-01.png "Server MySQL Replication leonardorifeli-001 and leonardorifeli-002")
 
 **Servidor Slave (leonardorifeli-002) - Figura 1.5**
 
-![alt text](http://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-02.png "Server MySQL Replication leonardorifeli-001 and leonardorifeli-003")
+![alt text](https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-02.png "Server MySQL Replication leonardorifeli-001 and leonardorifeli-003")
 
 **Servidor Slave (leonardorifeli-003) - Figura 1.6**
 
