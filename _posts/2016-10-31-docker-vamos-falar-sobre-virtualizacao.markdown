@@ -74,6 +74,16 @@ Não, containers docker possuem uma arquitetura diferete, que permite maior port
 
 Nada mais é que uma caixa de metal, onde é colocado tudo o que couber. Containers possuem dimensões e interfaces comuns, onde guindastes e guinchos podem ser acoplados para colocá-los em navios ou caminhões.
 
+## Namespaces
+
+O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Namespace) para dispor um espaço de funcionamento isolado para os containeres. Contudo, quando um container é criado, também é criado um conjunto de namespaces e este, por sua vez, cria uma camada para isolamento para os grupos de processos. Abaixo seguem os tipos de namespaces:
+
+- PID: isolamento de processos.
+- NET: controle de interfaces de rede.
+- IPC: controle dos recursos de IPC (InterProcess Communication).
+- MNT: gestão de pontos de montagem.
+- UTC (Unix Timesharing System): provém todo o isolamento de recursos do kernel (justamente a camada de abstração como mostra a imagem).
+
 ## Algumas Vantagens do Docker
 
 - Baixo overhead e tempo de boot;
