@@ -15,11 +15,18 @@ resume: No desenvolvimento de aplicações, podemos optar por usar máquinas vir
 - Introdução;
 - Um pouco sobre virtualização;
 - O que é Docker;
+- Então, Docker é uma VM?
+- O que é um container?
+- Namespaces
+- Algumas vantagens do Docker;
 - Principais funcionalidades;
-- Dockerfile;
+- Docker file;
 - Docker image;
 - Docker compose;
-- Orquestração de contêineres.
+- Mantra do Docker;
+- Gado vs Animal de Estimação;
+- Referências;
+- Conclusão.
 
 ## Introdução
 
@@ -52,7 +59,7 @@ Com relação à virtualização, a diferença está no fato do **LXC** não nec
 
 Ao compararmos o **LXC** com a **virtualização tradicional**, fica mais claro que uma aplicação sendo executada em um LXC demanda muito menos recursos, consumindo menos espaço em disco e com um nível de portabilidade muito mais abrangente.
 
-## E o que é o Docker?
+## O que é o Docker?
 
 {:.center}
 ![docker](/img/posts/2016/10/31/docker.png)
@@ -65,24 +72,26 @@ Em outras palavras, o Docker é uma ferramenta de empacotamento de uma aplicaç�
 
 ## Então, Docker é uma VM?
 
-Não, containers docker possuem uma arquitetura diferete, que permite maior portabilidade e efeciência.
+Não, containers docker possuem uma arquitetura diferente, que permite maior portabilidade e efeciência.
 
 {:.center}
 ![docker](/img/posts/2016/10/31/docker-system.png){:style="width: 100%;"}
 
 ## O que é um container?
 
-Nada mais é que uma caixa de metal, onde é colocado tudo o que couber. Containers possuem dimensões e interfaces comuns, onde guindastes e guinchos podem ser acoplados para colocá-los em navios ou caminhões.
+Vamos fazer uma comparação prática. Container nada mais é que uma caixa de metal, onde é colocado tudo o que couber. Containers possuem dimensões e interfaces comuns, onde guindastes e guinchos podem ser acoplados para colocá-los em navios ou caminhões.
+
+A virtualização em containers é muito mais leve, onde, temos cada container como uma instância isolado em um kernel de sistema operacional. Os contêineres possuem interfaces de redes virtuais, processos e sistemas de arquivos independentes.
 
 ## Namespaces
 
 O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Namespace) para dispor um espaço de funcionamento isolado para os containeres. Contudo, quando um container é criado, também é criado um conjunto de namespaces e este, por sua vez, cria uma camada para isolamento para os grupos de processos. Abaixo seguem os tipos de namespaces:
 
-- PID: isolamento de processos.
-- NET: controle de interfaces de rede.
-- IPC: controle dos recursos de IPC (InterProcess Communication).
-- MNT: gestão de pontos de montagem.
-- UTC (Unix Timesharing System): provém todo o isolamento de recursos do kernel (justamente a camada de abstração como mostra a imagem).
+- **PID:** isolamento de processos.
+- **NET:** controle de interfaces de rede.
+- **IPC:** controle dos recursos de IPC (InterProcess Communication).
+- **MNT:** gestão de pontos de montagem.
+- **UTC (Unix Timesharing System):** provém todo o isolamento de recursos do kernel (justamente a camada de abstração como mostra a imagem).
 
 ## Algumas Vantagens do Docker
 
@@ -94,17 +103,18 @@ O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Names
 
 ## Principais Funcionalidades
 
-- **Contêineres portáveis**: você consegue criar uma imagem contendo toda a configuração e código, instalar em um contêiner e transferir/instalar em um outro host.
-- **Versionamento**: Docker permite que você versione as alterações de um contêiner. Isto permite portanto verificar as diferenças entre versões, fazer commit de novas versões e fazer rollback de uma dada versão.
-- **Reutilização de componentes**: As imagens criadas podem ser reutilizadas, como por exemplo, se diversas de suas aplicações utilizam um stack com Java 8, Tomcat 8 e Oracle 12 você poderá criar uma uma imagem base contendo estes itens com sua instalação e configuração. Desta maneira esta imagem poderá ser reutilizada em diversos Contêineres diferentes. Podemos construir imagens Docker usando um arquivo Dockerfile e o comando de montagem docker build.
-- **Compartilhamento**: O Docker Hub já possui milhares de contêineres com as mais diversas aplicações instaladas e configuradas, desta maneira você pode rapidamente criar sua aplicação com uma base desenvolvida por outra pessoa, ou ainda criar sua base e compartilhá-la.
-- Automatização de Implantação dentro dos Contêineres: Usando os provisionadores que por sua vez usam a API do Docker, podemos automatizar a implantação dos ambientes de software.
-- Licença Open Source: Licenciado como Apache License, Version 2.0 mantém os códigos fonte disponíveis para facilitar o desenvolvimento colaborativo.
-- Evita Dependency Hell: Um dos maiores problemas em múltiplos ambientes com os quais os desenvolvedores de software convivem diariamente é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.
-- Demanda Poucos Recursos de Hardware: Exige poucos recursos de processos, memória e espaço em disco.
-- Ligação entre Contêineres: Conectar contêineres via mapeamentos de porta TCP/IP não é a única forma de disponibilizar recursos entre eles. Um contêiner Docker pode se conectar a um outro via um sistema de ligação e enviar informações de um para o outro de forma eficiente e segura. Quando os contêineres estão ligados, a informação sobre o contêiner origem pode ser enviada para um contêiner destino.
+- **Versionamento**: O Docker permite que você versione as alterações de um contêiner. Isto permite verificar as diferenças entre versões, fazer commit de novas versões e fazer rollback.
+- **Compartilhamento de imagens**: Sim, existe um repositório de contêineres, o **Docker Hub** possui milhares de contêineres com as mais diversas aplicações instaladas. Você pode rapidamente criar sua aplicação com uma base já desenvolvida, ou ainda criar sua base e compartilhá-la na comunidade.
+- **Licença open-source**: Licenciado como Apache License 2.0, mantém os códigos fonte disponíveis para facilitar o desenvolvimento colaborativo.
+- **Hardware**: Exige poucos recursos de processos, memória e espaço em disco.
+- **Comunicação entre contêineres**: Conectar contêineres via mapeamentos de porta **TCP/IP** não é a única forma de disponibilizar recursos entre eles.
 
-## Na prática
+E uma das principais:
+
+{:.center}
+![docker](/img/posts/2016/10/31/dependency-hell.png){:style="width: 30%;"}
+
+- **Evita Dependency Hell**: Um dos maiores problemas que os desenvolvedores de software convivem, é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.
 
 ## Docker File
 
@@ -112,30 +122,21 @@ O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Names
 
 ## Docker Compose
 
-### História
+## Mantra
 
-Em 2013, a empresa Orchard iniciou um projeto chamado Fig.
-Em 2014, foram adquiridos pela empresa Docker Inc.
-Eis que nasce o Docker Compose
+- Containeres só são executados enquanto o comando específicado ainda está ativo;
+- Arquivos vivem e morrem no contexto dos containeres;
 
-Escalar aplicação
-docker-compose scale app=5
+## Gado vs Animal de Estimação
 
-Kubernetes
-Ambientes clusterisados
+Pense bem nessa diferença. A sua infraestrutura deve ser composta de componentes que você possa tratar como gado: **auto-suficientes**, **facilmente substituíveis** e **gerenciáveis**.
 
-### Solução
-
-## Ensinamentos filosóficos
-
-mount points
-
-Gado vs Animais de Estimação
-
-A sua aplicação não vive sozinha, ela depende de outras aplicações.
+Isso mesmo, não se apegue aos seus containeres, eles podem subir, serem replicados, destruídos e gerenciados com uma flexibilidade muito maior.
 
 ## Referências
 
 - [Ebook - Docker for the virtualization admin](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf)
+- [Como Instalar e Utilizar o Docker: Primeiros passos](https://www.digitalocean.com/community/tutorials/como-instalar-e-utilizar-o-docker-primeiros-passos-pt)
+- [Docs about Docker](https://docs.docker.com/)
 
 ## Conclusão
