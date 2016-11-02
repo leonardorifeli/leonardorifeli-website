@@ -16,6 +16,7 @@
     <meta property="og:type" content="Website"/>
     <meta property="og:description" content="{% if page.resume %}{{ page.resume | strip_html | strip_newlines }}{% else %}{{ site.theme_settings.facebookDescription|raw }}{% endif %}"/>
     <meta property="og:url" content="{% if page.resume %}{{ page.url| prepend: site.url }}{% else %}{{ site.url }}{% endif %}"/>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,600,300,800,700' rel='stylesheet' type='text/css'>
     <link rel="canonical" href="{% if page.resume %}{{ page.url| prepend: site.url }}{% else %}{{ site.url }}{% endif %}">
     <link rel="stylesheet" href="{{ site.baseurl }}/css/skel.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css" />
