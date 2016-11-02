@@ -538,6 +538,7 @@ ul.icons {
 	cursor: default;
 	list-style: none;
 	padding-left: 0;
+	text-align: center;
 }
 
 ul.icons li {
