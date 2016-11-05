@@ -15,15 +15,13 @@ resume: No desenvolvimento de aplicações, podemos optar por usar máquinas vir
 - Introdução;
 - Um pouco sobre virtualização;
 - O que é Docker;
-- Então, Docker é uma VM?
-- O que é um contêiner?
-- Namespaces
+- O que é um contêiner;
+- Namespaces;
 - Algumas vantagens do Docker;
 - Principais funcionalidades;
 - Docker image;
 - Docker file;
 - Docker compose;
-- Gado vs Animal de Estimação;
 - Referências;
 - Conclusão.
 
