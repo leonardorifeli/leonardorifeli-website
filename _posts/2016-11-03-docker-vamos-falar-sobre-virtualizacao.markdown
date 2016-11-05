@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Docker: Vamos falar sobre virtualização"
-date: 2016-11-03
+date: 2016-11-02
 categories: Development
 subcategorie: Docker
 comments: true
@@ -16,12 +16,12 @@ resume: No desenvolvimento de aplicações, podemos optar por usar máquinas vir
 - Um pouco sobre virtualização;
 - O que é Docker;
 - Então, Docker é uma VM?
-- O que é um container?
+- O que é um contêiner?
 - Namespaces
 - Algumas vantagens do Docker;
 - Principais funcionalidades;
-- Docker file;
 - Docker image;
+- Docker file;
 - Docker compose;
 - Gado vs Animal de Estimação;
 - Referências;
@@ -31,7 +31,7 @@ resume: No desenvolvimento de aplicações, podemos optar por usar máquinas vir
 
 Sim, eu fiquei alguns meses sem escrever! Sorry!
 
-Sem ressentimentos pois o assunto deste artigo é muito importante. Falaremos sobre virtualização, isso mesmo. Eu sei que se fôssemos descreve-lo em detalhes, levaríamos longos e diversos artigos. Portanto, o objetivo deste artigo é trazer um "resumão" sobre este assunto. Abordaremos sobre **virtualização tradicional**, **virtualização por containers** e apresentarei o **[Docker](https://www.docker.com/)** (caso não o conheça).
+Sem ressentimentos pois o assunto deste artigo é muito importante. Falaremos sobre virtualização, isso mesmo. Eu sei que se fôssemos descreve-lo em detalhes, levaríamos longos e diversos artigos. Portanto, o objetivo deste artigo é trazer um "resumão" sobre este assunto. Abordaremos sobre **virtualização tradicional**, **virtualização por contêineres** e apresentarei o **[Docker](https://www.docker.com/)** (caso não o conheça).
 
 Sem mais delongas, chega mais que vai ser muito foda!
 
@@ -54,7 +54,7 @@ Tendo como precursor, o comando [chroot](https://en.wikipedia.org/wiki/Chroot), 
 Com relação à virtualização, a diferença está no fato do **LXC** não necessitar de uma camada de sistema operacional para cada aplicação. Como você pode verificar na imagem abaixo.
 
 {:.center}
-![vms vs containers](/img/posts/2016/11/03/container-structure.png){:style="width: 80%;"}
+![vms vs contêineres](/img/posts/2016/11/03/container-structure.png){:style="width: 80%;"}
 
 Ao compararmos o **LXC** com a **virtualização tradicional**, fica mais claro que uma aplicação sendo executada em um LXC demanda muito menos recursos, consumindo menos espaço em disco e com um nível de portabilidade muito mais abrangente.
 
@@ -65,35 +65,33 @@ Ao compararmos o **LXC** com a **virtualização tradicional**, fica mais claro 
 
 Nasceu como um projeto da [DotCloud](https://cloud.docker.com/), uma empresa **PaaS** (Platform as a Service).
 
-Basicamente, Docker é uma plataforma open-source, escrita em **Go**, tendo como finalidade, criar e gerenciar ambientes isolados para aplicações. O Docker garante que, cada container tenha tudo que uma aplicação precise para ser executado.
+Basicamente, Docker é uma plataforma open-source, escrita em **Go**, tendo como finalidade, criar e gerenciar ambientes isolados para aplicações. O Docker garante que, cada contêiner tenha tudo que uma aplicação precise para ser executado.
 
-Em outras palavras, o Docker é uma ferramenta de empacotamento de uma aplicação e suas dependências em um container virtual que pode ser executado em um servidor linux.
+Em outras palavras, o Docker é uma ferramenta de empacotamento de uma aplicação e suas dependências em um contêiner virtual que pode ser executado em um servidor linux.
 
 ## Então, Docker é uma VM?
 
-Não, containers docker possuem uma arquitetura diferente, que permite maior portabilidade e efeciência.
+Não, contêineres docker possuem uma arquitetura diferente, que permite maior portabilidade e efeciência.
 
 {:.center}
 ![docker](/img/posts/2016/11/03/docker-system.png){:style="width: 100%;"}
 
-## O que é um container?
+## O que é um contêiner?
 
 Vamos fazer uma comparação prática. Container nada mais é que uma caixa de metal, onde é colocado tudo o que couber. Containers possuem dimensões e interfaces comuns, onde guindastes e guinchos podem ser acoplados para colocá-los em navios ou caminhões.
 
-A virtualização em containers é muito mais leve, onde, temos cada container como uma instância isolado em um kernel de sistema operacional. Os contêineres possuem interfaces de redes virtuais, processos e sistemas de arquivos independentes.
+A virtualização em contêineres é muito mais leve, onde, temos cada contêiner como uma instância isolado em um kernel de sistema operacional. Os contêineres possuem interfaces de redes virtuais, processos e sistemas de arquivos independentes.
 
-E no Docker?
-
-Segue a mesma linha, e:
+Algumas características de um conteiner Docker:
 
 - Dependende de uma imagem (falaremos logo abaixo);
 - Geram novas imagens;
-- Conectividade com o host e outros containeres;
+- Conectividade com o host e outros contêineres;
 - Execuções controladas, CPU, RAM, I/O, etc.
 
 ## Namespaces
 
-O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Namespace) para dispor um espaço de funcionamento isolado para os containeres. Contudo, quando um container é criado, também é criado um conjunto de namespaces e este, por sua vez, cria uma camada para isolamento para os grupos de processos. Abaixo seguem os tipos de namespaces:
+O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Namespace) para dispor um espaço de funcionamento isolado para os contêineres. Contudo, quando um contêiner é criado, também é criado um conjunto de namespaces e este, por sua vez, cria uma camada para isolamento para os grupos de processos. Abaixo seguem os tipos de namespaces:
 
 - **PID:** isolamento de processos.
 - **NET:** controle de interfaces de rede.
@@ -124,9 +122,15 @@ E uma das principais:
 
 - **Evita Dependency Hell**: Um dos maiores problemas que os desenvolvedores de software convivem, é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.
 
+## Docker image
+
 ## Docker File
 
-## Docker image
+Dockerfile é um arquivo que contém um conjunto de instruções necessárias para se criar uma imagem Docker, ou seja, com posse do Dockerfile de uma determinada imagem, basta modificar o que deseja e recriar a imagem "do zero".
+
+Isso pode demorar um pouco mais, mas essa imagem será muito mais "enxuta" e você terá controle total do seu estado, o que seria bem mais difícil no modelo de efetuar Commit de um contêiner.
+
+Caso não tenha o Dockerfile, você pode usar uma imagem à sua escolha como base e então criar a sua imagem como uma camada acima.
 
 ## Docker Compose
 
@@ -134,7 +138,7 @@ E uma das principais:
 
 Pense bem nessa diferença. A sua infraestrutura deve ser composta de componentes que você possa tratar como gado: **auto-suficientes**, **facilmente substituíveis** e **gerenciáveis**.
 
-Isso mesmo, não se apegue aos seus containeres, eles podem subir, serem replicados, destruídos e gerenciados com uma flexibilidade muito maior.
+Isso mesmo, não se apegue aos seus contêineres, eles podem subir, serem replicados, destruídos e gerenciados com uma flexibilidade muito maior.
 
 ## Referências
 
@@ -142,5 +146,6 @@ Isso mesmo, não se apegue aos seus containeres, eles podem subir, serem replica
 - [Como Instalar e Utilizar o Docker: Primeiros passos](https://www.digitalocean.com/community/tutorials/como-instalar-e-utilizar-o-docker-primeiros-passos-pt)
 - [Docs about Docker](https://docs.docker.com/)
 - [Infoslack - Docker](https://infoslack.com/docker/)
+- [LinuxTips - Docker Tutorial #1 - Docker, Containers, Images e muito mais!](https://www.youtube.com/watch?v=0cDj7citEjE)
 
 ## Conclusão
