@@ -20,7 +20,7 @@ resume: No desenvolvimento de aplicações, podemos optar por usar máquinas vir
 - Algumas vantagens do Docker;
 - Principais funcionalidades;
 - Docker image;
-- Docker file;
+- Dockerfile;
 - Docker compose;
 - Referências;
 - Conclusão.
