@@ -112,7 +112,7 @@ O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Names
 - Kernel compartilhado com o Host;
 - Containers rodam isoladamente;
 - Facilidade de configuração do ambiente de desenvolvimento de novos membros do time;
-- Acabar com a história do "na minha máquina funcionava";
+- Acabar com a história do "na minha máquina funcionava".
 
 ## Principais Funcionalidades
 
