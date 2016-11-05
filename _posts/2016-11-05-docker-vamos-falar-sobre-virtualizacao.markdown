@@ -20,7 +20,7 @@ resume: No desenvolvimento de aplicações, podemos optar por usar máquinas vir
 - Algumas vantagens do Docker;
 - Principais funcionalidades;
 - Docker image;
-- Docker file;
+- Dockerfile;
 - Docker compose;
 - Referências;
 - Conclusão.
@@ -29,7 +29,7 @@ resume: No desenvolvimento de aplicações, podemos optar por usar máquinas vir
 
 Sim, eu fiquei alguns meses sem escrever! Sorry!
 
-Sem ressentimentos pois o assunto deste artigo é muito importante. Falaremos sobre virtualização, isso mesmo. Eu sei que se fôssemos descreve-lo em detalhes, levaríamos longos e diversos artigos. Portanto, o objetivo deste artigo é trazer um "resumão" sobre este assunto. Abordaremos sobre **virtualização tradicional**, **virtualização por contêineres** e apresentarei o **[Docker](https://www.docker.com/)** (caso não o conheça).
+Sem ressentimentos, o assunto deste artigo é muito importante. Falaremos sobre virtualização, isso mesmo. Sim, eu sei que se fôssemos descrevê-lo em muitos detalhes, levaríamos longos e diversos artigos. Portanto, o objetivo deste artigo é trazer um "resumão" sobre este assunto. Falarei sobre **virtualização tradicional**, **virtualização por contêineres** e apresentarei o **[Docker](https://www.docker.com/)** (caso não o conheça).
 
 O objetivo deste artigo é descrever as teorias por volta do tema, farei um segundo artigo, que será um **na prática** com o Docker.
 
@@ -54,7 +54,7 @@ Tendo como precursor, o comando [chroot](https://en.wikipedia.org/wiki/Chroot), 
 Com relação à virtualização, a diferença está no fato do **LXC** não necessitar de uma camada de sistema operacional para cada aplicação. Como você pode verificar na imagem abaixo.
 
 {:.center}
-![vms vs contêineres](/img/posts/2016/11/03/container-structure.png){:style="width: 80%;"}
+![vms vs contêineres](/img/posts/2016/11/03/contêiner-structure.png){:style="width: 80%;"}
 
 Ao compararmos o **LXC** com a **virtualização tradicional**, fica mais claro que uma aplicação sendo executada em um LXC demanda muito menos recursos, consumindo menos espaço em disco e com um nível de portabilidade muito mais abrangente.
 
@@ -78,7 +78,7 @@ Não, contêineres docker possuem uma arquitetura diferente, que permite maior p
 
 ## Tecnologias e ideias utilizadas
 
-Cara, container não é nada novo, Docker surgiu para facilitar o uso deles. Abaixo um resumo de tecnologia e o ano da primeira versão:
+Cara, contêiner não é nada novo, Docker surgiu para facilitar o uso deles. Abaixo um resumo de tecnologia e o ano da primeira versão:
 
 {:.center}
 ![docker](/img/posts/2016/11/03/technologies-year.png){:style="width: 50%;"}
@@ -131,9 +131,9 @@ E uma das principais:
 
 ## Docker Image
 
-Uma imagem Docker, nada mais é que, um arquivo inerte, imutável, que é essencialmente instanciado por um container. As imagens são criadas com o comando **build** (entrarei em mais detalhes na segunda parte do artigo) e elas serão consumidas por um container, ou seja, um container é a instância de uma imagem. Como as imagens podem ser muito grandes, as imagens são projetadas para serem compostas por camadas de outras imagens.
+Uma imagem Docker, nada mais é que, um arquivo inerte, imutável, que é essencialmente instanciado por um contêiner. As imagens são criadas com o comando **build** (entrarei em mais detalhes na segunda parte do artigo) e elas serão consumidas por um contêiner, ou seja, um contêiner é a instância de uma imagem. Como as imagens podem ser muito grandes, as imagens são projetadas para serem compostas por camadas de outras imagens.
 
-Basicamente, uma imagem é um conjunto de camada que você descreve, quando você inicia uma imagem, você terá um container em execução desta imagem e você pode ter muitos containers da mesma imagem. Portanto, uma imagem em execução é um container.
+Basicamente, uma imagem é um conjunto de camada que você descreve, quando você inicia uma imagem, você terá um contêiner em execução desta imagem e você pode ter muitos contêineres da mesma imagem. Portanto, uma imagem em execução é um contêiner.
 
 E como criar uma imagem, ou seja, como descrever as camadas de uma imagem? Chega mais...
 
@@ -149,9 +149,9 @@ Exemplo de Dockerfile:
 FROM image[:tag] # de qual imagem irá se basear
 RUN command # o que será executado por um shel (ex: apt-get update)
 WORKDIR /src # diretório "raiz" para os comandos seguintes
-COPY . /src # copia arquivos para dentro do container
+COPY . /src # copia arquivos para dentro do contêiner
 VOLUME /src # volumes compartilhados
-EXPOSE 8080 # porta liberada para fora do container
+EXPOSE 8080 # porta liberada para fora do contêiner
 CMD [command, params]
 ```
 
@@ -164,9 +164,9 @@ Alguns links:
 
 ## Docker Compose
 
-Basicamente, é uma ferramenta para a criação e execução de múltiplos containers de aplicação.
+Basicamente, é uma ferramenta para a criação e execução de múltiplos contêineres de aplicação.
 
-Você utiliza um arquivo do tipo **yaml** para definir como será o ambiente de sua aplicação. Sua aplicação não é sozinha, ela poderá depender de serviços como: banco de dados, redis, php, java, etc (que estará em outro container), imagine ter que subir todos estes containeres (detalhe, antes de ter que subir o container da sua aplicação). O Docker Compose irá facilitar isso. Ele é ótimo para desenvolvimento, testes e homologação, bem como para melhorar seu fluxo de integração continua. Por exemplo:
+Você utiliza um arquivo do tipo **yaml** para definir como será o ambiente de sua aplicação. Sua aplicação não é sozinha, ela poderá depender de serviços como: banco de dados, redis, php, java, etc (que estará em outro contêiner), imagine ter que subir todos estes contêineres (detalhe, antes de ter que subir o contêiner da sua aplicação). O Docker Compose irá facilitar isso. Ele é ótimo para desenvolvimento, testes e homologação, bem como para melhorar seu fluxo de integração continua. Por exemplo:
 
 - **Ambiente de desenvolvimento**: você pode simular todo o ambiente de produção, ou seja, precisando de outros serviços (conforme citado acima), basta definir isso em um arquivo .yml e quando você executar o Docker Compose, todo esse ambiente estará disponível para você.
 
