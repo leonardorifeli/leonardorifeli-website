@@ -19,7 +19,39 @@ layout: default
             <a href="{{ page.next.url }}" class="float-right">Next post &rarr;</a> {% endif %}
         </footer>
 
-        <br/>
+        <br/><br/><br/>
+
+        <ul class="icons">
+            <li><a href="{{ site.theme_settings.linkedin }}" target="_blank" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+            <li><a href="https://github.com/{{ site.theme_settings.github }}" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+            <li><a href="https://twitter.com/{{ site.theme_settings.twitter }}" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="https://www.facebook.com/{{ site.theme_settings.facebook }}" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+        </ul>
+
+    </article>
+
+    <div class="notepad-author-info">
+        <div class="container">
+            <div class="row">
+                <section class="notepad-post-author columns">
+                    <div class="author-1">
+                        <img src="/img/website-avatar-new.png" class="notepad-post-author-avatar" alt="Hossain Mohd Faysal's photo">
+                    </div>
+
+                    <div class="author-2">
+                        <h2>About Author</h2>
+
+                        <p>
+                            My name is Leonardo Rifeli and I'm 20 years old and I live in Joinville (SC) and I'm currently a software engineer developer at the ContaAzul. I'm studying a BA in Computer Engineering.
+                            I Contribute to opensource projects and web community as a whole.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <article class="container">
 
         {% if site.theme_settings.disqus_shortname and page.comments == true %}
         <div class="comments">
