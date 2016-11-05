@@ -31,6 +31,8 @@ Sim, eu fiquei alguns meses sem escrever! Sorry!
 
 Sem ressentimentos pois o assunto deste artigo é muito importante. Falaremos sobre virtualização, isso mesmo. Eu sei que se fôssemos descreve-lo em detalhes, levaríamos longos e diversos artigos. Portanto, o objetivo deste artigo é trazer um "resumão" sobre este assunto. Abordaremos sobre **virtualização tradicional**, **virtualização por contêineres** e apresentarei o **[Docker](https://www.docker.com/)** (caso não o conheça).
 
+O objetivo deste artigo é descrever as teorias por volta do tema, farei um segundo artigo, que será um **na prática** com o Docker.
+
 Sem mais delongas, chega mais que vai ser muito foda!
 
 ## Pegue um café
@@ -73,6 +75,13 @@ Não, contêineres docker possuem uma arquitetura diferente, que permite maior p
 
 {:.center}
 ![docker](/img/posts/2016/11/03/docker-system.png){:style="width: 100%;"}
+
+## Tecnologias e ideias utilizadas
+
+Cara, container não é nada novo, Docker surgiu para facilitar o uso deles. Abaixo um resumo de tecnologia e o ano da primeira versão:
+
+{:.center}
+![docker](/img/posts/2016/11/03/technologies-year.png){:style="width: 50%;"}
 
 ## O que é um contêiner?
 
@@ -120,17 +129,48 @@ E uma das principais:
 
 - **Evita Dependency Hell**: Um dos maiores problemas que os desenvolvedores de software convivem, é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.
 
-## Docker image
+## Docker Image
 
-## Docker File
+Uma imagem Docker, nada mais é que, um arquivo inerte, imutável, que é essencialmente instanciado por um container. As imagens são criadas com o comando **build** (entrarei em mais detalhes na segunda parte do artigo) e elas serão consumidas por um container, ou seja, um container é a instância de uma imagem. Como as imagens podem ser muito grandes, as imagens são projetadas para serem compostas por camadas de outras imagens.
 
-Dockerfile é um arquivo que contém um conjunto de instruções necessárias para se criar uma imagem Docker, ou seja, com posse do Dockerfile de uma determinada imagem, basta modificar o que deseja e recriar a imagem "do zero".
+Basicamente, uma imagem é um conjunto de camada que você descreve, quando você inicia uma imagem, você terá um container em execução desta imagem e você pode ter muitos containers da mesma imagem. Portanto, uma imagem em execução é um container.
 
-Isso pode demorar um pouco mais, mas essa imagem será muito mais "enxuta" e você terá controle total do seu estado, o que seria bem mais difícil no modelo de efetuar Commit de um contêiner.
+E como criar uma imagem, ou seja, como descrever as camadas de uma imagem? Chega mais...
 
-Caso não tenha o Dockerfile, você pode usar uma imagem à sua escolha como base e então criar a sua imagem como uma camada acima.
+## Dockerfile
+
+Bom, basicamente, **Dockerfile** é um arquivo (ah vá!) que contém um conjunto de instruções necessárias para se criar uma imagem **Docker**, ou seja, se você tiver o Dockerfile de uma imagem, basta modificar o que deseja e recriar a imagem "do zero", sim, isso pode demorar um pouco mais, mas essa imagem será muito mais "enxuta".
+
+Caso não tenha o **Dockerfile** (geralmente você irá cair neste caso), você pode usar uma imagem à sua escolha como base e então criar a sua imagem como uma camada acima.
+
+Exemplo de Dockerfile:
+
+```
+FROM image[:tag] # de qual imagem irá se basear
+RUN command # o que será executado por um shel (ex: apt-get update)
+WORKDIR /src # diretório "raiz" para os comandos seguintes
+COPY . /src # copia arquivos para dentro do container
+VOLUME /src # volumes compartilhados
+EXPOSE 8080 # porta liberada para fora do container
+CMD [command, params]
+```
+
+Alguns links:
+
+- [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/)
+- [Docker Explained: Using Dockerfiles to Automate Building of Images](https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images)
+- [Exemplos de Dockerfile](https://github.com/kstaken/dockerfile-examples)
+- [Exemplo - Dockerfile do Mongodb](https://github.com/kstaken/dockerfile-examples/blob/master/mongodb/Dockerfile)
 
 ## Docker Compose
+
+Basicamente, é uma ferramenta para a criação e execução de múltiplos containers de aplicação.
+
+Você utiliza um arquivo do tipo **yaml** para definir como será o ambiente de sua aplicação. Sua aplicação não é sozinha, ela poderá depender de serviços como: banco de dados, redis, php, java, etc (que estará em outro container), imagine ter que subir todos estes containeres (detalhe, antes de ter que subir o container da sua aplicação). O Docker Compose irá facilitar isso. Ele é ótimo para desenvolvimento, testes e homologação, bem como para melhorar seu fluxo de integração continua. Por exemplo:
+
+- **Ambiente de desenvolvimento**: você pode simular todo o ambiente de produção, ou seja, precisando de outros serviços (conforme citado acima), basta definir isso em um arquivo .yml e quando você executar o Docker Compose, todo esse ambiente estará disponível para você.
+
+[Documentação oficial](https://docs.docker.com/compose/)
 
 ## Gado vs Animal de Estimação
 
@@ -144,6 +184,12 @@ Isso mesmo, não se apegue aos seus contêineres, eles podem subir, serem replic
 - [Como Instalar e Utilizar o Docker: Primeiros passos](https://www.digitalocean.com/community/tutorials/como-instalar-e-utilizar-o-docker-primeiros-passos-pt)
 - [Docs about Docker](https://docs.docker.com/)
 - [Infoslack - Docker](https://infoslack.com/docker/)
+- [Hugo Posca - Nivelando conhecimento](http://www.slideshare.net/HugoPosca/talk-31-dockernivelandoconhecimento)
+- [Hugo Posca - Docker Compose](http://www.slideshare.net/HugoPosca/talk-32-docker-compose)
 - [LinuxTips - Docker Tutorial #1 - Docker, Containers, Images e muito mais!](https://www.youtube.com/watch?v=0cDj7citEjE)
 
 ## Conclusão
+
+Bom, estou ciente que foi um post grande (comparado aos anteriores), talvez até um pouco cansativo, mas é muito importante que se entenda a teoria para praticar. Publicarei outro post, com um conteúdo mais da prática e alguns exemplos, claro, com Docker meu amigo.
+
+Peço que comentem sobre o que acharam deste artigo, o que esperam da segunda parte, enfim, qualquer feedback será importante para o desenvolvimento dos outros artigos.
