@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Docker: Vamos falar sobre virtualização"
-date: 2016-11-04
+date: 2016-11-05
 categories: Development
 subcategorie: Docker
 comments: true
