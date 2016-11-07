@@ -54,7 +54,7 @@ Tendo como precursor, o comando [chroot](https://en.wikipedia.org/wiki/Chroot), 
 Com relação à virtualização, a diferença está no fato do **LXC** não necessitar de uma camada de sistema operacional para cada aplicação. Como você pode verificar na imagem abaixo.
 
 {:.center}
-![vms vs contêineres](/img/posts/2016/11/03/contêiner-structure.png){:style="width: 80%;"}
+![vms vs contêineres](/img/posts/2016/11/03/conteiner-structure.png){:style="width: 80%;"}
 
 Ao compararmos o **LXC** com a **virtualização tradicional**, fica mais claro que uma aplicação sendo executada em um LXC demanda muito menos recursos, consumindo menos espaço em disco e com um nível de portabilidade muito mais abrangente.
 
@@ -112,7 +112,7 @@ O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Names
 - Kernel compartilhado com o Host;
 - Containers rodam isoladamente;
 - Facilidade de configuração do ambiente de desenvolvimento de novos membros do time;
-- Acabar com a história do "na minha máquina funcionava";
+- Acabar com a história do "na minha máquina funcionava".
 
 ## Principais Funcionalidades
 
