@@ -7,7 +7,7 @@ subcategorie: Docker
 comments: true
 author: Leonardo Rifeli
 isResume: 1
-resume: No desenvolvimento de aplicações, podemos optar por usar máquinas virtuais (VMs) para facilitar o gerenciamento e provisionamento de serviços. Para isso, podemos citar o [Vagrant](https://www.vagrantup.com/). Mas, o provisionamento de máquinas virtuais demanda grande quantidade de tempo, além do fato do consumo demasiado de espaço em disco, recursos em geral da máquina que será o host.
+resume: No desenvolvimento de aplicações, podemos optar por usar máquinas virtuais (VMs) para facilitar o gerenciamento e provisionamento de serviços. Para isso, podemos citar o Vagrant. Mas, o provisionamento de máquinas virtuais demanda grande quantidade de tempo, além do fato do consumo demasiado de espaço em disco, recursos em geral da máquina que será o host.
 ---
 
 ## Sumário
@@ -87,7 +87,7 @@ Cara, contêiner não é nada novo, Docker surgiu para facilitar o uso deles. Ab
 
 Vamos fazer uma comparação prática. Container nada mais é que uma caixa de metal, onde é colocado tudo o que couber. Containers possuem dimensões e interfaces comuns, onde guindastes e guinchos podem ser acoplados para colocá-los em navios ou caminhões.
 
-A virtualização em contêineres é muito mais leve, onde, temos cada contêiner como uma instância isolado em um kernel de sistema operacional. Os contêineres possuem interfaces de redes virtuais, processos e sistemas de arquivos independentes.
+A virtualização em contêineres é muito mais leve, onde, temos cada contêiner como uma instância isolada em um kernel de sistema operacional. Os contêineres possuem interfaces de redes virtuais, processos e sistemas de arquivos independentes.
 
 Algumas características de um conteiner Docker:
 
@@ -133,7 +133,7 @@ E uma das principais:
 
 Uma imagem Docker, nada mais é que, um arquivo inerte, imutável, que é essencialmente instanciado por um contêiner. As imagens são criadas com o comando **build** (entrarei em mais detalhes na segunda parte do artigo) e elas serão consumidas por um contêiner, ou seja, um contêiner é a instância de uma imagem. Como as imagens podem ser muito grandes, as imagens são projetadas para serem compostas por camadas de outras imagens.
 
-Basicamente, uma imagem é um conjunto de camada que você descreve, quando você inicia uma imagem, você terá um contêiner em execução desta imagem e você pode ter muitos contêineres da mesma imagem. Portanto, uma imagem em execução é um contêiner.
+Basicamente, uma imagem é um conjunto de camadas que você descreve, quando você inicia uma imagem, você terá um contêiner em execução desta imagem e você pode ter muitos contêineres da mesma imagem. Portanto, uma imagem em execução é um contêiner.
 
 E como criar uma imagem, ou seja, como descrever as camadas de uma imagem? Chega mais...
 
