@@ -118,22 +118,22 @@ O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Names
 
 ## Principais Funcionalidades
 
-- **Versionamento**: O Docker permite que você versione as alterações de um contêiner. Isto permite verificar as diferenças entre versões, fazer commit de novas versões e fazer rollback.
-- **Compartilhamento de imagens**: Sim, existe um repositório de contêineres, o **Docker Hub** possui milhares de contêineres com as mais diversas aplicações instaladas. Você pode rapidamente criar sua aplicação com uma base já desenvolvida, ou ainda criar sua base e compartilhá-la na comunidade.
-- **Licença open-source**: Licenciado como Apache License 2.0, mantém os códigos fonte disponíveis para facilitar o desenvolvimento colaborativo.
-- **Hardware**: Exige poucos recursos de processos, memória e espaço em disco.
-- **Comunicação entre contêineres**: Conectar contêineres via mapeamentos de porta **TCP/IP** não é a única forma de disponibilizar recursos entre eles.
+- **Versionamento**: o Docker permite que você versione as alterações de um contêiner. Isto permite verificar as diferenças entre versões, fazer commit de novas versões e até mesmo fazer rollback (isso é muito importante haha).
+- **Compartilhamento de imagens**: sim, existe um repositório de contêineres. O **Docker Hub**. Ele possui milhares de imagens com as mais diversas aplicações. Você pode rapidamente criar sua aplicação com uma base já desenvolvida e ainda criar sua base e compartilhá-la na comunidade.
+- **Licença open-source**: licenciado como **Apache License 2.0**, mantém os códigos fonte disponíveis para facilitar o desenvolvimento colaborativo.
+- **Hardware**: exige poucos recursos de processos, memória e espaço em disco.
+- **Comunicação entre contêineres**: conectar contêineres via mapeamentos de porta **TCP/IP** não é a única forma de disponibilizar recursos entre eles.
 
 E uma das principais:
 
 {:.center}
 ![docker](/img/posts/2016/11/03/dependency-hell.png){:style="width: 30%;"}
 
-- **Evita Dependency Hell**: Um dos maiores problemas que os desenvolvedores de software convivem, é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.
+- **Evita Dependency Hell**: um dos maiores problemas que os desenvolvedores de software convivem, é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.
 
 ## Docker Image
 
-Uma imagem Docker, nada mais é que, um arquivo inerte, imutável, que é essencialmente instanciado por um contêiner. As imagens são criadas com o comando **build** (entrarei em mais detalhes na segunda parte do artigo) e elas serão consumidas por um contêiner, ou seja, um contêiner é a instância de uma imagem. Como as imagens podem ser muito grandes, as imagens são projetadas para serem compostas por camadas de outras imagens.
+Uma imagem Docker nada mais é que, um arquivo inerte, imutável, que é essencialmente instanciado por um contêiner. As imagens são criadas com o comando **build** (entrarei em mais detalhes na segunda parte do artigo) e elas serão consumidas por um contêiner, ou seja, um contêiner é a instância de uma imagem. Como as imagens podem ser muito grandes, as imagens são projetadas para serem compostas por camadas de outras imagens.
 
 Basicamente, uma imagem é um conjunto de camadas que você descreve, quando você inicia uma imagem, você terá um contêiner em execução desta imagem e você pode ter muitos contêineres da mesma imagem. Portanto, uma imagem em execução é um contêiner.
 
