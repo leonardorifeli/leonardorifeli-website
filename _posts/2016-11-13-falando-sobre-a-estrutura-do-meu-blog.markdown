@@ -118,7 +118,17 @@ Alguns links adicionais estão nas referências, aventure-se!
 {:.center}
 ![travis ci logo](https://cdn.travis-ci.com/images/logos/TravisCI-Full-Color-7f5db09495c8b09c21cb678c4de18d21.png){:style="width: 50%;"}
 
-Como eu falei, no tópico **Resumo da estrutura**, eu utilizo duas branchs no projeto (gh-pages e master). A branch **master** é a principal do projeto, quando alguém acessar meu blog, o **Github Pages** puxa os arquivos da **master**. Ou seja, sempre que eu faço alterações no blog (incrementais ou novos artigos) eu efetuo o `git push` para a **gh-pages** e abro um **PR** (pull request) para a master.
+Como eu falei, no tópico **Resumo da estrutura**, eu utilizo duas branchs no projeto (gh-pages e master). A branch **master** é a principal do projeto, quando alguém acessar meu blog, o **Github Pages** puxa os arquivos da **master**. Ou seja, sempre que eu faço alterações no blog (incrementais ou novos artigos) eu efetuo o `git push` para a **gh-pages** e abro um **PR** (pull request) para a **master**.
+
+Aqui vai uma observação interessante, por **default**, o Github Pages puxa os arquivos da `gh-pages`, mas, você pode mudar isso, através das `setting` do repositório, conforme a imagem abaixo.
+
+![branch default to githug pages](/img/posts/2016/11/13/setting-master.png){:style="width: 50%;"}
+Observe que eu utilizo a master como default para o Github Pages.
+
+Mas, a branch default do projeto é a `gh-pages`. Isso você pode mudar nas `settings` do repositório também.
+
+![branch default](/img/posts/2016/11/13/default-branch.png){:style="width: 50%;"}
+Observe que eu utilizo a gh-pages como default para o repositório.
 
 O travis é um produto do Github para automatização de processos, ele é um [CI](https://en.wikipedia.org/wiki/Continuous_integration){:target="_blank"}. Ele lê o arquivo **.travis.yml** do seu repositório e executa as rotinas específicadas no arquivo.
 
