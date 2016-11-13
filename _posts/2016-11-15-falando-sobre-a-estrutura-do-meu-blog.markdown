@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Falando sobre a estrutura do meu blog"
-date: 2016-11-11
+date: 2016-11-13
 categories: Development
 subcategorie: Tip
 comments: true
@@ -17,8 +17,8 @@ resume: Neste artigo, falarei sobre a estrutura do meu blog, isso mesmo, um resu
 - Resumo sobre o Jekyll;
 - Como usar o Github Pages;
 - Como configurar seu domínio no Github Pages;
-- Como configurar HTTPS (via cloudflare);
 - Como automatizar o build;
+- Como configurar HTTPS (via cloudflare);
 - Referências;
 - Conclusão.
 
@@ -82,18 +82,40 @@ Após finalizar você poderá clonar o projeto e substituir os arquivos por algu
 
 Logo após a configuração, você poderá acessar com `nome-repositorio.github.io`. Porém, acredito que você já tenha um domínio e queira que seu blog seja acessível por ele, exemplo, seudominio.com. Chega mais que é o próximo tópico.
 
+**PS.:** você pode criar Github Pages para qualquer repositório. Eu já vi até documentação do projeto, hospedado no Github Pages (pelo repositório do projeto).
+
 ## Como configurar seu domínio no Github Pages
 
-Esta etapa, eu considero uma das mais tranquilas. 
+Esta etapa, eu considero uma das mais tranquilas. Você precisará apenas, configurar algumas entradas DNS no seu domínio e adicionar um arquivo no repositório.
 
-## Como configurar https
+E como fazer isso?
+
+Saliento que, se você for utilizar uma CDN (detalharei nos próximos tópicos), você precisará alterar novamente a zona de DNS do seu domínio, isso impactará apenas em tempo de propagação do DNS.
+
+Vamos ao que interessa, você precisará acessar as configurações das zonas de DNS do seu domínio e configurar algumas entradas, conforme abaixo:
+
+- Entrada do tipo A: 192.30.252.153
+- Entrada do tipo A: 192.30.252.154
+- Entrada do tipo CNAME: dominio-do-repositorio.github.io
+
+Feito isso, agora é moleza, basta criar um arquivo chamado CNAME (em maiúsculo) e dentro deste arquivo, você irá colocar o seu domínio, sem nenhum protocolo ou **www**, apenas o domínio. Exemplo [meu CNAME](https://github.com/leonardorifeli/leonardorifeli.github.io/blob/gh-pages/CNAME).
+
+Feito isso, é só esperar propagar.
+
+Alguns links adicionais estão nas referências, aventure-se!
 
 ## Como automatizar o build
+
+## Como configurar https
 
 ## Referências
 
 - [Leonardo Rifeli - Porque utilizar o Jekyll](https://leonardorifeli.com/development/2015/05/06/porque-utilizar-o-jekyll.html){:target="_blank"};
 - [Github Pages](https://pages.github.com/){:target="_blank"};
+- [Setting up an apex domain](https://help.github.com/articles/setting-up-an-apex-domain/);
+- [Using a custom domain with Github Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages);
+- [Como ter domínio próprio no Github Pages](https://willianjusten.com.br/dominio-proprio-no-github-pages/);
+
 
 ## Conclusão
 
