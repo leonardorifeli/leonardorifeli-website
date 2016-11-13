@@ -82,6 +82,15 @@ Após finalizar você poderá clonar o projeto e substituir os arquivos por algu
 
 Logo após a configuração, você poderá acessar com `nome-repositorio.github.io`. Porém, acredito que você já tenha um domínio e queira que seu blog seja acessível por ele, exemplo, seudominio.com. Chega mais que é o próximo tópico.
 
+Alguns sites para você encontrar temas para Jekyll:
+
+- [github.com/jekyll/jekyll/wiki/Themes](https://github.com/jekyll/jekyll/wiki/Themes){:target="_blank"};
+- [github.com/planetjekyll/awesome-jekyll-themes](https://github.com/planetjekyll/awesome-jekyll-themes){:target="_blank"};
+- [jekyllthemes.org](http://jekyllthemes.org/){:target="_blank"};
+- [jekyllthemes.io](https://jekyllthemes.io/){:target="_blank"};
+- [jekyll.tips](http://jekyll.tips/templates/){:target="_blank"};
+- [drjekyllthemes.github.io](https://drjekyllthemes.github.io/){:target="_blank"}.
+
 **PS.:** você pode criar Github Pages para qualquer repositório. Eu já vi até documentação do projeto, hospedado no Github Pages (pelo repositório do projeto).
 
 ## Como configurar seu domínio no Github Pages
@@ -98,7 +107,7 @@ Vamos ao que interessa, você precisará acessar as configurações das zonas de
 - Entrada do tipo A: `192.30.252.154`
 - Entrada do tipo CNAME: `dominio-do-repositorio.github.io`
 
-Feito isso, agora é moleza, basta criar um arquivo chamado CNAME (em maiúsculo) e dentro deste arquivo, você irá colocar o seu domínio, sem nenhum protocolo ou **www**, apenas o domínio. Exemplo [meu CNAME](https://github.com/leonardorifeli/leonardorifeli.github.io/blob/gh-pages/CNAME).
+Feito isso, agora é moleza, basta criar um arquivo chamado CNAME (em maiúsculo) e dentro deste arquivo, você irá colocar o seu domínio, sem nenhum protocolo ou **www**, apenas o domínio. Exemplo [meu CNAME](https://github.com/leonardorifeli/leonardorifeli.github.io/blob/gh-pages/CNAME){:target="_blank"}.
 
 Feito isso, é só esperar propagar.
 
@@ -111,9 +120,9 @@ Alguns links adicionais estão nas referências, aventure-se!
 
 Como eu falei, no tópico **Resumo da estrutura**, eu utilizo duas branchs no projeto (gh-pages e master). A branch **master** é a principal do projeto, quando alguém acessar meu blog, o **Github Pages** puxa os arquivos da **master**. Ou seja, sempre que eu faço alterações no blog (incrementais ou novos artigos) eu efetuo o `git push` para a **gh-pages** e abro um **PR** (pull request) para a master.
 
-O travis é um produto do Github para automatização de processos, ele é um [CI](https://en.wikipedia.org/wiki/Continuous_integration). Ele lê o arquivo **.travis.yml** do seu repositório e executa as rotinas específicadas no arquivo.
+O travis é um produto do Github para automatização de processos, ele é um [CI](https://en.wikipedia.org/wiki/Continuous_integration){:target="_blank"}. Ele lê o arquivo **.travis.yml** do seu repositório e executa as rotinas específicadas no arquivo.
 
-E como configurar o [travis](https://travis-ci.org/)?
+E como configurar o [travis](https://travis-ci.org/){:target="_blank"}?
 
 É simples, você vai acessar o site do travis, logar com a sua conta do Github e sincronizar todos os seus repositórios. Com isso, você terá uma lista dos repositórios (apenas os repositórios públicos).
 
@@ -143,13 +152,13 @@ Com esse build, o travis que irá gerar os arquivos estáticos quando você merg
 {:.center}
 ![travis example](/img/posts/2016/11/13/cloud-flare.png){:style="width: 50%;"}
 
-Este tópico é um adicional que eu aprendi recentemente, lendo o artigo [HTTPS no Github Pages com Custom Domain](https://willianjusten.com.br/https-no-github-pages-com-custom-domain/), do Willian Justen. Ah, ele tem um [curso sobre Jekyll](http://willianjusten.teachable.com/p/criando-sites-estaticos-com-jekyll), gratuito, corre lá.
+Este tópico é um adicional que eu aprendi recentemente, lendo o artigo [HTTPS no Github Pages com Custom Domain](https://willianjusten.com.br/https-no-github-pages-com-custom-domain/){:target="_blank"}, do Willian Justen. Ah, ele tem um [curso sobre Jekyll](http://willianjusten.teachable.com/p/criando-sites-estaticos-com-jekyll){:target="_blank"}, gratuito, corre lá.
 
-Quando eu pesquisei sobre, meu interesse era somente em ter o protocolo HTTPS funcionando e acabei tendo um adicional, uma CDN para otimizar o blog. Coloquei este tópico, apenas para você saber que é possível usar o Github Pages com HTTPS e para configurar você pode ler o [artigo do Willian Justen (aquele que falei logo acima)](https://willianjusten.com.br/https-no-github-pages-com-custom-domain/), eu segui ele e funcionou super bem.
+Quando eu pesquisei sobre, meu interesse era somente em ter o protocolo HTTPS funcionando e acabei tendo um adicional, uma CDN para otimizar o blog. Coloquei este tópico, apenas para você saber que é possível usar o Github Pages com HTTPS e para configurar você pode ler o [artigo do Willian Justen (aquele que falei logo acima)](https://willianjusten.com.br/https-no-github-pages-com-custom-domain/){:target="_blank"}, eu segui ele e funcionou super bem.
 
 Mas, o que é interessante em ter HTTPS e a CDN?
 
-A [Google fez um post](https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html), em Agosto/2014, falando que irá utilizar o HTTPS como um elemento para pontuação nas buscas. Mais do que argumentado.
+A [Google fez um post](https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html){:target="_blank"}, em Agosto/2014, falando que irá utilizar o HTTPS como um elemento para pontuação nas buscas. Mais do que argumentado.
 
 Quanto a CDN, eu não cheguei a medir o quanto tive de ganho. Porém, a Cloud Flare disponibiliza alguns relatórios super interessantes, abaixo mostro alguns.
 
@@ -167,12 +176,12 @@ Concluindo, eu adicionei este tópico como um adicional, propondo algo diferente
 
 - [Leonardo Rifeli - Porque utilizar o Jekyll](https://leonardorifeli.com/development/2015/05/06/porque-utilizar-o-jekyll.html){:target="_blank"};
 - [Github Pages](https://pages.github.com/){:target="_blank"};
-- [Setting up an apex domain](https://help.github.com/articles/setting-up-an-apex-domain/);
-- [Using a custom domain with Github Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages);
-- [Como ter domínio próprio no Github Pages](https://willianjusten.com.br/dominio-proprio-no-github-pages/);
-- [Travis CI for Complete Beginners](https://docs.travis-ci.com/user/for-beginners);
-- [HTTPS no Github Pages com Custom Domain](https://willianjusten.com.br/https-no-github-pages-com-custom-domain/);
-- [Curso do Willian Justen - Criando sites estáticos com Jekyll](http://willianjusten.teachable.com/p/criando-sites-estaticos-com-jekyll).
+- [Setting up an apex domain](https://help.github.com/articles/setting-up-an-apex-domain/){:target="_blank"};
+- [Using a custom domain with Github Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages){:target="_blank"};
+- [Como ter domínio próprio no Github Pages](https://willianjusten.com.br/dominio-proprio-no-github-pages/){:target="_blank"};
+- [Travis CI for Complete Beginners](https://docs.travis-ci.com/user/for-beginners){:target="_blank"};
+- [HTTPS no Github Pages com Custom Domain](https://willianjusten.com.br/https-no-github-pages-com-custom-domain/){:target="_blank"};
+- [Curso do Willian Justen - Criando sites estáticos com Jekyll](http://willianjusten.teachable.com/p/criando-sites-estaticos-com-jekyll){:target="_blank"}.
 
 ## Conclusão
 
