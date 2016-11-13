@@ -118,7 +118,17 @@ Alguns links adicionais estão nas referências, aventure-se!
 {:.center}
 ![travis ci logo](https://cdn.travis-ci.com/images/logos/TravisCI-Full-Color-7f5db09495c8b09c21cb678c4de18d21.png){:style="width: 50%;"}
 
-Como eu falei, no tópico **Resumo da estrutura**, eu utilizo duas branchs no projeto (gh-pages e master). A branch **master** é a principal do projeto, quando alguém acessar meu blog, o **Github Pages** puxa os arquivos da **master**. Ou seja, sempre que eu faço alterações no blog (incrementais ou novos artigos) eu efetuo o `git push` para a **gh-pages** e abro um **PR** (pull request) para a master.
+Como eu falei, no tópico **Resumo da estrutura**, eu utilizo duas branchs no projeto (gh-pages e master). A branch **master** é a principal do projeto, quando alguém acessar meu blog, o **Github Pages** puxa os arquivos da **master**. Ou seja, sempre que eu faço alterações no blog (incrementais ou novos artigos) eu efetuo o `git push` para a **gh-pages** e abro um **PR** (pull request) para a **master**.
+
+Aqui vai uma observação interessante, por **default**, o Github Pages puxa os arquivos da `gh-pages`, mas, você pode mudar isso, através das `setting` do repositório, conforme a imagem abaixo.
+
+![branch default to githug pages](/img/posts/2016/11/13/setting-master.png){:style="width: 50%;"}
+Observe que eu utilizo a master como default para o Github Pages.
+
+Mas, a branch default do projeto é a `gh-pages`. Isso você pode mudar nas `settings` do repositório também.
+
+![branch default](/img/posts/2016/11/13/default-branch.png){:style="width: 50%;"}
+Observe que eu utilizo a gh-pages como default para o repositório.
 
 O travis é um produto do Github para automatização de processos, ele é um [CI](https://en.wikipedia.org/wiki/Continuous_integration){:target="_blank"}. Ele lê o arquivo **.travis.yml** do seu repositório e executa as rotinas específicadas no arquivo.
 
@@ -150,7 +160,7 @@ Com esse build, o travis que irá gerar os arquivos estáticos quando você merg
 ## Como configurar https
 
 {:.center}
-![travis example](/img/posts/2016/11/13/cloud-flare.png){:style="width: 50%;"}
+![cloud flare logo](/img/posts/2016/11/13/cloud-flare.png){:style="width: 50%;"}
 
 Este tópico é um adicional que eu aprendi recentemente, lendo o artigo [HTTPS no Github Pages com Custom Domain](https://willianjusten.com.br/https-no-github-pages-com-custom-domain/){:target="_blank"}, do Willian Justen. Ah, ele tem um [curso sobre Jekyll](http://willianjusten.teachable.com/p/criando-sites-estaticos-com-jekyll){:target="_blank"}, gratuito, corre lá.
 
@@ -163,11 +173,11 @@ A [Google fez um post](https://webmasters.googleblog.com/2014/08/https-as-rankin
 Quanto a CDN, eu não cheguei a medir o quanto tive de ganho. Porém, a Cloud Flare disponibiliza alguns relatórios super interessantes, abaixo mostro alguns.
 
 {:.center}
-![travis example](/img/posts/2016/11/13/requests.png){:style="width: 100%;"}
+![requests report](/img/posts/2016/11/13/requests.png){:style="width: 100%;"}
 Relatório de requests e arquivos cacheados/não cacheados.
 
 {:.center}
-![travis example](/img/posts/2016/11/13/performance.png){:style="width: 100%;"}
+![performance report](/img/posts/2016/11/13/performance.png){:style="width: 100%;"}
 Relatório sobre performance.
 
 Concluindo, eu adicionei este tópico como um adicional, propondo algo diferente para você utilizar nas páginas que for fazer com Jekyll. O interessante, é que, se for um blog pequeno, como o meu, o plano da Cloud Flare pode ser o gratuito.
