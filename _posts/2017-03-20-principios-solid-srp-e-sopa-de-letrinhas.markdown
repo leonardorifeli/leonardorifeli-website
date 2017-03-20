@@ -22,9 +22,16 @@ Este princípio é uma perspectiva diferente para os princípios de orientação
 
 # Tá, e o que é coesão?
 
-Segundo o dicionário online [Dicio](https://www.dicio.com.br/coesao/) a coesão está atrelada a união, harmonia, associação íntima.
+Segundo o dicionário online [Dicio](https://www.dicio.com.br/coesao/):
 
-![image](https://cloud.githubusercontent.com/assets/6767689/24086651/57796e2e-0cf2-11e7-8c29-88b0913ffca9.png)
+> - Cujas partes estão ligadas harmonicamente entre si: coesão do governo.
+União; harmonia; associação íntima: a coesão das partes de um Estado.
+> - Uso correto dos aspectos gramaticais que conectam os elementos de um texto, tornando-o claro e compreensível.
+> - [Figurado] Coerência de pensamento; fundamento que dá sentido a uma obra.
+Aderência; força que une as moléculas e/ou átomos às partes constituintes de um corpo, fazendo com que eles não se partam.
+> (Etm. do francês: cohésion)
+
+Fonte: [dicio.com.br/coesao](https://www.dicio.com.br/coesao/).
 
 E no mundo do desenvolvimento de software, o que é coesão?
 
