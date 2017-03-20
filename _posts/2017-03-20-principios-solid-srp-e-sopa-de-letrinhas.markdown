@@ -55,7 +55,7 @@ Inicialmente, mostrarei a violação apenas com as assinaturas dos métodos, pod
 
 #### Exemplo 1
 
-Considere o arquivo abaixo, onde temos a classe **PopulationStandardDeviation** e a sua responsabilidade é calcular o desvio padrão populacional.
+Considere o arquivo abaixo, onde temos a classe **`PopulationStandardDeviation`** e a sua responsabilidade é calcular o desvio padrão populacional.
 
 <script src="https://gist.github.com/leonardorifeli/cceb88b6490a135892a780510abe4e60.js?file=PopulationStandardVariation.java"></script>
 
@@ -67,7 +67,7 @@ Neste caso específico, para não violar o príncipio deve-se deixar ambos os m�
 
 #### Exemplo 2
 
-Neste segundo exemplo, considere o arquivo abaixo, onde temos a classe **GenerateReport** e a sua responsabilidade é gerar relatório.
+Neste segundo exemplo, considere o arquivo abaixo, onde temos a classe **`GenerateReport`** e a sua responsabilidade é gerar relatório.
 
 <script src="https://gist.github.com/leonardorifeli/cceb88b6490a135892a780510abe4e60.js?file=GenerateReport.java"></script>
 
@@ -75,7 +75,7 @@ O nome da classe também diz exatamente qual a sua responsabilidade, gerar relat
 
 Mas, vamos refletir, gerar relatatório na visão do usuário é apenas fazer os dados serem exibidos em tela ou impressos, de modo organizado. No nível do desenvolvimento de software, gerar relatório engloba vários fatores, sendo eles: buscar os dados, processá-los e organizá-los e exibi-los em tela ou impressos.
 
-Perceba que para gerar relatório envolvem várias resposabilidades. A classe **GenerateReport** possuí várias razões para ser alterada, mudar o método **find()** para buscar os dados em outro lugar ou, mudar o método **proccess()** para alterar uma regra de domínio e até mesmo alterar o método **print()**.
+Perceba que para gerar relatório envolvem várias resposabilidades. A classe **`GenerateReport`** possuí várias razões para ser alterada, mudar o método **`find()`** para buscar os dados em outro lugar ou, mudar o método **`proccess()`** para alterar uma regra de domínio e até mesmo alterar o método **`print()`**.
 
 Claramente a classe está violando o princípio, e como podemos corrigir isto?
 
