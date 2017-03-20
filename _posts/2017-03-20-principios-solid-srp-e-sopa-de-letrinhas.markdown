@@ -68,7 +68,17 @@ Nos exemplos, mostrarei a violação apenas com as assinaturas dos métodos, par
 
 Considere o arquivo abaixo, onde temos a classe **`PopulationStandardDeviation`** e a sua responsabilidade é calcular o desvio padrão populacional.
 
-<script src="https://gist.github.com/leonardorifeli/cceb88b6490a135892a780510abe4e60.js?file=PopulationStandardVariation.java"></script>
+```java
+package com.leonardorifeli.article;
+
+public class PopulationStandardDeviation {
+
+    public double mean() { }
+    public double calculate() { }
+    public double deviationSumSquare() { }
+
+}
+```
 
 Perceba que, o nome da classe diz exatamente qual é a sua responsabilidade, calcular o desvio padrão populacional.
 
