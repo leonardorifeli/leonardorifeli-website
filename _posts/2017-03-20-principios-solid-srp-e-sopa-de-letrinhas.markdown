@@ -90,7 +90,17 @@ Neste caso específico, para não violar o príncipio deve-se deixar ambos os m�
 
 Neste segundo exemplo, considere o arquivo abaixo, onde temos a classe **`GenerateReport`** e a sua responsabilidade é gerar relatório.
 
-<script src="https://gist.github.com/leonardorifeli/cceb88b6490a135892a780510abe4e60.js?file=GenerateReport.java"></script>
+```java
+package com.leonardorifeli.article;
+
+public class GenerateReport {
+
+    public ArrayList<String> find() { }
+    public ArrayList<String> proccess() { }
+    public void print() { }
+
+}
+```
 
 O nome da classe também diz exatamente qual a sua responsabilidade, gerar relatório.
 
