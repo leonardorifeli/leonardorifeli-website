@@ -100,4 +100,4 @@ Compartilhe conosco os aprendizados.
 
 Aqui vão meus humildes agradecimentos a ContaAzul por proporcionar-me esta oportunidade de poder compartilhar conhecimento.
 
-Em especial ao Leonardo Camacho pelo auxilio nas correções e incentivo para escrever. Também ao Carlos Becker e Lucas Merencia pelo incentivo e auxílio dos assuntos aqui descritos.
+Em especial ao Leonardo Camacho pelo auxílio nas correções e incentivo para escrever. Também ao Carlos Becker e Lucas Merencia pelo incentivo e auxílio dos assuntos aqui descritos.
