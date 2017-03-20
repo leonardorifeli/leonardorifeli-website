@@ -37,23 +37,25 @@ Fonte: [dicio.com.br/coesao](https://www.dicio.com.br/coesao/).
 
 E no mundo do desenvolvimento de software, o que é coesão?
 
-Algo que faça sentido, fazer sentido é fazer sentido para alguém. E este alguém é quem irá consumir uma determinada classe e seus participantes. Cada participante deve ter somente um propósito para existir, isto é ter coesão.
+Algo que faça sentido para alguém, e este alguém, é quem irá consumir uma determinada classe e seus participantes. Cada participante deve ter somente um propósito para existir, sendo então, coeso.
 
 # Definição de responsabilidade
 
-Vou utilizar alguns contextos para expor esta definição de modo agradável e que faça sentido.
+Robert C. Martin, define responsabilidade como: **uma classe deve ter apenas uma razão para ser alterada**.
 
-O Robert C. Martin diz que responsabilidade é **uma classe ter somente uma única razão para ser alterada**. Tendo apenas uma razão para ser alterada, podemos concluir que neste ponto, teremos uma classe que seja focada em uma funcionalidade somente, pois se esta cobre apenas uma funcionalidade, terá apenas uma preocupação e uma única razão para ser alterada.
+Seguinto a definição, temos que, se uma classe esta focada em uma única funcionalidade, ela terá apenas uma preocupação e uma única razão para ser alterada.
 
-Não prenda-se em entender esta definição primeiramente, nos exemplos isto ficará mais claro e legível.
+Não se prenda em entender esta definição de imediato, pois nos exemplos, isto ficará mais claro e legível.
 
 # Problemas da violação do SRP
 
-Uma classe que possua mais que uma razão para ser alterada, possui mais do que uma responsabilidade, contudo, não é uma classe coesa. Quais problemas uma classe não coesa poderá causar para a aplicação?
+Se uma classe possui mais que uma razão para ser alterada, entende-se que ela possui mais que uma responsabilidade, tornando-a disconexa (não coesa).
 
-- Problemas no reuso de suas responsabilidades;
+#### Quais problemas uma classe não coesa poderá causar para a aplicação?
+
+- Dificuldade no reuso de suas responsabilidades;
 - Dificuldades na manutenabilidade;
-- Aumento na rigidez e fragilidade: quando alterar uma responsabilidade, outra pode ser comprometida, ou seja, a aplicação não terá rigidez e poderá quebrar outros participantes que a consomem, sendo algo frágil.
+- Aumento na rigidez e fragilidade: quando alterar uma responsabilidade, outra pode ser comprometida;
 - Alto acoplamento da classe.
 
 A quebra deste princípio pode atrapalhar diretamente a durabilidade do software no ciclo de desenvolvimento.
