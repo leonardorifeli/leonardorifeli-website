@@ -62,7 +62,7 @@ A quebra deste princípio pode atrapalhar diretamente a durabilidade do software
 
 # Exemplos
 
-Inicialmente, mostrarei a violação apenas com as assinaturas dos métodos, podendo então, reforçar a ideia que **Uncle Bob** traz, que a implementação dos métodos é irrelevante para a análise, somente com as assinaturas podemos saber se existe a violação do princípio.
+Nos exemplos, mostrarei a violação apenas com as assinaturas dos métodos, para reforçar a idéia que **Uncle Bob** traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.
 
 #### Exemplo 1
 
