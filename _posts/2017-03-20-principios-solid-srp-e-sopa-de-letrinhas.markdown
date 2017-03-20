@@ -16,7 +16,7 @@ Neste post irei abordar sobre o primeiro, de 5 princípios, que passaram a ser c
 
 ![image](http://www.csharpstar.com/wp-content/uploads/2016/01/SOLID.jpg)
 
-Quando bem aplicados, estes princípios nos ajudam a evitar um código não coeso e com difícil manutenibilidade.
+Estes princípios nos ajudam a manter um código coeso e de fácil manutenibilidade.
 
 Neste post falaremos sobre o princípio **SRP** (princípio da responsabilidade única).
 
@@ -43,13 +43,13 @@ Algo que faça sentido para alguém, e este alguém, é quem irá consumir uma d
 
 Robert C. Martin, define responsabilidade como: **uma classe deve ter apenas uma razão para ser alterada**.
 
-Seguinto a definição, temos que, se uma classe esta focada em uma única funcionalidade, ela terá apenas uma preocupação e uma única razão para ser alterada.
+Seguindo a definição, temos que, se uma classe está focada em uma única funcionalidade, ela terá apenas uma preocupação e uma única razão para ser alterada.
 
-Não se prenda em entender esta definição de imediato, pois nos exemplos, isto ficará mais claro e legível.
+Não se prenda em entender esta definição de imediato, pois nos exemplos isto ficará mais claro e legível.
 
 # Problemas da violação do SRP
 
-Se uma classe possui mais que uma razão para ser alterada, entende-se que ela possui mais que uma responsabilidade, tornando-a disconexa (não coesa).
+Se uma classe possui mais que uma razão para ser alterada, entende-se que ela possui mais que uma responsabilidade, tornando-a desconexa (não coesa).
 
 #### Quais problemas uma classe não coesa poderá causar para a aplicação?
 
@@ -84,16 +84,16 @@ Perceba que, o nome da classe diz exatamente qual é a sua responsabilidade, cal
 
 Com o exemplo acima, podemos ver rapidamente a violação do princípio, onde ela expõem o método **`mean()`** e quem implementa esta classe não espera que ela faça cálculo da média. Apesar da média fazer parte do algoritmo para calcular o **desvio padrão populacional**, ela não faz parte da responsabilidade da classe, logo, a exposição do método **`mean()`** mesmo fazendo parte do algoritmo, viola o princípio. O método **`mean()`** não deveria ser exposto. Mesmo problema com o método **`deviationSumSquare()`**.
 
-Neste caso específico, para não violar o príncipio deve-se deixar ambos os métodos como **private** ou subir eles para cada classe e injetando esta dependência na **PopulationStandardDeviation**.
+Neste caso, para que não haja a violação do príncipio, deve-se deixar ambos os métodos (**`mean()`** e **`deviationSumSquare()`**) como **`private`** ou subir eles para cada classe, injetando esta dependência na **`PopulationStandardDeviation`**.
 
 #### Exemplo 2
 
-Neste segundo exemplo, considere o arquivo abaixo, onde temos a classe **`GenerateReport`** e a sua responsabilidade é gerar relatório.
+Neste segundo exemplo, considere o arquivo abaixo, onde temos a classe **`Report`** e a sua responsabilidade é gerar relatório.
 
 ```java
 package com.leonardorifeli.article;
 
-public class GenerateReport {
+public class Report {
 
     public ArrayList<String> find() { }
     public ArrayList<String> proccess() { }
@@ -104,13 +104,17 @@ public class GenerateReport {
 
 O nome da classe também diz exatamente qual a sua responsabilidade, gerar relatório.
 
-Mas, vamos refletir, gerar relatatório na visão do usuário é apenas fazer os dados serem exibidos em tela ou impressos, de modo organizado. No nível do desenvolvimento de software, gerar relatório engloba vários fatores, sendo eles: buscar os dados, processá-los e organizá-los e exibi-los em tela ou impressos.
+Mas, vamos refletir. Na visão do usuário, gerar relatório é apenas fazer com que os dados sejam exibidos em tela (ou impressos), de modo organizado. No nível de desenvolvimento de software, gerar relatório engloba vários fatores, sendo eles: buscar os dados, processá-los, organizá-los e exibi-los em tela (ou impressos).
 
-Perceba que para gerar relatório envolvem várias resposabilidades. A classe **`GenerateReport`** possuí várias razões para ser alterada, mudar o método **`find()`** para buscar os dados em outro lugar ou, mudar o método **`proccess()`** para alterar uma regra de domínio e até mesmo alterar o método **`print()`**.
+Perceba que para gerar relatório envolvem várias resposabilidades. A classe **`Report`** possuí várias razões para ser alterada, mudar o método **`find()`** para buscar os dados em outro lugar ou, mudar o método **`proccess()`** para alterar uma regra de domínio e até mesmo alterar o método **`print()`**.
 
-Claramente a classe está violando o princípio, e como podemos corrigir isto?
+Perceba que para gerar um relatório, várias funcionalidades são envolvidas, fazendo com que a classe **`Report`** possua várias responsabilidades distintas, violando **`SRP`**. Com isso, existem algumas razões para ela ser alterada, por exemplo: poderíamos mudar o método **`find()`** para consultar os dados em outro repositório, alterar uma regra de negócio no método **`proccess()`** e até mesmo alterar o método **`print()`**.
 
-Neste contexto precisaríamos inicialmente isolar o método **`find()`** em um contexto de repositório (outra classe que faz somente a busca de dados no banco de dados, por exemplo). Depois isolar método **`proccess()`** em uma classe **`ProccessReport`** por exemplo, onde ele irá somente processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão e retorná-los. Finalmente, deixaremos a classe **`GenerateReport`** com a injeção das suas dependências e tendo somente o método **`generate()`**, por exemplo, que irá receber o retorno do processo dos dados e imprimir o resultado do relatório.
+##### Como poderíamos melhorar essa classe?
+
+Inicialmente, precisaríamos isolar o método **`find()`** em um contexto de repositório (outra classe que faça somente a busca dos dados no banco). Depois, poderíamos isolar o método **`proccess()`** em uma classe **ProccessReport**, que teria como única responsabilidade processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão. Finalmente, deixaremos a classe GenerateReport com a injeção das suas dependências, tendo somente o método generate(), que receberia o retorno do processo dos dados e imprimiria o resultado do relatório.
+
+Neste contexto precisaríamos inicialmente isolar o método **`find()`** em um contexto de repositório (outra classe que faz somente a busca de dados no banco de dados, por exemplo). Depois isolar método **`proccess()`** em uma classe **`ProccessReport`** por exemplo, onde ele irá somente processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão e retorná-los. Finalmente, deixaremos a classe **`Report`** com a injeção das suas dependências e tendo somente o método **`generate()`**, por exemplo, que irá receber o retorno do processo dos dados e imprimir o resultado do relatório.
 
 # Conclusão
 
@@ -122,6 +126,6 @@ Compartilhe conosco os aprendizados.
 
 # Agradecimentos
 
-Aqui vão meus humildes agradecimentos a ContaAzul por proporcionar-me esta oportunidade de poder compartilhar conhecimento.
-
-Em especial ao Leonardo Camacho pelo auxílio nas correções e incentivo para escrever. Também ao Carlos Becker e Lucas Merencia pelo incentivo e auxílio dos assuntos aqui descritos.
+A ContaAzul, por proporcionar o espaço e me dar a oportunidade de compartilhar meu conhecimento.
+Ao **Leonardo Camacho**, pelo auxilio nas correções e incentivo para escrever.
+Para Carlos Becker, Lucas Merencia, Marcos Ferreira, Marcelo Ed. Junior e Jeferson Kersten pelo incentivo e auxílio dos assuntos aqui descritos.
