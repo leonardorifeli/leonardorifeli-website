@@ -7,20 +7,20 @@ subcategorie: Tip
 comments: true
 author: Leonardo Rifeli
 isResume: 1
-resume: Neste post irei abordar sobre o primeiro princípio, um dos 5 princípios que passaram a ser chamados pelo acrônomo SOLID após a popularização por Robert C. Margin (aka Uncle Bob).
+resume: Neste post irei abordar sobre o primeiro princípio, um dos 5 princípios que passaram a ser chamados pelo acrônimo SOLID após a popularização por Robert C. Margin (aka Uncle Bob).
 ---
 
-Neste post irei abordar sobre o primeiro princípio, um dos 5 princípios que passaram a ser chamados pelo acrônomo SOLID após a popularização por [**Robert C. Margin (aka Uncle Bob)**](cleancoder.com), estes princípios fazem parte do livro [**Agile Software Development, Principles, Patterns, and Practices**](https://www.amazon.com.br/dp/0135974445/ref=asc_df_01359744454899280?smid=A1ZZFT5FULY4LN&tag=goog0ef-20&linkCode=asn&creative=380341&creativeASIN=0135974445). Mas, o que este acrônomo representa? Isto é explicado na imagem abaixo.
+Neste post irei abordar sobre o primeiro princípio, um dos 5 princípios que passaram a ser chamados pelo acrônimo SOLID após a popularização por [**Robert C. Margin (aka Uncle Bob)**](cleancoder.com), estes princípios fazem parte do livro [**Agile Software Development, Principles, Patterns, and Practices**](https://www.amazon.com.br/dp/0135974445/ref=asc_df_01359744454899280?smid=A1ZZFT5FULY4LN&tag=goog0ef-20&linkCode=asn&creative=380341&creativeASIN=0135974445). Mas, o que este acrônimo representa? Isto é explicado na imagem abaixo.
 
 ![image](http://www.csharpstar.com/wp-content/uploads/2016/01/SOLID.jpg)
 
-Quando bem aplicados, estes princípios, nos ajudam a evitar um código não coeso e com díficil manutenabilidade.
+Quando bem aplicados, estes princípios, nos ajudam a evitar um código não coeso e com difícil manutenibilidade.
 
 Neste post falaremos sobre o princípio **SRP** (princípio da responsabilidade única).
 
 Este princípio é uma perspectiva diferente para os princípios de orientação a obejto, sendo esta perspectiva a **coesão**.
 
-# Tá e o que é coesão?
+# Tá, e o que é coesão?
 
 Segundo o dicionário online [Dicio](https://www.dicio.com.br/coesao/) a coesão está atrelada a união, harmonia, associação íntima.
 
@@ -84,7 +84,7 @@ Neste contexto precisaríamos inicialmente isolar o método **find()** em um con
 
 # Conclusão
 
-O SRP é um dos princípios mais importantes da orientação a objetos, atentando-se a este princípios, seus códigos ficarão mais coesos, simples e terão mais manutenabilidade.
+O SRP é um dos princípios mais importantes da orientação a objetos, atentando-se a ele, seus códigos ficarão mais coesos, simples e manuteníveis.
 
 É um princípio bem extenso e os exemplos tendem ao infinito, os exemplos aqui apresentados são bem simples para melhor entendimento. Isso não nos impede de continuarmos as dicussões sobre este princípio nos comentários.
 
