@@ -112,17 +112,15 @@ Perceba que para gerar um relatório, várias funcionalidades são envolvidas, f
 
 ##### Como poderíamos melhorar essa classe?
 
-Inicialmente, precisaríamos isolar o método **`find()`** em um contexto de repositório (outra classe que faça somente a busca dos dados no banco). Depois, poderíamos isolar o método **`proccess()`** em uma classe **ProccessReport**, que teria como única responsabilidade processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão. Finalmente, deixaremos a classe GenerateReport com a injeção das suas dependências, tendo somente o método generate(), que receberia o retorno do processo dos dados e imprimiria o resultado do relatório.
-
-Neste contexto precisaríamos inicialmente isolar o método **`find()`** em um contexto de repositório (outra classe que faz somente a busca de dados no banco de dados, por exemplo). Depois isolar método **`proccess()`** em uma classe **`ProccessReport`** por exemplo, onde ele irá somente processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão e retorná-los. Finalmente, deixaremos a classe **`Report`** com a injeção das suas dependências e tendo somente o método **`generate()`**, por exemplo, que irá receber o retorno do processo dos dados e imprimir o resultado do relatório.
+Inicialmente, precisaríamos isolar o método **`find()`** em um contexto de repositório (outra classe que faça somente a busca dos dados no banco). Depois, poderíamos isolar o método **`proccess()`** noutra classe e que teria apenas uma responsabilidade, processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão. Finalmente, deixaremos a classe **`Report`** com a injeção das suas dependências, tendo somente o método **`generate()`**.
 
 # Conclusão
 
-O SRP é um dos princípios mais importantes da orientação a objetos, atentando-se a ele, seus códigos ficarão mais coesos, simples e manuteníveis.
+O SRP é um dos princípios mais importantes da orientação a objetos. Atentando-se a ele, seus códigos ficarão mais coesos, simples e manuteníveis. É um princípio bem extenso e os exemplos tendem ao infinito.
 
-É um princípio bem extenso e os exemplos tendem ao infinito, os exemplos aqui apresentados são bem simples para melhor entendimento. Isso não nos impede de continuarmos as dicussões sobre este princípio nos comentários.
+Podemos continuar as dicussões sobre este princípio nos comentários.
 
-Compartilhe conosco os aprendizados.
+Compartilhe conosco seus aprendizados.
 
 # Agradecimentos
 
