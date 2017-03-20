@@ -118,7 +118,7 @@ Inicialmente, precisaríamos isolar o método **`find()`** em um contexto de rep
 
 O SRP é um dos princípios mais importantes da orientação a objetos. Atentando-se a ele, seus códigos ficarão mais coesos, simples e manuteníveis. É um princípio bem extenso e os exemplos tendem ao infinito.
 
-Podemos continuar as dicussões sobre este princípio nos comentários.
+Podemos continuar as discussões sobre este princípio nos comentários.
 
 Compartilhe conosco seus aprendizados.
 
