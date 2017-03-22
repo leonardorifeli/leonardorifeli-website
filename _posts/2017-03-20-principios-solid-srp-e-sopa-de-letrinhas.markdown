@@ -10,17 +10,11 @@ isResume: 1
 resume: este post abordarei sobre o primeiro dos 5 princípios, nomeados com o acrônimo **SOLID** após a popularização por Robert C. Margin (aka Uncle Bob).
 ---
 
-Neste post irei abordar sobre o primeiro, de 5 princípios, que passaram a ser chamados pelo acrônimo SOLID após a popularização por [**Robert C. Margin (aka Uncle Bob)**](cleancoder.com). Estes princípios fazem parte do livro [**Agile Software Development, Principles, Patterns, and Practices**](https://www.amazon.com.br/dp/0135974445/ref=asc_df_01359744454899280?smid=A1ZZFT5FULY4LN&tag=goog0ef-20&linkCode=asn&creative=380341&creativeASIN=0135974445).
+Em programação de software a sigla **SOLID** tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por **Robert C. Margin** (o Uncle Bob), onde cada letra representa um dos cinco princípios do OOD (object-oriented design) que, quando aplicados bem conjunto ou isoladamente, possibilitam a criação de código fácil de manter e de se estender ao longo do tempo.
 
-# O que este acrônimo representa?
+Esse é o primeiro post de uma série onde abordaremos todos os cinco princípios do **SOLID**. O primeiro é o "Single responsibility principle", abreviado por **SRP**, e significa literalmente "Princípio da Responsabilidade Única".
 
-![image](http://www.csharpstar.com/wp-content/uploads/2016/01/SOLID.jpg)
-
-Estes princípios nos ajudam a manter um código coeso e de fácil manutenibilidade.
-
-Neste post falaremos sobre o princípio **SRP** (princípio da responsabilidade única).
-
-SRP tem uma perspectiva diferente para a orientação a objeto, a **coesão**.
+Para começar: falar de SOLID é falar de programação orientada a objetos e design (OOD). Tendo isso em mente, o Princípio de Responsabilidade única traz uma perspectiva diferente para a orientação a objeto: a **coesão**.
 
 # Tá, e o que é coesão?
 
@@ -37,15 +31,26 @@ Fonte: [dicio.com.br/coesao](https://www.dicio.com.br/coesao/).
 
 E no mundo do desenvolvimento de software, o que é coesão?
 
-Algo que faça sentido para alguém, e este alguém, é quem irá consumir uma determinada classe e seus participantes. Cada participante deve ter somente um propósito para existir, sendo então, coeso.
+Algo que faça sentido para alguém. E este alguém, é quem irá consumir uma determinada classe e seus métodos. Cada participante deve ter somente um propósito para existir. Ou seja, coesão é consequência de ter-se um bom design e não violar SRP.
+
+##### E as vantagens de ter-se alta coesão (ou "coesão forte"):
+
+Redução da complexidade do módulo (eles são mais simples, com menos operações).
 
 # Definição de responsabilidade
 
-Robert C. Martin, define responsabilidade como: **uma classe deve ter apenas uma razão para ser alterada**.
+Segundo o dicionário online [Dicio]():
+
+> - Obrigação; dever de arcar, de se responsabilizar pelo próprio comportamento ou pelas ações de outra(s) pessoa(s).
+> - [Por Extensão] Sensatez; competência para se comportar de maneira sensata.
+> - Natureza ou condição de responsável; capacidade de responder por seus próprios atos; qualidade de quem presta contas as autoridades.
+> - [Jurídico] Obrigação jurídica que resulta do desrespeito de algum direito, através de uma ação contrária ao ordenamento jurídico.
+
+E no contexto de um código?
+
+**Robert C. Martin**, define responsabilidade como: **uma classe deve ter apenas uma razão para ser alterada**.
 
 Seguindo a definição, temos que, se uma classe está focada em uma única funcionalidade, ela terá apenas uma preocupação e uma única razão para ser alterada.
-
-Não se prenda em entender esta definição de imediato, pois nos exemplos isto ficará mais claro e legível.
 
 # Problemas da violação do SRP
 
@@ -54,11 +59,9 @@ Se uma classe possui mais que uma razão para ser alterada, entende-se que ela p
 #### Quais problemas uma classe não coesa poderá causar para a aplicação?
 
 - Dificuldade no reuso de suas responsabilidades;
-- Dificuldades na manutenabilidade;
+- Dificuldades na manutenção (dificuldade em manter e/ou evoluir por conta do número de responsabilidades);
 - Aumento na rigidez e fragilidade: quando alterar uma responsabilidade, outra pode ser comprometida;
 - Alto acoplamento da classe.
-
-A quebra deste princípio pode atrapalhar diretamente a durabilidade do software no ciclo de desenvolvimento.
 
 # Exemplos
 
@@ -106,7 +109,7 @@ O nome da classe também diz exatamente qual a sua responsabilidade, gerar relat
 
 Mas, vamos refletir. Na visão do usuário, gerar relatório é apenas fazer com que os dados sejam exibidos em tela (ou impressos), de modo organizado. No nível de desenvolvimento de software, gerar relatório engloba vários fatores, sendo eles: buscar os dados, processá-los, organizá-los e exibi-los em tela (ou impressos).
 
-Perceba que para gerar relatório envolvem várias resposabilidades. A classe **`Report`** possuí várias razões para ser alterada, mudar o método **`find()`** para buscar os dados em outro lugar ou, mudar o método **`proccess()`** para alterar uma regra de domínio e até mesmo alterar o método **`print()`**.
+Perceba que para gerar relatório envolvem várias responsabilidades. A classe **`Report`** possui várias razões para ser alterada, mudar o método **`find()`** para buscar os dados em outro lugar ou, mudar o método **`proccess()`** para alterar uma regra de domínio e até mesmo alterar o método **`print()`**.
 
 Perceba que para gerar um relatório, várias funcionalidades são envolvidas, fazendo com que a classe **`Report`** possua várias responsabilidades distintas, violando **`SRP`**. Com isso, existem algumas razões para ela ser alterada, por exemplo: poderíamos mudar o método **`find()`** para consultar os dados em outro repositório, alterar uma regra de negócio no método **`proccess()`** e até mesmo alterar o método **`print()`**.
 
@@ -114,11 +117,17 @@ Perceba que para gerar um relatório, várias funcionalidades são envolvidas, f
 
 Inicialmente, precisaríamos isolar o método **`find()`** em um contexto de repositório (outra classe que faça somente a busca dos dados no banco). Depois, poderíamos isolar o método **`proccess()`** noutra classe e que teria apenas uma responsabilidade, processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão. Finalmente, deixaremos a classe **`Report`** com a injeção das suas dependências, tendo somente o método **`generate()`**.
 
+# Referências
+
+- [Livro - Agile Software Development, Principles, Patterns, and Practices](https://www.amazon.com/dp/0135974445/);
+- [Article Cohesion - Computer Science](https://en.wikipedia.org/wiki/Cohesion_(computer_science));
+- [SOLID Principles with Uncle Bob - Robert C. Martin](http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin)
+
 # Conclusão
 
 O SRP é um dos princípios mais importantes da orientação a objetos. Atentando-se a ele, seus códigos ficarão mais coesos, simples e manuteníveis. É um princípio bem extenso e os exemplos tendem ao infinito.
 
-Podemos continuar as discussões sobre este princípio nos comentários.
+Podemos continuar as dicussões sobre este princípio nos comentários?
 
 Compartilhe conosco seus aprendizados.
 
