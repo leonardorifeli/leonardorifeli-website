@@ -122,7 +122,7 @@ Inicialmente, precisaríamos isolar o método **`find()`** em um contexto de rep
 # Referências
 
 - [Livro - Agile Software Development, Principles, Patterns, and Practices](https://www.amazon.com/dp/0135974445/);
-- [Article Cohesion - Computer Science](https://en.wikipedia.org/wiki/Cohesion_(computer_science);
+- [Article Cohesion - Computer Science](https://en.wikipedia.org/wiki/Cohesion_(computer_science));
 - [SOLID Principles with Uncle Bob - Robert C. Martin](http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin);
 - [Robert C Martin The Single Responsibility Principle](https://www.youtube.com/watch?v=dzawoPISdHc).
 
