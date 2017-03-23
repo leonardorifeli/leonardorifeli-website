@@ -10,7 +10,7 @@ isResume: 1
 resume: este post abordarei sobre o primeiro dos 5 princípios, nomeados com o acrônimo **SOLID** após a popularização por Robert C. Margin (aka Uncle Bob).
 ---
 
-Em programação de software a sigla **SOLID** tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por **Robert C. Margin** (o Uncle Bob), onde cada letra representa um dos cinco princípios do OOD (object-oriented design) que, quando aplicados bem conjunto ou isoladamente, possibilitam a criação de código fácil de manter e de se estender ao longo do tempo.
+Em programação de software a sigla **SOLID** tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por **Robert C. Margin** (o Uncle Bob), onde cada letra representa um dos cinco princípios do OOD (object-oriented design) que, quando aplicados bem conjunto o  u isoladamente, possibilitam a criação de código fácil de manter e de se estender ao longo do tempo.
 
 Esse é o primeiro post de uma série onde abordaremos todos os cinco princípios do **SOLID**. O primeiro é o "Single responsibility principle", abreviado por **SRP**, e significa literalmente "Princípio da Responsabilidade Única".
 
@@ -35,16 +35,18 @@ Algo que faça sentido para alguém. E este alguém, é quem irá consumir uma d
 
 ##### E as vantagens de ter-se alta coesão (ou "coesão forte"):
 
-Redução da complexidade do módulo (eles são mais simples, com menos operações).
+Redução da complexidade das classes e métodos (eles são mais simples, com menos operações).
 
 # Definição de responsabilidade
 
-Segundo o dicionário online [Dicio]():
+Segundo o dicionário online [Dicio](https://www.dicio.com.br/responsabilidade/):
 
 > - Obrigação; dever de arcar, de se responsabilizar pelo próprio comportamento ou pelas ações de outra(s) pessoa(s).
 > - [Por Extensão] Sensatez; competência para se comportar de maneira sensata.
 > - Natureza ou condição de responsável; capacidade de responder por seus próprios atos; qualidade de quem presta contas as autoridades.
 > - [Jurídico] Obrigação jurídica que resulta do desrespeito de algum direito, através de uma ação contrária ao ordenamento jurídico.
+
+Fonte: [dicio.com.br/responsabilidade](https://www.dicio.com.br/responsabilidade/).
 
 E no contexto de um código?
 
@@ -59,13 +61,13 @@ Se uma classe possui mais que uma razão para ser alterada, entende-se que ela p
 #### Quais problemas uma classe não coesa poderá causar para a aplicação?
 
 - Dificuldade no reuso de suas responsabilidades;
-- Dificuldades na manutenção (dificuldade em manter e/ou evoluir por conta do número de responsabilidades);
+- Dificuldades na manutenção (dificuldade em manter e/ou evoluir por conta do excesso de responsabilidades);
 - Aumento na rigidez e fragilidade: quando alterar uma responsabilidade, outra pode ser comprometida;
 - Alto acoplamento da classe.
 
 # Exemplos
 
-Nos exemplos, mostrarei a violação apenas com as assinaturas dos métodos, para reforçar a idéia que **Uncle Bob** traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.
+Os códigos dos exemplos serão exibidos somente com as assinaturas, para reforçar a idéia que **Uncle Bob** traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.
 
 #### Exemplo 1
 
@@ -122,6 +124,7 @@ Inicialmente, precisaríamos isolar o método **`find()`** em um contexto de rep
 - [Livro - Agile Software Development, Principles, Patterns, and Practices](https://www.amazon.com/dp/0135974445/);
 - [Article Cohesion - Computer Science](https://en.wikipedia.org/wiki/Cohesion_(computer_science));
 - [SOLID Principles with Uncle Bob - Robert C. Martin](http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin)
+- [Robert C Martin The Single Responsibility Principle](https://www.youtube.com/watch?v=dzawoPISdHc)
 
 # Conclusão
 
