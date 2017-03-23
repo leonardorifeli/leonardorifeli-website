@@ -122,20 +122,20 @@ Inicialmente, precisaríamos isolar o método **`find()`** em um contexto de rep
 # Referências
 
 - [Livro - Agile Software Development, Principles, Patterns, and Practices](https://www.amazon.com/dp/0135974445/);
-- [Article Cohesion - Computer Science](https://en.wikipedia.org/wiki/Cohesion_(computer_science));
-- [SOLID Principles with Uncle Bob - Robert C. Martin](http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin)
-- [Robert C Martin The Single Responsibility Principle](https://www.youtube.com/watch?v=dzawoPISdHc)
+- [Article Cohesion - Computer Science](https://en.wikipedia.org/wiki/Cohesion_(computer_science);
+- [SOLID Principles with Uncle Bob - Robert C. Martin](http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin);
+- [Robert C Martin The Single Responsibility Principle](https://www.youtube.com/watch?v=dzawoPISdHc).
 
 # Conclusão
 
 O SRP é um dos princípios mais importantes da orientação a objetos. Atentando-se a ele, seus códigos ficarão mais coesos, simples e manuteníveis. É um princípio bem extenso e os exemplos tendem ao infinito.
 
-Podemos continuar as dicussões sobre este princípio nos comentários?
+Podemos continuar as discussões sobre este princípio nos comentários?
 
 Compartilhe conosco seus aprendizados.
 
 # Agradecimentos
 
 A ContaAzul, por proporcionar o espaço e me dar a oportunidade de compartilhar meu conhecimento.
-Ao **Leonardo Camacho**, pelo auxilio nas correções e incentivo para escrever.
+Ao **Leonardo Camacho**, pelo auxílio nas correções e incentivo para escrever.
 Para Carlos Becker, Lucas Merencia, Marcos Ferreira, Marcelo Ed. Junior e Jeferson Kersten pelo incentivo e auxílio dos assuntos aqui descritos.
