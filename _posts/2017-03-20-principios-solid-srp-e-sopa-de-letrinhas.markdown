@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Princípios SOLID: SRP e sopa de letrinhas"
-date: 2017-03-20
+date: 2017-03-24
 categories: Development
 subcategorie: Tip
 comments: true
@@ -10,9 +10,9 @@ isResume: 1
 resume: este post abordarei sobre o primeiro dos 5 princípios, nomeados com o acrônimo **SOLID** após a popularização por Robert C. Margin (aka Uncle Bob).
 ---
 
-Em programação de software a sigla **SOLID** tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por **Robert C. Margin** (o Uncle Bob), onde cada letra representa um dos cinco princípios do OOD (object-oriented design) que, quando aplicados bem conjunto o  u isoladamente, possibilitam a criação de código fácil de manter e de se estender ao longo do tempo.
+Em programação de software a sigla **SOLID** tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por **Robert C. Martin** (o Uncle Bob), onde cada letra representa um dos cinco princípios do OOD (object-oriented design) que, quando aplicados em conjunto ou isoladamente, possibilitam a criação de códigos com facilidade de manter e de se estender ao longo do tempo.
 
-Esse é o primeiro post de uma série onde abordaremos todos os cinco princípios do **SOLID**. O primeiro é o "Single responsibility principle", abreviado por **SRP**, e significa literalmente "Princípio da Responsabilidade Única".
+Esse é o primeiro post de uma série onde abordaremos todos os cinco princípios do **SOLID**. O primeiro é sobre "Single responsibility principle", abreviado por **SRP**, e significa literalmente "Princípio da Responsabilidade Única".
 
 Para começar: falar de SOLID é falar de programação orientada a objetos e design (OOD). Tendo isso em mente, o Princípio de Responsabilidade única traz uma perspectiva diferente para a orientação a objeto: a **coesão**.
 
@@ -33,9 +33,9 @@ E no mundo do desenvolvimento de software, o que é coesão?
 
 Algo que faça sentido para alguém. E este alguém, é quem irá consumir uma determinada classe e seus métodos. Cada participante deve ter somente um propósito para existir. Ou seja, coesão é consequência de ter-se um bom design e não violar SRP.
 
-##### E as vantagens de ter-se alta coesão (ou "coesão forte"):
+##### E as vantagens de se ter alta coesão (ou "coesão forte")?
 
-Redução da complexidade das classes e métodos (eles são mais simples, com menos operações).
+Redução da complexidade das classes e métodos (eles ficam mais simples, com menos operações).
 
 # Definição de responsabilidade
 
@@ -50,15 +50,13 @@ Fonte: [dicio.com.br/responsabilidade](https://www.dicio.com.br/responsabilidade
 
 E no contexto de um código?
 
-**Robert C. Martin**, define responsabilidade como: **uma classe deve ter apenas uma razão para ser alterada**.
-
-Seguindo a definição, temos que, se uma classe está focada em uma única funcionalidade, ela terá apenas uma preocupação e uma única razão para ser alterada.
+**Robert C. Martin**, em seu livro (Agile Software Development, Principles, Patterns, and Practices), define responsabilidade como: **uma classe deve ter apenas uma razão para ser alterada**.
 
 # Problemas da violação do SRP
 
 Se uma classe possui mais que uma razão para ser alterada, entende-se que ela possui mais que uma responsabilidade, tornando-a desconexa (não coesa).
 
-#### Quais problemas uma classe não coesa poderá causar para a aplicação?
+#### Quais problemas uma classe desconexa poderá causar para a aplicação?
 
 - Dificuldade no reuso de suas responsabilidades;
 - Dificuldades na manutenção (dificuldade em manter e/ou evoluir por conta do excesso de responsabilidades);
@@ -89,7 +87,7 @@ Perceba que, o nome da classe diz exatamente qual é a sua responsabilidade, cal
 
 Com o exemplo acima, podemos ver rapidamente a violação do princípio, onde ela expõem o método **`mean()`** e quem implementa esta classe não espera que ela faça cálculo da média. Apesar da média fazer parte do algoritmo para calcular o **desvio padrão populacional**, ela não faz parte da responsabilidade da classe, logo, a exposição do método **`mean()`** mesmo fazendo parte do algoritmo, viola o princípio. O método **`mean()`** não deveria ser exposto. Mesmo problema com o método **`deviationSumSquare()`**.
 
-Neste caso, para que não haja a violação do príncipio, deve-se deixar ambos os métodos (**`mean()`** e **`deviationSumSquare()`**) como **`private`** ou subir eles para cada classe, injetando esta dependência na **`PopulationStandardDeviation`**.
+Neste caso, para que não haja a violação do SRP, deve-se deixar ambos os métodos (**`mean()`** e **`deviationSumSquare()`**) como **`private`** ou isolar eles em outras classes, injetando-as como dependência na **`PopulationStandardDeviation`**.
 
 #### Exemplo 2
 
@@ -109,11 +107,9 @@ public class Report {
 
 O nome da classe também diz exatamente qual a sua responsabilidade, gerar relatório.
 
-Mas, vamos refletir. Na visão do usuário, gerar relatório é apenas fazer com que os dados sejam exibidos em tela (ou impressos), de modo organizado. No nível de desenvolvimento de software, gerar relatório engloba vários fatores, sendo eles: buscar os dados, processá-los, organizá-los e exibi-los em tela (ou impressos).
+Na visão do usuário, gerar relatório é apenas fazer com que os dados sejam exibidos em tela (ou impressos), de modo organizado. No nível de desenvolvimento de software, gerar relatório engloba vários fatores, sendo eles: buscar os dados, processá-los, organizá-los e exibi-los em tela (ou impressos).
 
-Perceba que para gerar relatório envolvem várias responsabilidades. A classe **`Report`** possui várias razões para ser alterada, mudar o método **`find()`** para buscar os dados em outro lugar ou, mudar o método **`proccess()`** para alterar uma regra de domínio e até mesmo alterar o método **`print()`**.
-
-Perceba que para gerar um relatório, várias funcionalidades são envolvidas, fazendo com que a classe **`Report`** possua várias responsabilidades distintas, violando **`SRP`**. Com isso, existem algumas razões para ela ser alterada, por exemplo: poderíamos mudar o método **`find()`** para consultar os dados em outro repositório, alterar uma regra de negócio no método **`proccess()`** e até mesmo alterar o método **`print()`**.
+Perceba que para gerar  um relatório são envolvidas várias responsabilidades. A classe **`Report`**, por exemplo, possui várias razões para ser alterada: como mudar o método **`find()`** para buscar os dados em outro lugar, mudar o método **`proccess()`** para alterar uma regra de domínio e até mesmo alterar o método **`print()`**.
 
 ##### Como poderíamos melhorar essa classe?
 
