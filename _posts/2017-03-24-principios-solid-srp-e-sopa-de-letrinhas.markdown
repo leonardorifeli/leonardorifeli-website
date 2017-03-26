@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Princípios SOLID: SRP e sopa de letrinhas"
-date: 2017-03-24
+date: 2017-03-20
 categories: Development
 subcategorie: Tip
 comments: true
@@ -33,7 +33,7 @@ E no mundo do desenvolvimento de software, o que é coesão?
 
 Algo que faça sentido para alguém. E este alguém, é quem irá consumir uma determinada classe e seus métodos. Cada participante deve ter somente um propósito para existir. Ou seja, coesão é consequência de ter-se um bom design e não violar SRP.
 
-##### E as vantagens de se ter alta coesão (ou "coesão forte")?
+E as vantagens de se ter alta coesão (ou "coesão forte")?
 
 Redução da complexidade das classes e métodos (eles ficam mais simples, com menos operações).
 
