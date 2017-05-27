@@ -1,7 +1,8 @@
+
 ---
 layout: post
 title:  "Princípios SOLID: OCP e sopa de letrinhas"
-date: 2017-05-29
+date: 2017-06-15
 categories: Development
 subcategorie: Tip
 comments: true
