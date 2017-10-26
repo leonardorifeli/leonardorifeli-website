@@ -1,14 +1,5 @@
 <header class="site-header">
 	<div class="branding">
-		{% if site.theme_settings.gravatar %}
-		<a href="{{ site.baseurl }}/">
-			<img class="avatar" src="https://secure.gravatar.com/avatar/{{ site.theme_settings.gravatar }}?s=100" alt=""/>
-		</a>
-		{% elsif site.theme_settings.avatar %}
-		<a href="{{ site.baseurl }}/">
-			<img class="avatar" src="{{ site.baseurl }}/{{ site.theme_settings.avatar }}" alt=""/>
-		</a>
-		{% endif %}
 		<h1 class="site-title">
 			<a href="{{ site.url }}/">{{ site.theme_settings.title }}</a>
 		</h1>
