@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Instalando certificado de segurança SSL | Leonardo Rifeli</title>
+	<meta name="description" content="O SSL (Secure Socket Layer) é um protocolo desenvolvido para elevar a segurança dos dados transmitidos pela internet. O SSL pode ser usado em vários serviços...">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="//assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/server/security/2015/04/01/instalando-certificado-de-seguranca-ssl.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Leonardo Rifeli" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+</head>
+
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<a href="//">
+			<img class="avatar" src="//assets/img/avatar.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="http://localhost:4000/">Leonardo Rifeli</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled -->
+			
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/leonardorifeli" title="Follow on Facebook">
+		<i class="fa fa-fw fa-facebook"></i>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/leonardorifeli" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://br.linkedin.com/in/leonardorifeli" title="Follow on LinkedIn">
+		<i class="fa fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/leonardorifeli" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+		</ul>
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header style="background-image: url('//')">
+    <h1 class="title">Instalando certificado de segurança SSL</h1>
+    
+    <p class="meta">
+      April 1, 2015
+       - Leonardo Rifeli
+    </p>
+  </header>
+  <section class="post-content"><p>O SSL <b>(Secure Socket Layer)</b> é um protocolo desenvolvido para elevar a segurança dos dados transmitidos pela internet. O SSL pode ser usado em vários serviços, sendo que o mais comum é o acesso à páginas web.</p>
+
+<h2 id="introdução">Introdução</h2>
+
+<h5 id="antes-de-tudo-o-que-é-ssl">Antes de tudo. O que é SSL?</h5>
+
+<p>O <b>SSL (Secure Socket Layer)</b> é um protocolo desenvolvido para elevar a segurança dos dados transmitidos pela internet. O SSL pode ser usado em vários serviços, sendo que o mais comum é o acesso à páginas web. Neste caso o endereço dos recursos acessados passa a ser feito no formato: <code>https://website</code>.</p>
+
+<p>As conexões via SSL são particularmente recomendadas para envio de informações como números de cartão de crédito, senhas e qualquer outra informação sigilosa via internet.</p>
+
+<p>O SSL faz uso de <b>criptografia</b> para garantir o sigilo das informações transferidas entre o navegador do usuário e o servidor web. Como consequência, mesmo que as informações sejam interceptadas elas não podem ser lidas sem que sejam <b>descriptografadas</b>.</p>
+
+<h5 id="o-que-é-um-certificado-ssl">O que é um certificado SSL?</h5>
+
+<p>O certificado SSL tem a função de certificar que o site que você está acessando é realmente ele mesmo. Este processo é realizado por empresas que emitem certificados SSL. Elas fazem a validação do domínio e, dependendo do tipo de certificado, também da entidade detentora do domínio.</p>
+
+<p>Sempre que você acessa uma página segura, isto é, protegida por um certificado SSL, é apresentada uma chave ou um cadeado na barra de status para indicar a comunicação segura. Os certificados tradicionais exigem que você clique na chave ou cadeado para ter acesso às informações do detentor do certificado SSL.</p>
+
+<p>Texto retirado do site: centralserver.com.br clique aqui para visualizar o texto completo.</p>
+
+<p>O domínio leonardorifeli.com possuí o certificado SSL COMODO 256bits. Efetuei a compra do certificado por fins didáticos (estudos para configuração). Estarei demonstrando como efetuei a instalação do certificado no servidor.</p>
+
+<p><b>Obs.:</b> Salientando que não demonstrarei como efetuar a compra/solicitação do certificado.</p>
+
+<h2 id="informações">Informações</h2>
+
+<p>Sistema Operacional (servidor): Ubuntu Server 14.04;
+Dependências: apache2, openssl e ssl-cert;</p>
+
+<h5 id="dependências">Dependências</h5>
+
+<p>As depências são os recursos/bibliotecas utilizadas para a gerar e configurar o certificado. Faça acesso SSH com o servidor, utilizando privilégios de root (oh my god! Yes!).</p>
+
+<p>Execute os comandos abaixo para atualização de dependências já instaladas. Posteriormente, certifique-se que: apache2, openssl e ssl-cert encontram-se instalados no ambiente.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get update
+apt-get upgrade
+apt-get install apache2 openssl ssl-cert</code></pre></figure>
+
+<h2 id="gerando-as-chaves">Gerando as chaves</h2>
+
+<p>Criando o diretório onde os certificados serão armazenados.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir /etc/apache2/ssl/</code></pre></figure>
+
+<p>Acessando o diretório dos certificados.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /etc/apache2/ssl/</code></pre></figure>
+
+<p>Gerando as chaves. Atente-se leia os descritivos abaixo antes de acionar enter.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">openssl req <span class="nt">-nodes</span> <span class="nt">-newkey</span> rsa:2048 <span class="nt">-keyout</span> dominio.com.key <span class="nt">-out</span> dominio.com.csr</code></pre></figure>
+
+<p>Primeiro entenderemos o que o comando acima executará.</p>
+
+<p>O comando em questão irá gerar o arquivo <b>dominio.com.key</b>, o qual contém a chave privada e <b>não deverá em hípotese alguma, ser fornecido há alguém</b>.</p>
+
+<p>De imediato, certifique-se de fazer o backup da chave privada <b>(dominio.com.key)</b>, pois não há meios de recuperá-la. A chave privada é utilizada como entrada no processo para gerar um <b>“Pedido de Assinatura de Certificado (CSR)”.</b> O CSR é um arquivo contendo as informações da solicitação do certificado (logo você preencherá algumas informações), incluindo sua chave pública.</p>
+
+<p>Agora que foi informado a função do comando citado, pode acionar enter, logo você preencherá as informações para o certificado:</p>
+
+<p>Veja como as perguntas serão feitas e como respondê-las:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Country Name (2 letter code) [AU]: BR
+State or Province Name (full name) [Some-State]: SP
+Locality Name (eg, city) []: Araraquara
+Organization Name (eg, company) [Internet Widgits Pty Ltd]: Nome da empresa (deixe em branco caso não possua)
+Organizational Unit Name (eg, section) []: Cargo na empresa (deixe em branco caso não possua)
+Common Name (eg, YOUR name) []: dominio.com
+Email Address []: contato@dominio.com
+Please enter the following ‘extra’ attributes to be sent with your certificate request
+A challenge password []: aperte enter (deixar em branco)
+An optional company name []: aperte enter (deixar em branco)</code></pre></figure>
+
+<p>Após a finalização, o arquivo <b>dominio.com.key</b> será criado.
+Deixe-o com permissão de acesso 600.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">chmod 600 dominio.com.key</code></pre></figure>
+
+<p>Após finalizar, certifique-se que dois arquivos foram criados, <b>dominio.com.key</b> e <b>dominio.com.csr</b>. Lembre-se que o conteúdo do arquivo <b>“dominio.com.csr”</b> deve ser utilizado para finalizar a solicitação de registro do certificado (colar no campo “Enter CSR”). Efetuei a compra no site Comodo.</p>
+
+<p>Pegando o conteúdo do arquivo <b>dominio.com.csr</b>.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat </span>dominio.com.csr</code></pre></figure>
+
+<p>Após finalizar a compra, o provedor do certificado envia os seguintes arquivos para serem instalados no servidor:</p>
+
+<ol>
+  <li><b>Root CA Certificate:</b> AddTrustExternalCARoot.crt</li>
+  <li><b>Intermediate CA Certificate:</b> AAddTrustCA.crt</li>
+  <li><b>Intermediate CA Certificate:</b> DomainValidationSecureServerCA.crt</li>
+  <li><b>Your PositiveSSL Certificate:</b> (dominio).crt</li>
+</ol>
+
+<p>PS: A empresa <b>Comodo</b> enviou os arquivos acima via e-mail. Lembre-se, guarde-os com segurança.</p>
+
+<p>Faça upload dos arquivos no diretório, <code>/etc/apache2/ssl</code>.</p>
+
+<p>Os três primeiros arquivos serão utilizados para gerar o arquivo que será utilizado pelo <code>Apache</code> <b>(criar arquivo com extensão ”.ca-bundle”)</b>. Mergeie (mesclar, juntar) os conteúdos em um único arquivo com nome “dominio.ca-bundle, utilizando o comando.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat </span>AAddTrustCA.crt DomainValidationSecureServerCA.crt AddTrustExternalCARoot.crt <span class="o">&gt;</span> www.dominio.com.ca-bundle</code></pre></figure>
+
+<h2 id="configuração-no-apache">Configuração no Apache</h2>
+
+<p>Com o arquivo <code>.ca-bundle</code> criado, efetuaremos a configuração no arquivo <code>.conf</code> do respectivo domínio (no apache).</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /etc/apache2/sites-available
+nano arquivo-configuracao-utilizado.conf</code></pre></figure>
+
+<p>Segue abaixo um modelo em funcionamento (você poderá utilizá-lo como base).</p>
+
+<h4 id="configuração-da-porta-80-para-redirecionar-os-acessos-http-para-https-porta-443">Configuração da porta 80 para redirecionar os acessos http para https, porta 443;</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">&lt;VirtualHost <span class="k">*</span>:80&gt;
+    ServerAdmin your@dominio.com
+    ServerName dominio.com
+    ServerAlias www.dominio.com
+
+    RewriteEngine On
+    RewriteCond %<span class="o">{</span>HTTPS<span class="o">}</span> off
+    RewriteRule <span class="o">(</span>.<span class="k">*</span><span class="o">)</span> https://%<span class="o">{</span>HTTP_HOST<span class="o">}</span>%<span class="o">{</span>REQUEST_URI<span class="o">}</span>
+&lt;/VirtualHost&gt;</code></pre></figure>
+
+<h4 id="configuração-da-porta-443-onde-o-site-funcionará-acesso-https">Configuração da porta 443, onde o site funcionará (acesso https);</h4>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">&lt;VirtualHost <span class="k">*</span>:443&gt;
+    ServerName www.dominio.com:443
+    ServerAdmin your@dominio.com
+    ServerName dominio.com
+    ServerAlias www.dominio.com
+    DocumentRoot /var/www/website
+    DirectoryIndex index.php index.htm index.html
+    TransferLog /var/log/apache2/website.log
+    SSLEngine on
+    SSLCertificateKeyFile /etc/apache2/ssl/www.dominio.com.key
+    SSLCertificateFile /etc/apache2/ssl/www.dominio.com.crt
+    SSLCertificateChainFile /etc/apache2/ssl/www.dominio.com.ca-bundle
+    ServerSignature off
+
+    &lt;Directory <span class="s2">"/var/www/website"</span><span class="o">&gt;</span>
+        AllowOverride All
+    &lt;/Directory&gt;
+
+    ErrorLog <span class="k">${</span><span class="nv">APACHE_LOG_DIR</span><span class="k">}</span>/error.log
+    CustomLog <span class="k">${</span><span class="nv">APACHE_LOG_DIR</span><span class="k">}</span>/access.log combined
+&lt;/VirtualHost&gt;</code></pre></figure>
+
+<p>Após finalizar a configuração.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">service apache2 restart</code></pre></figure>
+
+<p>Caso dê algum erro, verifique os logs (pois é para isso que eles existem). Brincadeiras, entre em contato, ficarei feliz em dar auxilio na medida do possível.</p>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>A utilização de certificado de segurança em sites/sistemas que possuem tráfego de informações privilegiadas é imprescindível. Portanto, certifique-se que as informações contídas nas áreas restritas, encontram-se seguras.</p>
+
+<p>Espero ter-lhe auxiliado em algum aspecto. Até o próximo post.</p>
+</section>
+  
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+<footer class="site-footer">
+	<p class="text">
+		Copyright &copy; Leonardo Rifeli | E-mail: <a href="mailto: leonardorifeli@gmail.com">leonardorifeli@gmail.com</a> | License: <a href="http://leonardorifeli.mit-license.org/" target="_blank">MIT License</a> | Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+	</p>
+</footer>
+
+  </body>
+</html>

@@ -6,3 +6,4 @@ gem "jekyll"
 gem 'html-proofer'
 gem 'travis-lint'
 gem 'github-pages'
+gem 'jekyll-theme-type'

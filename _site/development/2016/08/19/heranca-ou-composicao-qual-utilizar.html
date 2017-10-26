@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Herança ou composição? Qual utilizar? | Leonardo Rifeli</title>
+	<meta name="description" content="Olá dev sapiens, desta vez o artigo será mais teórico (comparado ao último: Web Socket no PHP) e será sobre dois assuntos que possuem demasiada importância n...">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="//assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/development/2016/08/19/heranca-ou-composicao-qual-utilizar.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Leonardo Rifeli" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+</head>
+
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<a href="//">
+			<img class="avatar" src="//assets/img/avatar.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="http://localhost:4000/">Leonardo Rifeli</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled -->
+			
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/leonardorifeli" title="Follow on Facebook">
+		<i class="fa fa-fw fa-facebook"></i>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/leonardorifeli" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://br.linkedin.com/in/leonardorifeli" title="Follow on LinkedIn">
+		<i class="fa fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/leonardorifeli" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+		</ul>
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header style="background-image: url('//')">
+    <h1 class="title">Herança ou composição? Qual utilizar?</h1>
+    
+    <p class="meta">
+      August 19, 2016
+       - Leonardo Rifeli
+    </p>
+  </header>
+  <section class="post-content"><p>Olá dev sapiens, desta vez o artigo será mais teórico (comparado ao último: <a href="https://leonardorifeli.com/development/2016/05/29/socket-no-php.html">Web Socket no PHP</a>) e será sobre dois assuntos que possuem demasiada importância no meio da programação orientada a objetos, a herança e a composição.</p>
+
+<p>Sim, na internet existem vários artigos sobre o assunto, porém, resolvi descrevê-lo do modo como eu os utilizo.</p>
+
+<p>Enquanto escrevo este magnífico artigo, vou ouvindo um set <strong>Progressive House</strong> do <strong><a href="https://www.youtube.com/watch?v=N7DEv-QP_Zk" target="_blank">Progressive House </a></strong>.</p>
+
+<h2 id="herança-ou-composição-e-agora-josé">Herança ou composição? E agora, José?</h2>
+
+<p class="center"><img src="/img/posts/2016/08/19/composition.png" alt="Composition" style="width: 500px;" /></p>
+
+<h2 id="introdução">Introdução</h2>
+
+<p>Um assunto muito abordado e importante na programação orientada a objetos é a utilização de herança ou composição, porém, é visível que muitos programadores(as) optam por utilizar a herança sem mesmo validar as alternativas dentro de cada contexto.</p>
+
+<p>Pois bem, este artigo tem como objetivo colocar os dois assuntos na balança, com o intuito de que você entenda do que cada um é composto e qual utilizar dentro de cada contexto/relação.</p>
+
+<h2 id="função">Função</h2>
+
+<p>A herança e a composição são duas abordagens diferentes para obter-se a reutilização de funcionalidades.</p>
+
+<h2 id="herança">Herança</h2>
+
+<p>Na herança, uma classe herda (daí o termo herança) as propriedades e os métodos de sua classe pai, de modo transitivo, ou seja, uma classe pode herdar de outra classe que herda de outra, até uma classe que não possuí uma classe pai.</p>
+
+<p>Com a herança, as propriedades e os métodos podem se comportar de forma diferente na classe filha, por uso da reescrita dos respectivos métodos.</p>
+
+<p>A herença deverá ser utilizada somente quando existir uma relação <strong>“é-um”</strong> no contexto. No exemplo abaixo, no arquivo <strong>Car.java</strong>, a classe <strong>Car</strong> herda a classe <strong>Automobile</strong> e nesse contexto temos uma relação <strong>“é-um”</strong>, ou seja, <strong>Car</strong> é um <strong>Automobile</strong>, em nenhum momento, <strong>Car</strong> deixará de se comportar como <strong>Automobile</strong>.</p>
+
+<script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Car.java"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Verifique que a classe <strong>Car.java</strong> no exemplo acima, está sobrescrevendo o método <strong>getColor()</strong>, alterando o comportamento herdado da classe pai <strong>Automobile.java</strong>.</p>
+
+<script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Automobile.java"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Por fim, repare que, no contexto exemplificado acima, o ideal é utilizar a herança, pelo fato de ter-se uma relação <strong>“é-um”</strong>, podendo assim, atingir a reutilização dos comportamentos.</p>
+
+<p>Com a evolução, poderíamos ter a classe <strong>Truck.java</strong> que também poderia herdar a classe <strong>Automobile.java</strong>, pelo fato de existir uma relação <strong>“é-um”</strong>, neste outro contexto.</p>
+
+<h2 id="composição">Composição</h2>
+
+<p>Na composição, codificamos pequenos comportamentos, onde uma classe irá apenas instanciar outra classe e utilizar uma propriedade ou um método (claro, os que estão expostos), com isso, podemos usar a composição para comportamentos mais complexos, podendo ainda, alterar a associação entre as classes em tempo de execução da aplicação.</p>
+
+<p>De modo intuitivo, podemos definir a composição como quando uma classe usa um objeto (instância de outra classe) para proporcionar uma parte ou o todo em algum comportamento.</p>
+
+<p>No exemplo abaixo, é utilizado a composição, pelo fato do contexto em questão possuir uma relação <strong>“tem-um”</strong>, onde a classe <strong>Job.java</strong> compoem a classe <strong>People.java</strong>. Neste contexto People pode possuir um Job e iniciá-lo.</p>
+
+<p>Nem sempre uma pessoa irá possuir um emprego, por isso, existe uma relação <strong>“tem-um”</strong>, ou seja, usamos composição e não a herança.</p>
+
+<script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=People.java"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Repare que, o método construtor, instancia a classe <strong>Job.java</strong> somente se <strong>People</strong> possuir um emprego, com isso, podemos acionar o método <strong>checkAndStartJob()</strong> para iniciar o <strong>job</strong>.</p>
+
+<p>Aqui temos uma relação <strong>“tem-um”</strong> e por isso utilizamos a composição. No exemplo acima, com a utilização da composição, podemos alterar a classe em tempo de execução.</p>
+
+<script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Job.java"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Classe <strong>Job.java</strong> e suas propriedades e métodos.</p>
+
+<h2 id="importância">Importância</h2>
+
+<p>A herança e a composição são de extrema importância nas linguagens. Atualmente é raro encontrar linguagens que não as suportem. Caso contrário, seria quase impossível quebrarmos grandes soluções em soluções pequenas/modulares.</p>
+
+<p>Sem a reutilização de comportamentos/funcionalidades não teríamos códigos com responsabilidades únicas, que fazem somente uma coisa e fazem muito bem.</p>
+
+<h2 id="qual-utilizar">Qual utilizar?</h2>
+
+<p>Avalie qual é a relação de um determinado problema. Em caso que exista uma relação <strong>“é-um”</strong> utilizamos a herança, exemplo: banana É uma fruta, carro É um automóvel, pássaro É uma ave etc.</p>
+
+<p>Em casos que a relação tende a funcionalidades e/ou comportamentos específicos e possui uma relação <strong>“tem-um”</strong> , exemplos: pessoa TEM a possibilidade de trabalhar, avião TEM a possibilidade de freiar etc, nestes casos, utilize a composição, aproveitando apenas uma parte (funcionalidade, responsabilidade etc) de outra classe, utilizando o objeto.</p>
+
+<p>Pergunte-se sempre se em todo o ciclo de vida da aplicação ou do código, aquela relação será constante e imutável. Um exemplo de avaliação: Em domínio onde <strong>People</strong> tem relação com <strong>Employee</strong>, neste caso deve-se utilizar a composição, pelo fato de ser algo mutável. Nem sempre <strong>People</strong> terá relação com <strong>Employee</strong>, e se a pessoa ficar desempregada? Portanto, neste caso, o uso da composição é mais adequado do que a herança.</p>
+
+<p>Não use a herança apenas para obter a reutilização de código se não existe uma relação “é-um”. Nestes casos é mais apropriado utilizar a composição.</p>
+
+<h2 id="falando-em-java">Falando em Java</h2>
+
+<p>Apenas para abrir um parêntese no artigo, em Java, toda e qualquer classe possui uma herança, neste caso implicitamente. Toda classe em Java, sempre estenderá Object, com isso, alguns métodos são herdados.</p>
+
+<p>Exemplo de herança com object, sobrescrevendo toString():</p>
+
+<script src="https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=String.java"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Alguns métodos herdados da classe Object:</p>
+
+<ul>
+  <li>clone();</li>
+  <li>equals();</li>
+  <li>toString();</li>
+  <li>hashCode();</li>
+  <li>entre outros.</li>
+</ul>
+
+<p>Documentação da classe Object: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">clique aqui</a>.</p>
+
+<h2 id="referências">Referências</h2>
+
+<ul>
+  <li><a href="https://medium.com/@pedro.barros/heran%C3%A7a-ou-composi%C3%A7%C3%A3o-eis-a-quest%C3%A3o-7ce11fad4737#.ekombw2sy" target="_blank">Post de um amigo, Pedro Augusto</a>;</li>
+  <li><a href="https://www.thoughtworks.com/pt/insights/blog/composition-vs-inheritance-how-choose" target="_blank">Composition vs. Inheritance: How to Choose?</a>;</li>
+  <li><a href="http://www.devmedia.com.br/heranca-versus-composicao-qual-utilizar/26145" target="_blank">Herança versus Composição: qual utilizar?</a>;</li>
+</ul>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>Atualmente a composição é considerada superior à herança, pelo motivo de podermos mudar a associação entre classes em tempo de execução, podendo obter outros comportamentos. Com isso as aplicações se tornam mais reutilizáveis.</p>
+
+<p>A herança traz consigo muitos benefícios, sendo o principal; a reutilização de código. Porém, ela traz também, alguns problemas como o acoplamento entre as classes.</p>
+
+<p>A composição é utilizada em alguns padrões de projeto, fortalecendo a sua utilização, entre outros benefícios, está a manutenibilidade do código e da aplicação.</p>
+
+<p>Portanto, utilize qual se encaixa na sua relação e no contexto do seu domínio.</p>
+
+<p>Mêêoo, é isso, caso eu tenha esquecido de algo, adicione nos comentários, junto a sua opinião e seu ponto de vista sobre o assunto.</p>
+
+<p>Abraços, até a próxima.</p>
+</section>
+  
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+<footer class="site-footer">
+	<p class="text">
+		Copyright &copy; Leonardo Rifeli | E-mail: <a href="mailto: leonardorifeli@gmail.com">leonardorifeli@gmail.com</a> | License: <a href="http://leonardorifeli.mit-license.org/" target="_blank">MIT License</a> | Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+	</p>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Como replicar banco de dados MySQL | Leonardo Rifeli</title>
+	<meta name="description" content="Saudações, atuo como desenvolvedor Full-Stack em uma empresa de Araraquara (SP), a wab.com.br. Não sou um expert em servidores e aplicações atuando como tal....">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="//assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/banco/de/dados/2015/11/01/como-replicar-banco-de-dados-mysql.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Leonardo Rifeli" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+</head>
+
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<a href="//">
+			<img class="avatar" src="//assets/img/avatar.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="http://localhost:4000/">Leonardo Rifeli</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled -->
+			
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/leonardorifeli" title="Follow on Facebook">
+		<i class="fa fa-fw fa-facebook"></i>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/leonardorifeli" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://br.linkedin.com/in/leonardorifeli" title="Follow on LinkedIn">
+		<i class="fa fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/leonardorifeli" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+		</ul>
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header style="background-image: url('//')">
+    <h1 class="title">Como replicar banco de dados MySQL</h1>
+    
+    <p class="meta">
+      November 1, 2015
+       - Leonardo Rifeli
+    </p>
+  </header>
+  <section class="post-content"><p>Saudações, atuo como desenvolvedor Full-Stack em uma empresa de Araraquara (SP), a wab.com.br. Não sou um expert em servidores e aplicações atuando como tal. Porém gosto de estudar, então pratiquei sobre o assunto a qual os escrevo.</p>
+
+<p>Iremos abordar os seguintes tópicos:</p>
+
+<ol>
+  <li>Introdução</li>
+  <li>Funcionamento da replicação (teoria)</li>
+  <li>Como iremos replicar (esquema)</li>
+  <li>Replicando um banco de dados MySQL (prática)</li>
+</ol>
+
+<h2 id="introdução">Introdução</h2>
+
+<p>A replicação de bancos de dados tem como principal objetivo a <strong>redundância</strong>, onde torna-se uma aplicação mais segura contra falhas e <strong>indisponibilidades de outras aplicações (como o respectivo banco de dados)</strong> e por sua vez um backup online dos dados (em tempo real). Nos tópicos abaixo estaremos abordando todos os processos de replicação.</p>
+
+<h2 id="como-funciona-a-replicação">Como funciona a replicação?</h2>
+
+<p>O <strong>MySQL</strong> possui um recurso de comunicação (onde ocorrerá a replicação) modo <strong>Master-Slave</strong>. Sendo assim, um servidor poderá possuir um banco de dados MySQL rodando como <strong>Master</strong> e <strong>N</strong> bancos de dados atuando como <strong>Slave</strong> (em diferentes servidores).</p>
+
+<p>O servidor atuando em modo <strong>Master</strong> irá gravar todas as alterações efetuadas no banco de dados, em um arquivo de <strong>log binário</strong>. Onde o servidor atuando em modo <strong>Slave</strong> irá requisitar o log binário do <strong>Master</strong> e alterará o próprio arquivo de log binário deixando-o idêntico, onde o MySQL atual aplicando as alterações em si.</p>
+
+<p>Segue abaixo um esquema de replicação <strong>Master-Slave</strong>:</p>
+
+<p><img src="https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication.jpg" alt="alt text" title="MySQL Replication" /></p>
+
+<p><strong>Figura 1.1</strong> - Fonte: <strong>Google Images</strong></p>
+
+<h2 id="como-iremos-replicar-esquema">Como iremos replicar (esquema)</h2>
+
+<p>Para a replicação do <strong>MySQL</strong>, será utilizado três instâncias <strong>t2.micro</strong> no <strong>Amazon AWS</strong>, conforme abaixo:</p>
+
+<p><img src="https://leonardorifeli.com/img/posts/2015-11-01-amazon-aws.png" alt="alt text" title="Running on AWS" /></p>
+
+<p><strong>Instâncias - Figura 1.2</strong></p>
+
+<p><strong>Observação:</strong> Pode-se analisar na <strong>Figura 1.2</strong> (acima) que as três instâncias encontram-se no mesmo datacenter, porém a replicação também funciona em datacenters diferentes.</p>
+
+<p>Onde os respectivos atuarão em modo:</p>
+
+<ol>
+  <li><strong>leonardorifeli-001:</strong> Master</li>
+  <li><strong>leonardorifeli-002:</strong> Slave</li>
+  <li><strong>leonardorifeli-003:</strong> Slave</li>
+</ol>
+
+<p>Conforme esquema abaixo:</p>
+
+<p><img src="https://leonardorifeli.com/img/posts/2015-11-01-server-aws-mysql-replication.png" alt="alt text" title="Server MySQL Replication" /></p>
+
+<p><strong>Figura 1.3</strong></p>
+
+<p><strong>PS</strong>: Não entrarei em detalhes sobre o Amazon AWS.</p>
+
+<h2 id="replicando-um-banco-de-dados-mysql">Replicando um banco de dados MySQL</h2>
+
+<p>Vamos ao tão esperado tópico.</p>
+
+<p>As instâncias especificadas na <strong>Figura 1.2</strong> estão rodando com o sistema operacional <strong>Ubuntu Server 14.04 LTS (HVM), SSD Volume Type</strong>, disponibilizado pelo Amazon AWS.</p>
+
+<p>Para a replicação do banco de dados <strong>MySQL</strong> será necessário a instalação da respectiva aplicação (óbvio). Neste post foi utilizado o <strong>mysql-server-5.6</strong>. <a href="http://sharadchhetri.com/2014/05/07/install-mysql-server-5-6-ubuntu-14-04-lts-trusty-tahr/" target="_blank">Tutorial de instalação</a></p>
+
+<p>Iremos aplicar os seguintes passos:</p>
+
+<ol>
+  <li><strong>Servidor Master:</strong> Configurar o servidor Master (arquivo my.cnf)</li>
+  <li><strong>Servidor Master:</strong> Criar o usuário de replicação e conceder as devidas permissões</li>
+  <li><strong>Servidores Slaves:</strong> Configurar o servidor (arquivo my.cnf)</li>
+  <li><strong>Servidores Slaves:</strong> Informar qual será o servidor <strong>Master</strong></li>
+</ol>
+
+<h4 id="1-configuração-do-servidor-master">1. Configuração do servidor Master</h4>
+
+<p>Após a instalação com sucesso do <strong>MySQL Server 5.6</strong> nas instâncias especificadas na <strong>Figura 1.2</strong>, vamos as respectivas configurações na instância <strong>leonardorifeli-001</strong> que atuará em modo <strong>Master</strong>.</p>
+
+<p>Configurando:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd</span> /etc/mysql
+<span class="nv">$ </span>nano my.cnf</code></pre></figure>
+
+<p>Será necessário editar o arquivo <strong>my.cnf</strong>, ficando da seguinte maneira:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[mysqld]
+
+server-id = 1
+log-bin = mysql-bin
+bind-address = 0.0.0.0</code></pre></figure>
+
+<p>Indicamos que o respectivo servidor será o <strong>Master</strong> (pelo server-id). Após editar, executamos o comando abaixo (para reiniciar o servidor MySQL):</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>service mysql restart</code></pre></figure>
+
+<h4 id="2-criar-usuário-de-replicação-e-conceder-as-permissões">2. Criar usuário de replicação e conceder as permissões</h4>
+
+<p>Agora, iremos criar o usuário para utilizarmos na replicação e conceder para tal as devidas permissões.</p>
+
+<p>Acessando o <strong>MySQL</strong> com usuário root e informando a senha (informado na instalação).</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mysql <span class="nt">-u</span> root <span class="nt">-p</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-mysql" data-lang="mysql">CREATE USER slave IDENTIFIED BY "user-rifeli";
+
+GRANT replication SLAVE, replication CLIENT ON *.* TO slave@'IP-LEONARDORIFELI-002' IDENTIFIED BY 'user-rifeli';
+
+GRANT replication SLAVE, replication CLIENT ON *.* TO slave@'IP-LEONARDORIFELI-003' IDENTIFIED BY 'user-rifeli';
+
+FLUSH PRIVILEGES;</code></pre></figure>
+
+<p>Criamos o usuário <strong>slave</strong> que responderá pela senha <strong>user-rifeli</strong>.</p>
+
+<p>Enfim, o servidor <strong>Master</strong> encontra-se configurado.</p>
+
+<h4 id="3-configuração-nos-servidores-que-atuarão-em-modo-slave">3. Configuração nos servidores que atuarão em modo Slave</h4>
+
+<p>O processo de configuração é análogo para ambos servidores, alterando apenas o <strong>server-id</strong> na configuração.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd</span> /etc/mysql
+<span class="nv">$ </span>nano my.cnf</code></pre></figure>
+
+<p>Será necessário editar o arquivo <strong>my.cnf</strong>, da seguinte maneira:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">log-bin = mysql-bin
+server-id = number-slave
+relay-log = mysql-relay-bin
+log-slave-updates = 1</code></pre></figure>
+
+<p>O <strong>server-id</strong> será igual a <strong>2</strong> para a instância <strong>leonardorifeli-002</strong> e igual a <strong>3</strong> para a instância  <strong>leonardorifeli-003</strong>.</p>
+
+<p>Após editar, executamos o comando abaixo (para reiniciar o servidor MySQL):</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>service mysql restart</code></pre></figure>
+
+<h4 id="4-informar-para-os-servidores-slaves-qual-será-o-servidor-master">4. Informar para os servidores Slaves qual será o servidor Master</h4>
+
+<p>Acessando o MySQL com usuário root e informando a senha (informado na instalação).</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mysql <span class="nt">-u</span> root <span class="nt">-p</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-mysql" data-lang="mysql">CHANGE MASTER TO MASTER_HOST='IP-LEONARDORIFELI-001',
+MASTER_USER='slave',
+MASTER_PASSWORD='user-rifeli',
+MASTER_LOG_FILE='mysql-bin.000001',
+MASTER_LOG_POS=0;</code></pre></figure>
+
+<p><strong>PS:</strong> Conforme já informado, este processo é análogo para ambos servidores</p>
+
+<h2 id="testando-a-replicação">Testando a replicação</h2>
+
+<p>No servidor <strong>leonardorifeli-001</strong> foi criado o banco <strong>leonardorifeli</strong>, conforme abaixo:</p>
+
+<p><img src="https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-master.png" alt="alt text" title="Server MySQL Replication leonardorifeli-001" /></p>
+
+<p><strong>Servidor Master (leonardorifeli-001) - Figura 1.4</strong></p>
+
+<p>Após esse processo, foi verificado os bancos contidos nos servidores slaves, e foi relatado que a replicação foi um sucesso. Conforme abaixo:</p>
+
+<p><img src="https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-01.png" alt="alt text" title="Server MySQL Replication leonardorifeli-001 and leonardorifeli-002" /></p>
+
+<p><strong>Servidor Slave (leonardorifeli-002) - Figura 1.5</strong></p>
+
+<p><img src="https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-02.png" alt="alt text" title="Server MySQL Replication leonardorifeli-001 and leonardorifeli-003" /></p>
+
+<p><strong>Servidor Slave (leonardorifeli-003) - Figura 1.6</strong></p>
+
+<h2 id="referências-bibliográficas">Referências Bibliográficas</h2>
+
+<p>Abaixo seguem as referências bibliográficas utilizadas:</p>
+
+<ol>
+  <li><a href="http://dev.mysql.com/doc/refman/5.6/en/replication.html" target="_blank">Documentação do MySQL</a></li>
+  <li><a href="http://www.vivaolinux.com.br/dica/Configurando-acesso-remoto-em-servidores-MySQL" target="_blank">Configurando acesso remoto ao MySQL</a></li>
+</ol>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>Recomenda-se o uso da replicação apenas para aplicações robustas que necessitam de redundância ou backup em tempo real e neste caso o servidor <strong>Slave</strong> pode efetuar um backup compactado do banco de dados e enviar para um <strong>Storage no Amazon S3</strong>, por exemplo.</p>
+
+<p>Apenas salientando, a replicação funciona somente de <strong>Master</strong> para <strong>Slave</strong> (conforme <strong>Figura 1.1 e 1.3</strong>) e não o contrário.</p>
+
+<h2 id="informações-adicionais">Informações Adicionais</h2>
+
+<p>Este artigo surgiu para aplicação e documentação dos assuntos abordados e como sempre, transferência de conhecimentos.</p>
+
+<p>Espero que as informações supramencionadas sejam úteis.</p>
+
+<p>Façam seus comentários no espaço abaixo e compartilhe este post.</p>
+
+<p>Abraços e até o próximo post.</p>
+</section>
+  
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+<footer class="site-footer">
+	<p class="text">
+		Copyright &copy; Leonardo Rifeli | E-mail: <a href="mailto: leonardorifeli@gmail.com">leonardorifeli@gmail.com</a> | License: <a href="http://leonardorifeli.mit-license.org/" target="_blank">MIT License</a> | Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+	</p>
+</footer>
+
+  </body>
+</html>

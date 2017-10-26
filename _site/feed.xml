@@ -1,0 +1,1717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Leonardo Rifeli</title>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>http://localhost:4000//</link>
+    <description>A website with blog posts and pages</description>
+    <pubDate>Thu, 26 Oct 2017 03:18:53 -0200</pubDate>
+    
+      <item>
+        <title>Princípios SOLID: SRP e sopa de letrinhas</title>
+        <link>/development/2017/03/20/principios-solid-srp-e-sopa-de-letrinhas.html</link>
+        <guid isPermaLink="true">/development/2017/03/20/principios-solid-srp-e-sopa-de-letrinhas.html</guid>
+        <description>&lt;p&gt;Em programação de software a sigla &lt;strong&gt;SOLID&lt;/strong&gt; tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por &lt;strong&gt;Robert C. Martin&lt;/strong&gt; (o Uncle Bob), onde cada letra representa um dos cinco princípios do OOD (object-oriented design) que, quando aplicados em conjunto ou isoladamente, possibilitam a criação de códigos com facilidade de manter e de se estender ao longo do tempo.&lt;/p&gt;
+
+&lt;p&gt;Esse é o primeiro post de uma série onde abordaremos todos os cinco princípios do &lt;strong&gt;SOLID&lt;/strong&gt;. O primeiro é sobre “Single responsibility principle”, abreviado por &lt;strong&gt;SRP&lt;/strong&gt;, e significa literalmente “Princípio da Responsabilidade Única”.&lt;/p&gt;
+
+&lt;p&gt;Para começar: falar de SOLID é falar de programação orientada a objetos e design (OOD). Tendo isso em mente, o Princípio de Responsabilidade única traz uma perspectiva diferente para a orientação a objeto: a &lt;strong&gt;coesão&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;tá-e-o-que-é-coesão&quot;&gt;Tá, e o que é coesão?&lt;/h1&gt;
+
+&lt;p&gt;Segundo o dicionário online &lt;a href=&quot;https://www.dicio.com.br/coesao/&quot;&gt;Dicio&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Cujas partes estão ligadas harmonicamente entre si: coesão do governo.
+União; harmonia; associação íntima: a coesão das partes de um Estado.&lt;/li&gt;
+    &lt;li&gt;Uso correto dos aspectos gramaticais que conectam os elementos de um texto, tornando-o claro e compreensível.&lt;/li&gt;
+    &lt;li&gt;[Figurado] Coerência de pensamento; fundamento que dá sentido a uma obra.
+Aderência; força que une as moléculas e/ou átomos às partes constituintes de um corpo, fazendo com que eles não se partam.
+(Etm. do francês: cohésion)&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Fonte: &lt;a href=&quot;https://www.dicio.com.br/coesao/&quot;&gt;dicio.com.br/coesao&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;E no mundo do desenvolvimento de software, o que é coesão?&lt;/p&gt;
+
+&lt;p&gt;Algo que faça sentido para alguém. E este alguém, é quem irá consumir uma determinada classe e seus métodos. Cada participante deve ter somente um propósito para existir. Ou seja, coesão é consequência de ter-se um bom design e não violar SRP.&lt;/p&gt;
+
+&lt;p&gt;E as vantagens de se ter alta coesão (ou “coesão forte”)?&lt;/p&gt;
+
+&lt;p&gt;Redução da complexidade das classes e métodos (eles ficam mais simples, com menos operações).&lt;/p&gt;
+
+&lt;h1 id=&quot;definição-de-responsabilidade&quot;&gt;Definição de responsabilidade&lt;/h1&gt;
+
+&lt;p&gt;Segundo o dicionário online &lt;a href=&quot;https://www.dicio.com.br/responsabilidade/&quot;&gt;Dicio&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Obrigação; dever de arcar, de se responsabilizar pelo próprio comportamento ou pelas ações de outra(s) pessoa(s).&lt;/li&gt;
+    &lt;li&gt;[Por Extensão] Sensatez; competência para se comportar de maneira sensata.&lt;/li&gt;
+    &lt;li&gt;Natureza ou condição de responsável; capacidade de responder por seus próprios atos; qualidade de quem presta contas as autoridades.&lt;/li&gt;
+    &lt;li&gt;[Jurídico] Obrigação jurídica que resulta do desrespeito de algum direito, através de uma ação contrária ao ordenamento jurídico.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Fonte: &lt;a href=&quot;https://www.dicio.com.br/responsabilidade/&quot;&gt;dicio.com.br/responsabilidade&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;E no contexto de um código?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Robert C. Martin&lt;/strong&gt;, em seu livro (Agile Software Development, Principles, Patterns, and Practices), define responsabilidade como: &lt;strong&gt;uma classe deve ter apenas uma razão para ser alterada&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;problemas-da-violação-do-srp&quot;&gt;Problemas da violação do SRP&lt;/h1&gt;
+
+&lt;p&gt;Se uma classe possui mais que uma razão para ser alterada, entende-se que ela possui mais que uma responsabilidade, tornando-a desconexa (não coesa).&lt;/p&gt;
+
+&lt;h4 id=&quot;quais-problemas-uma-classe-desconexa-poderá-causar-para-a-aplicação&quot;&gt;Quais problemas uma classe desconexa poderá causar para a aplicação?&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dificuldade no reuso de suas responsabilidades;&lt;/li&gt;
+  &lt;li&gt;Dificuldades na manutenção (dificuldade em manter e/ou evoluir por conta do excesso de responsabilidades);&lt;/li&gt;
+  &lt;li&gt;Aumento na rigidez e fragilidade: quando alterar uma responsabilidade, outra pode ser comprometida;&lt;/li&gt;
+  &lt;li&gt;Alto acoplamento da classe.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;exemplos&quot;&gt;Exemplos&lt;/h1&gt;
+
+&lt;p&gt;Os códigos dos exemplos serão exibidos somente com as assinaturas, para reforçar a idéia que &lt;strong&gt;Uncle Bob&lt;/strong&gt; traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.&lt;/p&gt;
+
+&lt;h4 id=&quot;exemplo-1&quot;&gt;Exemplo 1&lt;/h4&gt;
+
+&lt;p&gt;Considere o arquivo abaixo, onde temos a classe &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PopulationStandardDeviation&lt;/code&gt;&lt;/strong&gt; e a sua responsabilidade é calcular o desvio padrão populacional.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;leonardorifeli&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;article&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PopulationStandardDeviation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deviationSumSquare&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Perceba que, o nome da classe diz exatamente qual é a sua responsabilidade, calcular o desvio padrão populacional.&lt;/p&gt;
+
+&lt;p&gt;Com o exemplo acima, podemos ver rapidamente a violação do princípio, onde ela expõem o método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mean()&lt;/code&gt;&lt;/strong&gt; e quem implementa esta classe não espera que ela faça cálculo da média. Apesar da média fazer parte do algoritmo para calcular o &lt;strong&gt;desvio padrão populacional&lt;/strong&gt;, ela não faz parte da responsabilidade da classe, logo, a exposição do método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mean()&lt;/code&gt;&lt;/strong&gt; mesmo fazendo parte do algoritmo, viola o princípio. O método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mean()&lt;/code&gt;&lt;/strong&gt; não deveria ser exposto. Mesmo problema com o método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;deviationSumSquare()&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Neste caso, para que não haja a violação do SRP, deve-se deixar ambos os métodos (&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mean()&lt;/code&gt;&lt;/strong&gt; e &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;deviationSumSquare()&lt;/code&gt;&lt;/strong&gt;) como &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;private&lt;/code&gt;&lt;/strong&gt; ou isolar eles em outras classes, injetando-as como dependência na &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PopulationStandardDeviation&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;exemplo-2&quot;&gt;Exemplo 2&lt;/h4&gt;
+
+&lt;p&gt;Neste segundo exemplo, considere o arquivo abaixo, onde temos a classe &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Report&lt;/code&gt;&lt;/strong&gt; e a sua responsabilidade é gerar relatório.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;leonardorifeli&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;article&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Report&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;proccess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;O nome da classe também diz exatamente qual a sua responsabilidade, gerar relatório.&lt;/p&gt;
+
+&lt;p&gt;Na visão do usuário, gerar relatório é apenas fazer com que os dados sejam exibidos em tela (ou impressos), de modo organizado. No nível de desenvolvimento de software, gerar relatório engloba vários fatores, sendo eles: buscar os dados, processá-los, organizá-los e exibi-los em tela (ou impressos).&lt;/p&gt;
+
+&lt;p&gt;Perceba que para gerar  um relatório são envolvidas várias responsabilidades. A classe &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Report&lt;/code&gt;&lt;/strong&gt;, por exemplo, possui várias razões para ser alterada: como mudar o método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;find()&lt;/code&gt;&lt;/strong&gt; para buscar os dados em outro lugar, mudar o método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;proccess()&lt;/code&gt;&lt;/strong&gt; para alterar uma regra de domínio e até mesmo alterar o método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;print()&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h5 id=&quot;como-poderíamos-melhorar-essa-classe&quot;&gt;Como poderíamos melhorar essa classe?&lt;/h5&gt;
+
+&lt;p&gt;Inicialmente, precisaríamos isolar o método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;find()&lt;/code&gt;&lt;/strong&gt; em um contexto de repositório (outra classe que faça somente a busca dos dados no banco). Depois, poderíamos isolar o método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;proccess()&lt;/code&gt;&lt;/strong&gt; noutra classe e que teria apenas uma responsabilidade, processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão. Finalmente, deixaremos a classe &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Report&lt;/code&gt;&lt;/strong&gt; com a injeção das suas dependências, tendo somente o método &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;generate()&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;referências&quot;&gt;Referências&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/dp/0135974445/&quot;&gt;Livro - Agile Software Development, Principles, Patterns, and Practices&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Cohesion_(computer_science)&quot;&gt;Article Cohesion - Computer Science&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin&quot;&gt;SOLID Principles with Uncle Bob - Robert C. Martin&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=dzawoPISdHc&quot;&gt;Robert C Martin The Single Responsibility Principle&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h1&gt;
+
+&lt;p&gt;O SRP é um dos princípios mais importantes da orientação a objetos. Atentando-se a ele, seus códigos ficarão mais coesos, simples e manuteníveis. É um princípio bem extenso e os exemplos tendem ao infinito.&lt;/p&gt;
+
+&lt;p&gt;Podemos continuar as discussões sobre este princípio nos comentários?&lt;/p&gt;
+
+&lt;p&gt;Compartilhe conosco seus aprendizados.&lt;/p&gt;
+
+&lt;h1 id=&quot;agradecimentos&quot;&gt;Agradecimentos&lt;/h1&gt;
+
+&lt;p&gt;A ContaAzul, por proporcionar o espaço e me dar a oportunidade de compartilhar meu conhecimento.
+Ao &lt;strong&gt;Leonardo Camacho&lt;/strong&gt;, pelo auxílio nas correções e incentivo para escrever.
+Para Carlos Becker, Lucas Merencia, Marcos Ferreira, Marcelo Ed. Junior e Jeferson Kersten pelo incentivo e auxílio dos assuntos aqui descritos.&lt;/p&gt;
+
+&lt;p&gt;Post originalmente postado em: &lt;a href=&quot;https://engineering.contaazul.com/princ%C3%ADpios-solid-srp-e-sopa-de-letrinhas-d569fd0f80d9&quot;&gt;engineering.contaazul.com&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 20 Mar 2017 00:00:00 -0300</pubDate>
+      </item>
+    
+      <item>
+        <title>Falando sobre a estrutura do meu blog</title>
+        <link>/development/2016/11/13/falando-sobre-a-estrutura-do-meu-blog.html</link>
+        <guid isPermaLink="true">/development/2016/11/13/falando-sobre-a-estrutura-do-meu-blog.html</guid>
+        <description>&lt;p&gt;Neste artigo, falarei sobre a estrutura do meu blog, um resumo geral de como ele funciona, como faço as publicações, os macetes envolvidos, etc. Recentemente, recebi várias perguntas sobre isso e decidir fazer este artigo para compartilhar isso com você.&lt;/p&gt;
+
+&lt;h2 id=&quot;sumário&quot;&gt;Sumário&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Introdução;&lt;/li&gt;
+  &lt;li&gt;Resumo da estrutura;&lt;/li&gt;
+  &lt;li&gt;Resumo sobre o Jekyll;&lt;/li&gt;
+  &lt;li&gt;Como usar o Github Pages;&lt;/li&gt;
+  &lt;li&gt;Como configurar seu domínio no Github Pages;&lt;/li&gt;
+  &lt;li&gt;Como automatizar o build;&lt;/li&gt;
+  &lt;li&gt;Como configurar HTTPS (via cloudflare);&lt;/li&gt;
+  &lt;li&gt;Referências;&lt;/li&gt;
+  &lt;li&gt;Conclusão.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;Você deve ter percebido que estou tentando manter uma frequência de pelo menos uma publicação por semana, &lt;a href=&quot;/development/2016/11/05/docker-vamos-falar-sobre-virtualizacao.html&quot; target=&quot;_blank&quot;&gt;veja aqui o artigo da semana passada&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Antes de entrar neste artigo, certifique-se que você já leu o meu outro artigo, &lt;a href=&quot;https://leonardorifeli.com/development/2015/05/06/porque-utilizar-o-jekyll.html&quot; target=&quot;_blank&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Porque utilizar o Jekyll&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Enfim, vamos direto ao ponto. Falarei sobre a estrutura do meu blog. Um resumo geral de como ele funciona, como faço as publicações, os macetes envolvidos, etc. E também, como você pode fazer algo parecido. Recentemente, recebi várias perguntas sobre isso e decidir fazer este artigo para compartilhar isso com você.&lt;/p&gt;
+
+&lt;p&gt;Vou escrevendo este magnífico artigo, enquando escuto o set de &lt;strong&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=tAP9m2XUqjc&quot; target=&quot;_blank&quot;&gt;Tech House #023 do Mark Jones&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;resumo-da-estrutura&quot;&gt;Resumo da estrutura&lt;/h2&gt;
+
+&lt;p&gt;Nesto ponto, irei dar um breve resumo do que é utilizado no meu blog e nos próximos tópicos, entrarei em mais detalhes.&lt;/p&gt;
+
+&lt;p&gt;Basicamente, meu blog é feito em &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; com um template adaptado. Atualmente, ele está hospedado no Github Pages e possuí uma &lt;a href=&quot;https://pt.wikipedia.org/wiki/Content_Delivery_Network&quot; target=&quot;_blank&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CDN (Content Delivery Network)&lt;/code&gt;&lt;/a&gt; que neste caso, utilizo o &lt;a href=&quot;https://www.cloudflare.com&quot; target=&quot;_blank&quot;&gt;Cloud Flare&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Mesmo usando o Github Pages, eu configurei meu domínio &lt;code class=&quot;highlighter-rouge&quot;&gt;leonardorifeli.com&lt;/code&gt; para funcionar com &lt;strong&gt;HTTPs (via Cloud Flare)&lt;/strong&gt;. Se você acessar &lt;a href=&quot;http://leonardorifeli.github.io&quot; target=&quot;_blank&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;leonardorifeli.github.io&lt;/code&gt;&lt;/a&gt;, você será redirecionado para &lt;a href=&quot;https://leonardorifeli.com&quot; target=&quot;_blank&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;leonardorifeli.com&lt;/code&gt; (com HTTPS)&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;E para fazer as publicações? O Jekyll funciona com &lt;a href=&quot;https://daringfireball.net/projects/markdown/&quot; target=&quot;_blank&quot;&gt;Markdown&lt;/a&gt;, esse foi o ponto principal para a minha adesão ao Jekyll, com isso, eu escrevo os artigos usando Markdown.&lt;/p&gt;
+
+&lt;p&gt;No repositório do meu &lt;a href=&quot;https://github.com/leonardorifeli/leonardorifeli.github.io&quot; target=&quot;_blank&quot;&gt;blog&lt;/a&gt; existem duas branchs principais, sendo, &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. Eu automatizei o build (utilizando o &lt;a href=&quot;https://github.com/leonardorifeli/leonardorifeli.github.io/blob/gh-pages/.travis.yml&quot; target=&quot;_blank&quot;&gt;travis&lt;/a&gt;), com essa automatização, sempre que é efetuado um push para a branch &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt;, ele irá executar o &lt;strong&gt;bash abaixo&lt;/strong&gt; e depois que tudo estiver &lt;strong&gt;OK&lt;/strong&gt;, é só fazer um PR (Pull Request) da branch &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt; para a &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; e pronto, está no ar.&lt;/p&gt;
+
+&lt;p&gt;Arquivo &lt;strong&gt;.travis.yml&lt;/strong&gt;:
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/47584455fdfc437341d758b89c03096d.js?file=.travis.yml&quot;&gt;&lt;/script&gt;
+&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Arquivo &lt;strong&gt;build.sh&lt;/strong&gt;:
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/47584455fdfc437341d758b89c03096d.js?file=bash.sh&quot;&gt;&lt;/script&gt;
+&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Salientando que, todos os pushs que eu efetuo, são na branch &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt; e não (nunca e jamais) na &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Adicional:&lt;/strong&gt; Eu utilizo o Jekyll há mais de um ano (você pode conferir mais sobre o Jekyll no meu artigo &lt;a href=&quot;https://leonardorifeli.com/development/2015/05/06/porque-utilizar-o-jekyll.html&quot; target=&quot;_blank&quot;&gt;Porque utilizar o Jekyll&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;resumo-sobre-o-jekyll&quot;&gt;Resumo sobre o Jekyll&lt;/h2&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;https://jekyllrb.com/img/logo-2x.png&quot; alt=&quot;docker&quot; style=&quot;width: 30%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Jekyll é um gerenciador de códigos estáticos. Isso mesmo, ele não faz uso de banco de dados e não requesita um servidor robusto para funciona. Um dos benefécios é poder utilizar o Github Pages para hospedar o site. Ou seja, você pode desenvolver páginas e até mesmo um blog de forma estática, apenas utilizando HTML (e claro, Markdown) que você provavelmente já conhece. Ele é baseado em vários formatos como Markdown (conforme já dito) para formatação de textos e posts e um padrão de template chamado Liquid com um pouco de &lt;strong&gt;YAML&lt;/strong&gt; para os arquivos de configurações.&lt;/p&gt;
+
+&lt;p&gt;Você deve ter visto mais no meu artigo sobre, &lt;a href=&quot;/development/2015/05/06/porque-utilizar-o-jekyll.html&quot; target=&quot;_blank&quot;&gt;Porque utilizar o Jekyll&lt;/a&gt;. Se não, acesse para conhecer mais detalhes sobre este cara. Salientando que, você irá ler a palavra &lt;strong&gt;Jekyll&lt;/strong&gt; demasiadas vezes.&lt;/p&gt;
+
+&lt;h2 id=&quot;como-usar-o-github-pages&quot;&gt;Como usar o Github Pages&lt;/h2&gt;
+
+&lt;p&gt;Eu expliquei um pouco, no artigo já mencionado, mas, aqui vai um review.&lt;/p&gt;
+
+&lt;iframe width=&quot;100%&quot; height=&quot;350&quot; src=&quot;https://www.youtube.com/embed/2MsN8gpT6jY&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Acesse sua conta no Github, crie um novo repositório com o nome da organização, utilizando o sufixo &lt;code class=&quot;highlighter-rouge&quot;&gt;.github.io&lt;/code&gt;. Exemplo: &lt;code class=&quot;highlighter-rouge&quot;&gt;leonardorifeli.github.io&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Em seguido acesse a página do repositório, clique em &lt;code class=&quot;highlighter-rouge&quot;&gt;Settings&lt;/code&gt; e depois no box &lt;code class=&quot;highlighter-rouge&quot;&gt;GitHub Pages&lt;/code&gt; clique em &lt;code class=&quot;highlighter-rouge&quot;&gt;Automatic page generator&lt;/code&gt;, na etapa seguinte clique em &lt;code class=&quot;highlighter-rouge&quot;&gt;Continue to layouts&lt;/code&gt;. O próximo passo será selecionar um layout (não se preocupe muito quanto a isso), simplesmente clique em &lt;code class=&quot;highlighter-rouge&quot;&gt;Publish page&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Você poderá encontrar mais detalhes sobre este tópico no site do &lt;a href=&quot;https://pages.github.com/&quot; target=&quot;_blank&quot;&gt;Github Pages&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Após finalizar você poderá clonar o projeto e substituir os arquivos por algum projeto Jekyll já configurado que você tenha encontrado na internet.&lt;/p&gt;
+
+&lt;p&gt;Logo após a configuração, você poderá acessar com &lt;code class=&quot;highlighter-rouge&quot;&gt;nome-repositorio.github.io&lt;/code&gt;. Porém, acredito que você já tenha um domínio e queira que seu blog seja acessível por ele, exemplo, seudominio.com. Chega mais que é o próximo tópico.&lt;/p&gt;
+
+&lt;p&gt;Alguns sites para você encontrar temas para Jekyll:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/jekyll/jekyll/wiki/Themes&quot; target=&quot;_blank&quot;&gt;github.com/jekyll/jekyll/wiki/Themes&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/planetjekyll/awesome-jekyll-themes&quot; target=&quot;_blank&quot;&gt;github.com/planetjekyll/awesome-jekyll-themes&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jekyllthemes.org/&quot; target=&quot;_blank&quot;&gt;jekyllthemes.org&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllthemes.io/&quot; target=&quot;_blank&quot;&gt;jekyllthemes.io&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jekyll.tips/templates/&quot; target=&quot;_blank&quot;&gt;jekyll.tips&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://drjekyllthemes.github.io/&quot; target=&quot;_blank&quot;&gt;drjekyllthemes.github.io&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;PS.:&lt;/strong&gt; você pode criar Github Pages para qualquer repositório. Eu já vi até documentação do projeto, hospedado no Github Pages (pelo repositório do projeto).&lt;/p&gt;
+
+&lt;h2 id=&quot;como-configurar-seu-domínio-no-github-pages&quot;&gt;Como configurar seu domínio no Github Pages&lt;/h2&gt;
+
+&lt;p&gt;Esta etapa, eu considero uma das mais tranquilas. Você precisará apenas, configurar algumas entradas DNS no seu domínio e adicionar um arquivo no repositório.&lt;/p&gt;
+
+&lt;p&gt;E como fazer isso?&lt;/p&gt;
+
+&lt;p&gt;Saliento que, se você for utilizar uma CDN (detalharei nos próximos tópicos), você precisará alterar novamente a zona de DNS do seu domínio, isso impactará apenas em tempo de propagação do DNS.&lt;/p&gt;
+
+&lt;p&gt;Vamos ao que interessa, você precisará acessar as configurações das zonas de DNS do seu domínio e configurar algumas entradas, conforme abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Entrada do tipo A: &lt;code class=&quot;highlighter-rouge&quot;&gt;192.30.252.153&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Entrada do tipo A: &lt;code class=&quot;highlighter-rouge&quot;&gt;192.30.252.154&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Entrada do tipo CNAME: &lt;code class=&quot;highlighter-rouge&quot;&gt;dominio-do-repositorio.github.io&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Feito isso, agora é moleza, basta criar um arquivo chamado CNAME (em maiúsculo) e dentro deste arquivo, você irá colocar o seu domínio, sem nenhum protocolo ou &lt;strong&gt;www&lt;/strong&gt;, apenas o domínio. Exemplo &lt;a href=&quot;https://github.com/leonardorifeli/leonardorifeli.github.io/blob/gh-pages/CNAME&quot; target=&quot;_blank&quot;&gt;meu CNAME&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Feito isso, é só esperar propagar.&lt;/p&gt;
+
+&lt;p&gt;Alguns links adicionais estão nas referências, aventure-se!&lt;/p&gt;
+
+&lt;h2 id=&quot;como-automatizar-o-build&quot;&gt;Como automatizar o build&lt;/h2&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;https://cdn.travis-ci.com/images/logos/TravisCI-Full-Color-7f5db09495c8b09c21cb678c4de18d21.png&quot; alt=&quot;travis ci logo&quot; style=&quot;width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Como eu falei, no tópico &lt;strong&gt;Resumo da estrutura&lt;/strong&gt;, eu utilizo duas branchs no projeto (gh-pages e master). A branch &lt;strong&gt;master&lt;/strong&gt; é a principal do projeto, quando alguém acessar meu blog, o &lt;strong&gt;Github Pages&lt;/strong&gt; puxa os arquivos da &lt;strong&gt;master&lt;/strong&gt;. Ou seja, sempre que eu faço alterações no blog (incrementais ou novos artigos) eu efetuo o &lt;code class=&quot;highlighter-rouge&quot;&gt;git push&lt;/code&gt; para a &lt;strong&gt;gh-pages&lt;/strong&gt; e abro um &lt;strong&gt;PR&lt;/strong&gt; (pull request) para a &lt;strong&gt;master&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Aqui vai uma observação interessante, por &lt;strong&gt;default&lt;/strong&gt;, o Github Pages puxa os arquivos da &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt;, mas, você pode mudar isso, através das &lt;code class=&quot;highlighter-rouge&quot;&gt;setting&lt;/code&gt; do repositório, conforme a imagem abaixo.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/13/setting-master.png&quot; alt=&quot;branch default to githug pages&quot; style=&quot;width: 70%;text-align:center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Mas, a branch default do projeto é a &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt;. Isso você pode mudar nas &lt;code class=&quot;highlighter-rouge&quot;&gt;settings&lt;/code&gt; do repositório também.&lt;/p&gt;
+
+&lt;p&gt;O travis é um produto do Github para automatização de processos, ele é um &lt;a href=&quot;https://en.wikipedia.org/wiki/Continuous_integration&quot; target=&quot;_blank&quot;&gt;CI&lt;/a&gt;. Ele lê o arquivo &lt;strong&gt;.travis.yml&lt;/strong&gt; do seu repositório e executa as rotinas específicadas no arquivo.&lt;/p&gt;
+
+&lt;p&gt;E como configurar o &lt;a href=&quot;https://travis-ci.org/&quot; target=&quot;_blank&quot;&gt;travis&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;É simples, você vai acessar o site do travis, logar com a sua conta do Github e sincronizar todos os seus repositórios. Com isso, você terá uma lista dos repositórios (apenas os repositórios públicos).&lt;/p&gt;
+
+&lt;p&gt;Quando você estiver logado, você verá algo como a imagem abaixo, onde poderá habilitar o travis para os repositório e ver um mini tutorial de como automatizar as tarefas com o travis.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/13/travis-build.png&quot; alt=&quot;travis example&quot; style=&quot;width: 70%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;O próximo passo é simples. Como você percebeu na imagem acima, é simples, basta criar um arquivo com o nome &lt;strong&gt;.travis.yml&lt;/strong&gt; (onde você especificará o que irá acontecer quando efetuar algum push em alguma branch) e enviá-lo para o repositório.&lt;/p&gt;
+
+&lt;p&gt;No meu blog, conforme eu falei no tópico do resumo, eu utilizo o arquivo abaixo, quando é efetuado um &lt;code class=&quot;highlighter-rouge&quot;&gt;git push&lt;/code&gt;, o travis irá executar o arquivo &lt;strong&gt;build.sh&lt;/strong&gt;, que irá rodar o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;$ bundle exec jekyll build&lt;/code&gt; para iniciar o build do jekyll.&lt;/p&gt;
+
+&lt;p&gt;Arquivo &lt;strong&gt;.travis.yml&lt;/strong&gt;:
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/47584455fdfc437341d758b89c03096d.js?file=.travis.yml&quot;&gt;&lt;/script&gt;
+&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Arquivo &lt;strong&gt;build.sh&lt;/strong&gt;:
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/47584455fdfc437341d758b89c03096d.js?file=bash.sh&quot;&gt;&lt;/script&gt;
+&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Caso não tenha visto o artigo &lt;a href=&quot;/development/2015/05/06/porque-utilizar-o-jekyll.html&quot; target=&quot;_blank&quot;&gt;Porque utilizar o Jekyll&lt;/a&gt;, o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;$ bundle exec jekyll build&lt;/code&gt; irá gerar os arquivos estáticos no diretório &lt;code class=&quot;highlighter-rouge&quot;&gt;_site&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Com esse build, o travis que irá gerar os arquivos estáticos quando você mergear um &lt;strong&gt;PR&lt;/strong&gt; (pull request) da branch &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt; para &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. Alguns segundos após o merge, as alterações estarão online.&lt;/p&gt;
+
+&lt;h2 id=&quot;como-configurar-https&quot;&gt;Como configurar https&lt;/h2&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/13/cloud-flare.png&quot; alt=&quot;cloud flare logo&quot; style=&quot;width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Este tópico é um adicional que eu aprendi recentemente, lendo o artigo &lt;a href=&quot;https://willianjusten.com.br/https-no-github-pages-com-custom-domain/&quot; target=&quot;_blank&quot;&gt;HTTPS no Github Pages com Custom Domain&lt;/a&gt;, do Willian Justen. Ah, ele tem um &lt;a href=&quot;http://willianjusten.teachable.com/p/criando-sites-estaticos-com-jekyll&quot; target=&quot;_blank&quot;&gt;curso sobre Jekyll&lt;/a&gt;, gratuito, corre lá.&lt;/p&gt;
+
+&lt;p&gt;Quando eu pesquisei sobre, meu interesse era somente em ter o protocolo HTTPS funcionando e acabei tendo um adicional, uma CDN para otimizar o blog. Coloquei este tópico, apenas para você saber que é possível usar o Github Pages com HTTPS e para configurar você pode ler o &lt;a href=&quot;https://willianjusten.com.br/https-no-github-pages-com-custom-domain/&quot; target=&quot;_blank&quot;&gt;artigo do Willian Justen (aquele que falei logo acima)&lt;/a&gt;, eu segui ele e funcionou super bem.&lt;/p&gt;
+
+&lt;p&gt;Mas, o que é interessante em ter HTTPS e a CDN?&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html&quot; target=&quot;_blank&quot;&gt;Google fez um post&lt;/a&gt;, em Agosto/2014, falando que irá utilizar o HTTPS como um elemento para pontuação nas buscas. Mais do que argumentado.&lt;/p&gt;
+
+&lt;p&gt;Quanto a CDN, eu não cheguei a medir o quanto tive de ganho. Porém, a Cloud Flare disponibiliza alguns relatórios super interessantes, abaixo mostro alguns.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/13/requests.png&quot; alt=&quot;requests report&quot; style=&quot;width: 100%;&quot; /&gt;
+Relatório de requests e arquivos cacheados/não cacheados.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/13/performance.png&quot; alt=&quot;performance report&quot; style=&quot;width: 100%;&quot; /&gt;
+Relatório sobre performance.&lt;/p&gt;
+
+&lt;p&gt;Concluindo, eu adicionei este tópico como um adicional, propondo algo diferente para você utilizar nas páginas que for fazer com Jekyll. O interessante, é que, se for um blog pequeno, como o meu, o plano da Cloud Flare pode ser o gratuito.&lt;/p&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://leonardorifeli.com/development/2015/05/06/porque-utilizar-o-jekyll.html&quot; target=&quot;_blank&quot;&gt;Leonardo Rifeli - Porque utilizar o Jekyll&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pages.github.com/&quot; target=&quot;_blank&quot;&gt;Github Pages&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.github.com/articles/setting-up-an-apex-domain/&quot; target=&quot;_blank&quot;&gt;Setting up an apex domain&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.github.com/articles/using-a-custom-domain-with-github-pages&quot; target=&quot;_blank&quot;&gt;Using a custom domain with Github Pages&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://willianjusten.com.br/dominio-proprio-no-github-pages/&quot; target=&quot;_blank&quot;&gt;Como ter domínio próprio no Github Pages&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.travis-ci.com/user/for-beginners&quot; target=&quot;_blank&quot;&gt;Travis CI for Complete Beginners&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://willianjusten.com.br/https-no-github-pages-com-custom-domain/&quot; target=&quot;_blank&quot;&gt;HTTPS no Github Pages com Custom Domain&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://willianjusten.teachable.com/p/criando-sites-estaticos-com-jekyll&quot; target=&quot;_blank&quot;&gt;Curso do Willian Justen - Criando sites estáticos com Jekyll&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;A ideia principal é compartilhar com você o que eu aprendi e venho fazendo no meu blog. Espero que este conteúdo lhe auxilie em algo e tenha algum ponto positivo para você.&lt;/p&gt;
+
+&lt;p&gt;Obrigado pelo leitura.&lt;/p&gt;
+
+&lt;p&gt;Peço que comente sobre o que achou deste artigo, qualquer feedback será importante para o desenvolvimento dos outros artigos.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 13 Nov 2016 00:00:00 -0200</pubDate>
+      </item>
+    
+      <item>
+        <title>Docker: Vamos falar sobre virtualização</title>
+        <link>/development/2016/11/05/docker-vamos-falar-sobre-virtualizacao.html</link>
+        <guid isPermaLink="true">/development/2016/11/05/docker-vamos-falar-sobre-virtualizacao.html</guid>
+        <description>&lt;p&gt;No desenvolvimento de aplicações, podemos optar por usar máquinas virtuais (VMs) para facilitar o gerenciamento e provisionamento de serviços. Para isso, podemos citar o Vagrant. Mas, o provisionamento de máquinas virtuais demanda grande quantidade de tempo, além do fato do consumo demasiado de espaço em disco, recursos em geral da máquina que será o host.&lt;/p&gt;
+
+&lt;h2 id=&quot;sumário&quot;&gt;Sumário&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Introdução;&lt;/li&gt;
+  &lt;li&gt;Um pouco sobre virtualização;&lt;/li&gt;
+  &lt;li&gt;O que é Docker;&lt;/li&gt;
+  &lt;li&gt;O que é um contêiner;&lt;/li&gt;
+  &lt;li&gt;Namespaces;&lt;/li&gt;
+  &lt;li&gt;Algumas vantagens do Docker;&lt;/li&gt;
+  &lt;li&gt;Principais funcionalidades;&lt;/li&gt;
+  &lt;li&gt;Docker image;&lt;/li&gt;
+  &lt;li&gt;Dockerfile;&lt;/li&gt;
+  &lt;li&gt;Docker compose;&lt;/li&gt;
+  &lt;li&gt;Referências;&lt;/li&gt;
+  &lt;li&gt;Conclusão.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;Sim, eu fiquei alguns meses sem escrever! Sorry!&lt;/p&gt;
+
+&lt;p&gt;Sem ressentimentos, o assunto deste artigo é muito importante. Falaremos sobre virtualização, isso mesmo. Sim, eu sei que se fôssemos descrevê-lo em muitos detalhes, levaríamos longos e diversos artigos. Portanto, o objetivo deste artigo é trazer um “resumão” sobre este assunto. Falarei sobre &lt;strong&gt;virtualização tradicional&lt;/strong&gt;, &lt;strong&gt;virtualização por contêineres&lt;/strong&gt; e apresentarei o &lt;strong&gt;&lt;a href=&quot;https://www.docker.com/&quot; target=&quot;_blank&quot;&gt;Docker&lt;/a&gt;&lt;/strong&gt; (caso não o conheça).&lt;/p&gt;
+
+&lt;p&gt;O objetivo deste artigo é descrever as teorias por volta do tema, farei um segundo artigo, que será um &lt;strong&gt;na prática&lt;/strong&gt; com o Docker.&lt;/p&gt;
+
+&lt;p&gt;Sem mais delongas, chega mais que vai ser muito foda!&lt;/p&gt;
+
+&lt;h2 id=&quot;pegue-um-café&quot;&gt;Pegue um café&lt;/h2&gt;
+
+&lt;p&gt;Corre lá e pegue um pouco de café, o assunto será bem interessante.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/03/get-coffee.gif&quot; alt=&quot;get your coffee&quot; style=&quot;width: 400px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;um-pouco-sobre-virtualização&quot;&gt;Um pouco sobre Virtualização&lt;/h2&gt;
+
+&lt;p&gt;No desenvolvimento de aplicações, podemos optar por usar máquinas virtuais (VMs) para facilitar o gerenciamento e provisionamento de serviços. Para isso, podemos citar o &lt;a href=&quot;https://www.vagrantup.com/&quot; target=&quot;_blank&quot;&gt;Vagrant&lt;/a&gt;. Mas, o provisionamento de máquinas virtuais demanda grande quantidade de tempo, além do fato do consumo demasiado de espaço em disco, recursos em geral da máquina que será o host.&lt;/p&gt;
+
+&lt;p&gt;Assim surgiu o &lt;a href=&quot;https://en.wikipedia.org/wiki/LXC&quot; target=&quot;_blank&quot;&gt;LXC&lt;/a&gt;. O Linux Container, ou LXC, foi lançado em 2008 e é uma tecnologia que permite a criação de múltiplas instâncias isoladas de um determinado sistema operacional. Ou seja, uma maneira de virtualizar aplicações dentro de uma máquina (hospedeira) usando todos os recursos disponíveis no mesmo Kernel da máquina
+hospedeira.&lt;/p&gt;
+
+&lt;p&gt;Tendo como precursor, o comando &lt;a href=&quot;https://en.wikipedia.org/wiki/Chroot&quot; target=&quot;_blank&quot;&gt;chroot&lt;/a&gt;, que foi lançado em 1979 pelo &lt;a href=&quot;https://en.wikipedia.org/wiki/Version_7_Unix&quot; target=&quot;_blank&quot;&gt;Unix V7&lt;/a&gt;, como intuito de segregar acessos de diretórios e evitar que os usuários possam acessar à estrutura raiz &lt;strong&gt;(/)&lt;/strong&gt;. Este conceito evoluiu alguns anos, com o lançamento do comando &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=jail&amp;amp;sektion=8&amp;amp;manpath=freebsd-release-ports&quot; target=&quot;_blank&quot;&gt;jail&lt;/a&gt;, no SO &lt;a href=&quot;https://www.freebsd.org/releases/4.0R/announce.html&quot; target=&quot;_blank&quot;&gt;FreeBSD 4&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Com relação à virtualização, a diferença está no fato do &lt;strong&gt;LXC&lt;/strong&gt; não necessitar de uma camada de sistema operacional para cada aplicação. Como você pode verificar na imagem abaixo.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/03/c-structure.png&quot; alt=&quot;vms vs contêineres&quot; style=&quot;width: 80%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ao compararmos o &lt;strong&gt;LXC&lt;/strong&gt; com a &lt;strong&gt;virtualização tradicional&lt;/strong&gt;, fica mais claro que uma aplicação sendo executada em um LXC demanda muito menos recursos, consumindo menos espaço em disco e com um nível de portabilidade muito mais abrangente.&lt;/p&gt;
+
+&lt;h2 id=&quot;o-que-é-o-docker&quot;&gt;O que é o Docker?&lt;/h2&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/03/docker.png&quot; alt=&quot;docker&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nasceu como um projeto da &lt;a href=&quot;https://cloud.docker.com/&quot; target=&quot;_blank&quot;&gt;DotCloud&lt;/a&gt;, uma empresa &lt;strong&gt;PaaS&lt;/strong&gt; (Platform as a Service).&lt;/p&gt;
+
+&lt;p&gt;Basicamente, Docker é uma plataforma open-source, escrita em &lt;strong&gt;Go&lt;/strong&gt;, tendo como finalidade, criar e gerenciar ambientes isolados para aplicações. O Docker garante que, cada contêiner tenha tudo que uma aplicação precisa para ser executada.&lt;/p&gt;
+
+&lt;p&gt;Em outras palavras, o Docker é uma ferramenta de empacotamento de uma aplicação e suas dependências em um contêiner virtual que pode ser executado em um servidor linux.&lt;/p&gt;
+
+&lt;h2 id=&quot;então-docker-é-uma-vm&quot;&gt;Então, Docker é uma VM?&lt;/h2&gt;
+
+&lt;p&gt;Não, contêineres docker possuem uma arquitetura diferente que permite maior portabilidade e eficiência.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/03/docker-system.png&quot; alt=&quot;docker&quot; style=&quot;width: 100%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;tecnologias-e-ideias-utilizadas&quot;&gt;Tecnologias e ideias utilizadas&lt;/h2&gt;
+
+&lt;p&gt;Cara, contêiner não é nada novo, Docker surgiu para facilitar o uso deles. Abaixo um resumo de tecnologia e o ano da primeira versão:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/03/technologies-year.png&quot; alt=&quot;docker&quot; style=&quot;width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;o-que-é-um-contêiner&quot;&gt;O que é um contêiner?&lt;/h2&gt;
+
+&lt;p&gt;Vamos fazer uma comparação prática. Contêiner nada mais é que uma caixa de metal, onde é colocado tudo o que couber. Contêineres possuem dimensões e interfaces comuns, onde guindastes e guinchos podem ser acoplados para colocá-los em navios ou caminhões.&lt;/p&gt;
+
+&lt;p&gt;Beleza e, no contexto do artigo?&lt;/p&gt;
+
+&lt;p&gt;A virtualização em contêineres é muito mais leve, onde, temos cada contêiner como uma instância isolada em um kernel de sistema operacional. Os contêineres possuem interfaces de redes virtuais, processos e sistemas de arquivos independentes.&lt;/p&gt;
+
+&lt;p&gt;Algumas características de um contêiner Docker:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dependente de uma imagem (falaremos logo abaixo);&lt;/li&gt;
+  &lt;li&gt;Geram novas imagens;&lt;/li&gt;
+  &lt;li&gt;Conectividade com o host e outros contêineres;&lt;/li&gt;
+  &lt;li&gt;Execuções controladas, CPU, RAM, I/O, etc.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;namespaces&quot;&gt;Namespaces&lt;/h2&gt;
+
+&lt;p&gt;O Docker utiliza os recursos de &lt;a href=&quot;https://en.wikipedia.org/wiki/Namespace&quot; target=&quot;_blank&quot;&gt;Namespaces&lt;/a&gt; para dispor um espaço de funcionamento isolado para os contêineres. Contudo, quando um contêiner é criado, também é criado um conjunto de namespaces e este, por sua vez, cria uma camada para isolamento para os grupos de processos. Abaixo seguem os tipos de namespaces:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;PID:&lt;/strong&gt; isolamento de processos.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;NET:&lt;/strong&gt; controle de interfaces de rede.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;IPC:&lt;/strong&gt; controle dos recursos de IPC (InterProcess Communication).&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;MNT:&lt;/strong&gt; gestão de pontos de montagem.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;UTC (Unix Timesharing System):&lt;/strong&gt; provém todo o isolamento de recursos do kernel (justamente a camada de abstração como mostra a imagem).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;algumas-vantagens-do-docker&quot;&gt;Algumas Vantagens do Docker&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Baixo overhead e tempo de boot;&lt;/li&gt;
+  &lt;li&gt;Kernel compartilhado com o Host;&lt;/li&gt;
+  &lt;li&gt;Contêineres rodam isoladamente;&lt;/li&gt;
+  &lt;li&gt;Facilidade de configuração do ambiente de desenvolvimento para novos membros do time;&lt;/li&gt;
+  &lt;li&gt;Acabar com a história do “na minha máquina funcionava”.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;principais-funcionalidades&quot;&gt;Principais Funcionalidades&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Versionamento&lt;/strong&gt;: o Docker permite que você versione as alterações de um contêiner. Isto permite verificar as diferenças entre versões, fazer commit de novas versões e até mesmo fazer rollback (isso é muito importante haha).&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Compartilhamento de imagens&lt;/strong&gt;: sim, existe um repositório de contêineres. O &lt;strong&gt;Docker Hub&lt;/strong&gt;. Ele possui milhares de imagens com as mais diversas aplicações. Você pode rapidamente criar sua aplicação com uma base já desenvolvida e ainda criar sua base e compartilhá-la na comunidade.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Licença open-source&lt;/strong&gt;: licenciado como &lt;strong&gt;Apache License 2.0&lt;/strong&gt;, mantém os códigos fonte disponíveis para facilitar o desenvolvimento colaborativo.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Hardware&lt;/strong&gt;: exige poucos recursos de processos, memória e espaço em disco.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Comunicação entre contêineres&lt;/strong&gt;: conectar contêineres via mapeamentos de porta &lt;strong&gt;TCP/IP&lt;/strong&gt; não é a única forma de disponibilizar recursos entre eles.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;E uma das principais:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/11/03/dependency-hell.png&quot; alt=&quot;docker&quot; style=&quot;width: 30%;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Evita Dependency Hell&lt;/strong&gt;: um dos maiores problemas que os desenvolvedores de software convivem, é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;docker-image&quot;&gt;Docker Image&lt;/h2&gt;
+
+&lt;p&gt;Uma imagem Docker nada mais é que, um arquivo inerte, imutável, que é essencialmente instanciado por um contêiner. As imagens são criadas com o comando &lt;strong&gt;build&lt;/strong&gt; (entrarei em mais detalhes na segunda parte do artigo) e elas serão consumidas por um contêiner, ou seja, um contêiner é a instância de uma imagem. Como as imagens podem ser muito grandes, as imagens são projetadas para serem compostas por camadas de outras imagens.&lt;/p&gt;
+
+&lt;p&gt;Basicamente, uma imagem é um conjunto de camadas que você descreve e, quando você inicia uma imagem, você terá um contêiner em execução desta imagem e você pode ter muitos contêineres da mesma imagem. Portanto, uma imagem em execução é um contêiner.&lt;/p&gt;
+
+&lt;p&gt;E como criar uma imagem, ou seja, como descrever as camadas de uma imagem? Chega mais…&lt;/p&gt;
+
+&lt;h2 id=&quot;dockerfile&quot;&gt;Dockerfile&lt;/h2&gt;
+
+&lt;p&gt;Bom, basicamente, &lt;strong&gt;Dockerfile&lt;/strong&gt; é um arquivo (ah vá!) que contém um conjunto de instruções necessárias para se criar uma imagem &lt;strong&gt;Docker&lt;/strong&gt;, ou seja, se você tiver o &lt;strong&gt;Dockerfile&lt;/strong&gt; de uma imagem, basta modificar o que deseja e recriar a imagem “do zero”, sim, isso pode demorar um pouco mais, mas essa imagem será muito mais “enxuta”.&lt;/p&gt;
+
+&lt;p&gt;Caso não tenha o &lt;strong&gt;Dockerfile&lt;/strong&gt; (geralmente você irá cair neste caso), você pode usar uma imagem à sua escolha como base e então criar a sua imagem como uma camada acima.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Exemplo de Dockerfile:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FROM image[:tag] # de qual imagem irá se basear
+RUN command # o que será executado por um shel (ex: apt-get update)
+WORKDIR /src # diretório &quot;raiz&quot; para os comandos seguintes
+COPY . /src # copia arquivos para dentro do contêiner
+VOLUME /src # volumes compartilhados
+EXPOSE 8080 # porta liberada para fora do contêiner
+CMD [command, params]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Alguns links estão nas referências.&lt;/p&gt;
+
+&lt;h2 id=&quot;docker-compose&quot;&gt;Docker Compose&lt;/h2&gt;
+
+&lt;p&gt;Basicamente, é uma ferramenta para a criação e execução de múltiplos contêineres de aplicação.&lt;/p&gt;
+
+&lt;p&gt;Você utiliza um arquivo do tipo &lt;strong&gt;yaml&lt;/strong&gt; para definir como será o ambiente de sua aplicação. Sua aplicação não é sozinha, ela poderá depender de serviços como: banco de dados (MySQL, por exemplo), redis, php, java, etc (que estará em outro contêiner), imagine ter que subir todos estes contêineres (detalhe, antes de ter que subir o contêiner da sua aplicação). O Docker Compose irá facilitar isso. Ele é ótimo para desenvolvimento, testes e homologação, bem como para melhorar seu fluxo de integração continua. Por exemplo:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Ambiente de desenvolvimento&lt;/strong&gt;: você pode simular todo o ambiente de produção, ou seja, precisando de outros serviços (conforme citado acima), basta definir isso em um arquivo .yml e quando você executar o Docker Compose, todo esse ambiente estará disponível para você.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Link da documentação oficial está nas referências.&lt;/p&gt;
+
+&lt;h2 id=&quot;gado-vs-animal-de-estimação&quot;&gt;Gado vs Animal de Estimação&lt;/h2&gt;
+
+&lt;p&gt;Pense bem nessa diferença. A sua infraestrutura deve ser composta de componentes que você possa tratar como gado: &lt;strong&gt;auto-suficientes&lt;/strong&gt;, &lt;strong&gt;facilmente substituíveis&lt;/strong&gt; e &lt;strong&gt;gerenciáveis&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Isso mesmo, não se apegue aos seus contêineres, eles podem subir, serem replicados, destruídos e gerenciados com uma flexibilidade muito maior.&lt;/p&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf&quot; target=&quot;_blank&quot;&gt;Ebook - Docker for the virtualization admin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.digitalocean.com/community/tutorials/como-instalar-e-utilizar-o-docker-primeiros-passos-pt&quot; target=&quot;_blank&quot;&gt;Como Instalar e Utilizar o Docker: Primeiros passos&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/&quot; target=&quot;_blank&quot;&gt;Docs about Docker&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://infoslack.com/docker/&quot; target=&quot;_blank&quot;&gt;Infoslack - Docker&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/HugoPosca/talk-31-dockernivelandoconhecimento&quot; target=&quot;_blank&quot;&gt;Hugo Posca - Nivelando conhecimento&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/HugoPosca/talk-32-docker-compose&quot; target=&quot;_blank&quot;&gt;Hugo Posca - Docker Compose&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=0cDj7citEjE&quot; target=&quot;_blank&quot;&gt;LinuxTips - Docker Tutorial #1 - Docker, Containers, Images e muito mais!&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/&quot; target=&quot;_blank&quot;&gt;Best practices for writing Dockerfiles&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images&quot; target=&quot;_blank&quot;&gt;Docker Explained: Using Dockerfiles to Automate Building of Images&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kstaken/dockerfile-examples&quot; target=&quot;_blank&quot;&gt;Exemplos de Dockerfile&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kstaken/dockerfile-examples/blob/master/mongodb/Dockerfile&quot; target=&quot;_blank&quot;&gt;Exemplo - Dockerfile do Mongodb&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/compose/&quot; target=&quot;_blank&quot;&gt;Documentação oficial do Compose&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Bom, estou ciente que foi um post grande (comparado aos anteriores), talvez até um pouco cansativo, mas é muito importante que se entenda a teoria para praticar. Publicarei outro post, com um conteúdo mais da prática e alguns exemplos, claro, com Docker meu amigo.&lt;/p&gt;
+
+&lt;p&gt;Peço que comentem sobre o que acharam deste artigo, o que esperam da segunda parte, enfim, qualquer feedback será importante para o desenvolvimento dos outros artigos.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 05 Nov 2016 00:00:00 -0200</pubDate>
+      </item>
+    
+      <item>
+        <title>Herança ou composição? Qual utilizar?</title>
+        <link>/development/2016/08/19/heranca-ou-composicao-qual-utilizar.html</link>
+        <guid isPermaLink="true">/development/2016/08/19/heranca-ou-composicao-qual-utilizar.html</guid>
+        <description>&lt;p&gt;Olá dev sapiens, desta vez o artigo será mais teórico (comparado ao último: &lt;a href=&quot;https://leonardorifeli.com/development/2016/05/29/socket-no-php.html&quot;&gt;Web Socket no PHP&lt;/a&gt;) e será sobre dois assuntos que possuem demasiada importância no meio da programação orientada a objetos, a herança e a composição.&lt;/p&gt;
+
+&lt;p&gt;Sim, na internet existem vários artigos sobre o assunto, porém, resolvi descrevê-lo do modo como eu os utilizo.&lt;/p&gt;
+
+&lt;p&gt;Enquanto escrevo este magnífico artigo, vou ouvindo um set &lt;strong&gt;Progressive House&lt;/strong&gt; do &lt;strong&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=N7DEv-QP_Zk&quot; target=&quot;_blank&quot;&gt;Progressive House &lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;herança-ou-composição-e-agora-josé&quot;&gt;Herança ou composição? E agora, José?&lt;/h2&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/08/19/composition.png&quot; alt=&quot;Composition&quot; style=&quot;width: 500px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;Um assunto muito abordado e importante na programação orientada a objetos é a utilização de herança ou composição, porém, é visível que muitos programadores(as) optam por utilizar a herança sem mesmo validar as alternativas dentro de cada contexto.&lt;/p&gt;
+
+&lt;p&gt;Pois bem, este artigo tem como objetivo colocar os dois assuntos na balança, com o intuito de que você entenda do que cada um é composto e qual utilizar dentro de cada contexto/relação.&lt;/p&gt;
+
+&lt;h2 id=&quot;função&quot;&gt;Função&lt;/h2&gt;
+
+&lt;p&gt;A herança e a composição são duas abordagens diferentes para obter-se a reutilização de funcionalidades.&lt;/p&gt;
+
+&lt;h2 id=&quot;herança&quot;&gt;Herança&lt;/h2&gt;
+
+&lt;p&gt;Na herança, uma classe herda (daí o termo herança) as propriedades e os métodos de sua classe pai, de modo transitivo, ou seja, uma classe pode herdar de outra classe que herda de outra, até uma classe que não possuí uma classe pai.&lt;/p&gt;
+
+&lt;p&gt;Com a herança, as propriedades e os métodos podem se comportar de forma diferente na classe filha, por uso da reescrita dos respectivos métodos.&lt;/p&gt;
+
+&lt;p&gt;A herença deverá ser utilizada somente quando existir uma relação &lt;strong&gt;“é-um”&lt;/strong&gt; no contexto. No exemplo abaixo, no arquivo &lt;strong&gt;Car.java&lt;/strong&gt;, a classe &lt;strong&gt;Car&lt;/strong&gt; herda a classe &lt;strong&gt;Automobile&lt;/strong&gt; e nesse contexto temos uma relação &lt;strong&gt;“é-um”&lt;/strong&gt;, ou seja, &lt;strong&gt;Car&lt;/strong&gt; é um &lt;strong&gt;Automobile&lt;/strong&gt;, em nenhum momento, &lt;strong&gt;Car&lt;/strong&gt; deixará de se comportar como &lt;strong&gt;Automobile&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Car.java&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Verifique que a classe &lt;strong&gt;Car.java&lt;/strong&gt; no exemplo acima, está sobrescrevendo o método &lt;strong&gt;getColor()&lt;/strong&gt;, alterando o comportamento herdado da classe pai &lt;strong&gt;Automobile.java&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Automobile.java&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Por fim, repare que, no contexto exemplificado acima, o ideal é utilizar a herança, pelo fato de ter-se uma relação &lt;strong&gt;“é-um”&lt;/strong&gt;, podendo assim, atingir a reutilização dos comportamentos.&lt;/p&gt;
+
+&lt;p&gt;Com a evolução, poderíamos ter a classe &lt;strong&gt;Truck.java&lt;/strong&gt; que também poderia herdar a classe &lt;strong&gt;Automobile.java&lt;/strong&gt;, pelo fato de existir uma relação &lt;strong&gt;“é-um”&lt;/strong&gt;, neste outro contexto.&lt;/p&gt;
+
+&lt;h2 id=&quot;composição&quot;&gt;Composição&lt;/h2&gt;
+
+&lt;p&gt;Na composição, codificamos pequenos comportamentos, onde uma classe irá apenas instanciar outra classe e utilizar uma propriedade ou um método (claro, os que estão expostos), com isso, podemos usar a composição para comportamentos mais complexos, podendo ainda, alterar a associação entre as classes em tempo de execução da aplicação.&lt;/p&gt;
+
+&lt;p&gt;De modo intuitivo, podemos definir a composição como quando uma classe usa um objeto (instância de outra classe) para proporcionar uma parte ou o todo em algum comportamento.&lt;/p&gt;
+
+&lt;p&gt;No exemplo abaixo, é utilizado a composição, pelo fato do contexto em questão possuir uma relação &lt;strong&gt;“tem-um”&lt;/strong&gt;, onde a classe &lt;strong&gt;Job.java&lt;/strong&gt; compoem a classe &lt;strong&gt;People.java&lt;/strong&gt;. Neste contexto People pode possuir um Job e iniciá-lo.&lt;/p&gt;
+
+&lt;p&gt;Nem sempre uma pessoa irá possuir um emprego, por isso, existe uma relação &lt;strong&gt;“tem-um”&lt;/strong&gt;, ou seja, usamos composição e não a herança.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=People.java&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Repare que, o método construtor, instancia a classe &lt;strong&gt;Job.java&lt;/strong&gt; somente se &lt;strong&gt;People&lt;/strong&gt; possuir um emprego, com isso, podemos acionar o método &lt;strong&gt;checkAndStartJob()&lt;/strong&gt; para iniciar o &lt;strong&gt;job&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Aqui temos uma relação &lt;strong&gt;“tem-um”&lt;/strong&gt; e por isso utilizamos a composição. No exemplo acima, com a utilização da composição, podemos alterar a classe em tempo de execução.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=Job.java&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Classe &lt;strong&gt;Job.java&lt;/strong&gt; e suas propriedades e métodos.&lt;/p&gt;
+
+&lt;h2 id=&quot;importância&quot;&gt;Importância&lt;/h2&gt;
+
+&lt;p&gt;A herança e a composição são de extrema importância nas linguagens. Atualmente é raro encontrar linguagens que não as suportem. Caso contrário, seria quase impossível quebrarmos grandes soluções em soluções pequenas/modulares.&lt;/p&gt;
+
+&lt;p&gt;Sem a reutilização de comportamentos/funcionalidades não teríamos códigos com responsabilidades únicas, que fazem somente uma coisa e fazem muito bem.&lt;/p&gt;
+
+&lt;h2 id=&quot;qual-utilizar&quot;&gt;Qual utilizar?&lt;/h2&gt;
+
+&lt;p&gt;Avalie qual é a relação de um determinado problema. Em caso que exista uma relação &lt;strong&gt;“é-um”&lt;/strong&gt; utilizamos a herança, exemplo: banana É uma fruta, carro É um automóvel, pássaro É uma ave etc.&lt;/p&gt;
+
+&lt;p&gt;Em casos que a relação tende a funcionalidades e/ou comportamentos específicos e possui uma relação &lt;strong&gt;“tem-um”&lt;/strong&gt; , exemplos: pessoa TEM a possibilidade de trabalhar, avião TEM a possibilidade de freiar etc, nestes casos, utilize a composição, aproveitando apenas uma parte (funcionalidade, responsabilidade etc) de outra classe, utilizando o objeto.&lt;/p&gt;
+
+&lt;p&gt;Pergunte-se sempre se em todo o ciclo de vida da aplicação ou do código, aquela relação será constante e imutável. Um exemplo de avaliação: Em domínio onde &lt;strong&gt;People&lt;/strong&gt; tem relação com &lt;strong&gt;Employee&lt;/strong&gt;, neste caso deve-se utilizar a composição, pelo fato de ser algo mutável. Nem sempre &lt;strong&gt;People&lt;/strong&gt; terá relação com &lt;strong&gt;Employee&lt;/strong&gt;, e se a pessoa ficar desempregada? Portanto, neste caso, o uso da composição é mais adequado do que a herança.&lt;/p&gt;
+
+&lt;p&gt;Não use a herança apenas para obter a reutilização de código se não existe uma relação “é-um”. Nestes casos é mais apropriado utilizar a composição.&lt;/p&gt;
+
+&lt;h2 id=&quot;falando-em-java&quot;&gt;Falando em Java&lt;/h2&gt;
+
+&lt;p&gt;Apenas para abrir um parêntese no artigo, em Java, toda e qualquer classe possui uma herança, neste caso implicitamente. Toda classe em Java, sempre estenderá Object, com isso, alguns métodos são herdados.&lt;/p&gt;
+
+&lt;p&gt;Exemplo de herança com object, sobrescrevendo toString():&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/d03e68ef59a0667a806952583c1ce978.js?file=String.java&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Alguns métodos herdados da classe Object:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;clone();&lt;/li&gt;
+  &lt;li&gt;equals();&lt;/li&gt;
+  &lt;li&gt;toString();&lt;/li&gt;
+  &lt;li&gt;hashCode();&lt;/li&gt;
+  &lt;li&gt;entre outros.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Documentação da classe Object: &lt;a href=&quot;http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html&quot;&gt;clique aqui&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/@pedro.barros/heran%C3%A7a-ou-composi%C3%A7%C3%A3o-eis-a-quest%C3%A3o-7ce11fad4737#.ekombw2sy&quot; target=&quot;_blank&quot;&gt;Post de um amigo, Pedro Augusto&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.thoughtworks.com/pt/insights/blog/composition-vs-inheritance-how-choose&quot; target=&quot;_blank&quot;&gt;Composition vs. Inheritance: How to Choose?&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.devmedia.com.br/heranca-versus-composicao-qual-utilizar/26145&quot; target=&quot;_blank&quot;&gt;Herança versus Composição: qual utilizar?&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Atualmente a composição é considerada superior à herança, pelo motivo de podermos mudar a associação entre classes em tempo de execução, podendo obter outros comportamentos. Com isso as aplicações se tornam mais reutilizáveis.&lt;/p&gt;
+
+&lt;p&gt;A herança traz consigo muitos benefícios, sendo o principal; a reutilização de código. Porém, ela traz também, alguns problemas como o acoplamento entre as classes.&lt;/p&gt;
+
+&lt;p&gt;A composição é utilizada em alguns padrões de projeto, fortalecendo a sua utilização, entre outros benefícios, está a manutenibilidade do código e da aplicação.&lt;/p&gt;
+
+&lt;p&gt;Portanto, utilize qual se encaixa na sua relação e no contexto do seu domínio.&lt;/p&gt;
+
+&lt;p&gt;Mêêoo, é isso, caso eu tenha esquecido de algo, adicione nos comentários, junto a sua opinião e seu ponto de vista sobre o assunto.&lt;/p&gt;
+
+&lt;p&gt;Abraços, até a próxima.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 19 Aug 2016 00:00:00 -0300</pubDate>
+      </item>
+    
+      <item>
+        <title>Web Socket no PHP</title>
+        <link>/development/2016/05/29/socket-no-php.html</link>
+        <guid isPermaLink="true">/development/2016/05/29/socket-no-php.html</guid>
+        <description>&lt;p&gt;Olá homo sapiens, desta vez o artigo será um pouco mais técnico. Falarei sobre &lt;strong&gt;web socket com PHP&lt;/strong&gt;, claro, também com Javascript.&lt;/p&gt;
+
+&lt;p&gt;Enquanto escrevo este magnífico artigo, vou ouvindo um &lt;strong&gt;Tech House&lt;/strong&gt; do &lt;strong&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=qhmf1PnLvlw&quot; target=&quot;_blank&quot;&gt;Trevor Nygaard&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Bom, segue a primeira dica; o artigo será bem extenso, ou seja, corra e pegue uma caneca com muito café (o elixir da vida) e vem comigo que será bem divertido.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;https://media.giphy.com/media/6heBQSjt2IoA8/giphy.gif&quot; alt=&quot;Need coffee&quot; title=&quot;Need Coffee&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;Atualmente a web possuí um tema que é pouco estudado e há poucos artigos e informações na internet. O respectivo tema é &lt;strong&gt;web socket&lt;/strong&gt;. Acredito que o tema é pouco falado, devido a sua complexidade. Portanto, não darei uma abordagem profunda neste artigo, será na prática, uma introdução.&lt;/p&gt;
+
+&lt;h2 id=&quot;objetivo&quot;&gt;Objetivo&lt;/h2&gt;
+
+&lt;p&gt;Este artigo tem como objetivo, descrever uma breve introducão teórica e prática sobre web socket.&lt;/p&gt;
+
+&lt;h2 id=&quot;pauta&quot;&gt;Pauta&lt;/h2&gt;
+
+&lt;p&gt;Neste artigo, acompanharemos a pauta abaixo:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;suporte dos navegadores;&lt;/li&gt;
+  &lt;li&gt;um breve resumo sobre HTTP;&lt;/li&gt;
+  &lt;li&gt;o que é web socket;&lt;/li&gt;
+  &lt;li&gt;sobre o Ratchet;&lt;/li&gt;
+  &lt;li&gt;exemplo e detalhes;&lt;/li&gt;
+  &lt;li&gt;casos de uso;&lt;/li&gt;
+  &lt;li&gt;conclusão.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;1-navegadores&quot;&gt;1. Navegadores&lt;/h2&gt;
+
+&lt;p&gt;Sim, eles devem ser um grande ponto de atenção, não são todos os navegadores que dão suporte a &lt;strong&gt;web socket&lt;/strong&gt;, você deve avaliar este ponto antes de qualquer outro. Para isso, o site &lt;a href=&quot;http://caniuse.com/#feat=websockets&quot;&gt;caniuse&lt;/a&gt; informa todos os navegadores bem como suas respectivas versões que possuem suporte a web socket. Como atalho, os navegadores e versões são esboçados na figura abaixo.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/05/11/support-websocket.png&quot; alt=&quot;Suporte dos navegadores&quot; title=&quot;Suporte dos navegadores&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Como você observou, dependendo do seu público, este tópico não será uma pedra no seu sapato.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-um-pouco-sobre-http&quot;&gt;2. Um pouco sobre HTTP&lt;/h2&gt;
+
+&lt;p&gt;Atualmente as requisições HTTP funcionam da seguinte maneira: o navegador abre uma porta de comunicação em um domínio específico, envia uma solicitação de cabeçalho HTTP para o servidor (apache ou nginx), o servidor envia a mensagem para a aplicação, que por sua vez, processa as informações, gera um documento (&lt;strong&gt;HTML&lt;/strong&gt;, &lt;strong&gt;JSON&lt;/strong&gt;, &lt;strong&gt;XML&lt;/strong&gt; etc) e envia o respectivo documento para o servidor. Em seguida, o servidor adiciona os cabeçalhos HTTP apropriados para a requisição, envia de volta para o navegar e encerra a conexão.&lt;/p&gt;
+
+&lt;p&gt;Mais informações: &lt;a href=&quot;https://pt.wikipedia.org/wiki/Hypertext_Transfer_Protocol#M.C3.A9todos_de_solicita.C3.A7.C3.A3o&quot; target=&quot;_blank&quot;&gt;Wikipedia&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;E o socket, como funciona? Veja abaixo.&lt;/p&gt;
+
+&lt;h2 id=&quot;3-o-que-é-web-socket&quot;&gt;3. O que é Web Socket?&lt;/h2&gt;
+
+&lt;p&gt;Web Sockets são um full-duplex, conexão persistente &lt;strong&gt;bi-direcional&lt;/strong&gt; de um navegador web para um servidor. Depois que uma conexão socket é estabelecida a conexão permanece aberta até que o cliente ou servidor decide encerrar. Com esta conexão aberta, o cliente ou servidor pode enviar uma mensagem a qualquer outro cliente conectado.  Sendo assim, neste momento, uma única aplicação de servidor em execução estará ciente de todas as conexões abertas, o que lhe permite comunicar com qualquer outra conexão aberta e a qualquer momento.&lt;/p&gt;
+
+&lt;p&gt;Adicional:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Web Socket foi desenvolvido para ser implementado em browsers web e servidores web, mas pode ser usado por qualquer cliente ou aplicação servidor. O protocolo Websocket é um protocolo independente baseado em TCP. Sua única relação com o HTTP é que seu handshake é interpretado por servidores HTTP como uma requisição de upgrade.
+Fonte: &lt;a href=&quot;https://pt.wikipedia.org/wiki/WebSocket&quot; target=&quot;_blank&quot;&gt;Wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;4-sobre-o-ratchet&quot;&gt;4. Sobre o Ratchet&lt;/h2&gt;
+
+&lt;p&gt;As aplicações de socket para servidor não tem acompanhado os navegadores. É aí que surgiu o &lt;strong&gt;Ratchet&lt;/strong&gt;, uma ferramenta fantástica para a implementação de um servidor, por protocolo &lt;strong&gt;TCP&lt;/strong&gt;. Você pode iniciar um servidor com o &lt;strong&gt;Ratchet I/O Component Server&lt;/strong&gt;, tendo um código que implementa o respectivo componente e poderá gerenciar todas as conexões.&lt;/p&gt;
+
+&lt;p&gt;Fluxo de uma conexão:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016/05/11/RatchetFlow.png&quot; alt=&quot;Fluxo de funcionamento&quot; title=&quot;Fluxo de funcionamento&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-ok-show-me-the-code&quot;&gt;5. OK, Show me the code!&lt;/h2&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif&quot; alt=&quot;Fluxo de funcionamento&quot; title=&quot;Fluxo de funcionamento&quot; style=&quot;width: 50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Como um amigo (o &lt;a href=&quot;https://www.facebook.com/lucasvst?fref=ts&quot; target=&quot;_blank&quot;&gt;Lucas Teles&lt;/a&gt;) sempre fala nos eventos, &lt;strong&gt;show me the code&lt;/strong&gt;, apresenta o código cara! No exemplo que irei demonstrar (com base na documentação do Ratchet), iremos seguir as implementações abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;dependência do ratchet;&lt;/li&gt;
+  &lt;li&gt;recursos para o servidor de socket;&lt;/li&gt;
+  &lt;li&gt;o gerenciador de conexões;&lt;/li&gt;
+  &lt;li&gt;consumir o web socket, utilizando o lindo Javascript.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;51-a-dependência&quot;&gt;5.1 A Dependência&lt;/h2&gt;
+
+&lt;p&gt;Sim, iremos utilizar uma dependência, afinal, quem vive sozinho?&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=composer.json&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Como você pode observar no arquivo &lt;strong&gt;composer.json&lt;/strong&gt;, é requerido a dependência &lt;strong&gt;“cboden/ratchet”: “0.3.*“&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;52-implementando-o-servidor&quot;&gt;5.2 Implementando o servidor&lt;/h2&gt;
+
+&lt;p&gt;Analise o código abaixo, nele é implementado os recursos do Ratchet.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=server.php&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;O que é implementado no arquivo &lt;strong&gt;server.php&lt;/strong&gt;, é explicado abaixo:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Ratchet\Server\IoServer&lt;/strong&gt;: Cria um socket aberto para escutar uma porta específica, para conexões de entrada. Os eventos são delegados através deste para as aplicações anexadas.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ratchet\Http\HttpServer&lt;/strong&gt;: Implementa os métodos da interface &lt;strong&gt;MessageComponentInterface&lt;/strong&gt; e gerencia as conexões.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ratchet\WebSocket\WsServer&lt;/strong&gt;: Um adaptador para lidar com as requisições e respostas do web socket. Este é o mediador entre o servidor e o cliente, para lidar com as mensagens em tempo real, por intermédio de um navegador web.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Hermes\Business\Service\SocketService&lt;/strong&gt;: Este será nosso gerenciador de conexões, mensagens, erros e encerramentos.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Dos itens que serão implementados, só entrarei em detalhes sobre o item quatro, do qual realmente nos interessa. Caso tenha curiosidade, procure como cada item funciona.&lt;/p&gt;
+
+&lt;h2 id=&quot;53-gerenciador-das-conexões&quot;&gt;5.3 Gerenciador das conexões&lt;/h2&gt;
+
+&lt;p&gt;Muito bem, o código abaixo, será o gerenciador das conexões, mensagens, encerramentos e erros.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=SocketService.php&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Como pode-se observar, a classe &lt;strong&gt;SocketService&lt;/strong&gt; implementa a interface &lt;strong&gt;MessageComponentInterface&lt;/strong&gt; e possui os métodos: &lt;strong&gt;__construct(), onOpen(), onMessage(), onClose(), onError()&lt;/strong&gt;. Bem como, o atributo estático; &lt;strong&gt;$connections&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Vamos falar sobre a responsabilidade de cada método. Primeiro, o construct; ao iniciar o servidor (explicado no tópico 5.2), o atributo estático $connections, recebe uma instância de &lt;strong&gt;SplObjectStorage&lt;/strong&gt; e será responsável por armazenar todas as conexões.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;onOpen()&lt;/strong&gt;: É o método executado a cada nova conexão, nele você poderá resgatar informações da conexão, como: sala, nome etc, enviadas pelo protocolo GET. O método depende do serviço &lt;strong&gt;&lt;a href=&quot;#connectionInformationService&quot;&gt;ConnectionInformationService&lt;/a&gt;&lt;/strong&gt; (exibido abaixo), que será o responsável por tratar as informações recebidas, via GET e retorna em um objeto. Ao receber o objeto, o método envia uma mensagem ao método &lt;strong&gt;getNewUser()&lt;/strong&gt; ao serviço &lt;strong&gt;UserService&lt;/strong&gt; requisitando uma nova instância de &lt;strong&gt;user&lt;/strong&gt; e a adiciona ao storage de objetos.&lt;/p&gt;
+
+&lt;h3 id=&quot;-o-serviço-connection-information&quot;&gt;&lt;a name=&quot;connectionInformationService&quot;&gt;&lt;/a&gt; O serviço Connection Information&lt;/h3&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=ConnectionInformationService.php&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;O serviço em questão, verifica os parâmetros enviados por GET e valida se o parâmetro &lt;strong&gt;name&lt;/strong&gt; e &lt;strong&gt;room&lt;/strong&gt; foram informados.&lt;/p&gt;
+
+&lt;p&gt;PS.: O serviço &lt;strong&gt;UserService&lt;/strong&gt;, pode ser visualizado &lt;a href=&quot;https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7#file-userservice-php&quot; target=&quot;_blank&quot;&gt;clicando aqui&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;onMessage()&lt;/strong&gt;: Este método é executado, sempre que, um cliente envia uma mensagem ao servidor, dependendo do domínio da aplicação, a mensagem poderá ser transferida para conexões da mesma sala ou para todas as conexões. No exemplo em questão, a mensagem é transferida para as conexões que estão na mesma sala do remetente.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;onClose()&lt;/strong&gt;: Sempre que uma conexão for encerrada, o método removerá a conexão do storage de objetos.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;onError()&lt;/strong&gt;: Este método é para fins bem exclusivos, depende do domínio da aplicação, ele será executado sempre que uma conexão lançar uma exceção. Neste caso, a conexão é finalizada pelo servidor.&lt;/p&gt;
+
+&lt;h2 id=&quot;consumindo-o-web-socket&quot;&gt;Consumindo o web socket.&lt;/h2&gt;
+
+&lt;p&gt;Para consumir o servidor de web socket, será utilizado o construtor &lt;strong&gt;WebSocket&lt;/strong&gt;. Conforme o exemplo abaixo.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=server.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Repare o ws:&lt;/strong&gt; Há um novo esquema de URL para conexões Web Socket. Existe também &lt;strong&gt;wss:&lt;/strong&gt; para uma conexão Web Socket é usado para conexões HTTP seguras.&lt;/p&gt;
+
+&lt;p&gt;Com isso, você pode manipular mensagens para o servidor e, ele por sua vez, repassar para outras conexões.&lt;/p&gt;
+
+&lt;h2 id=&quot;casos-de-uso&quot;&gt;Casos de uso&lt;/h2&gt;
+
+&lt;p&gt;Sempre que precisar de uma conexão quase em tempo real de baixa latência entre o cliente e o servidor, você terá que implementar Web Socket. Isso pode envolver a reformulação do modo como você desenvolve as aplicações de servidor com um novo foco em tecnologias como filas de eventos.&lt;/p&gt;
+
+&lt;p&gt;Alguns exemplos de casos de uso:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;usuários editando um mesmo registro;&lt;/li&gt;
+  &lt;li&gt;chats;&lt;/li&gt;
+  &lt;li&gt;links que precisam de rápida atualização;&lt;/li&gt;
+  &lt;li&gt;jogos on-line de vários players;&lt;/li&gt;
+  &lt;li&gt;atualização em tempo real de redes sociais.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.html5rocks.com/pt/tutorials/websockets/basics/&quot; target=&quot;_blank&quot;&gt;Apresentando WebSockets: trazendo soquetes para a web&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7&quot; target=&quot;_blank&quot;&gt;Gist Completo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://socketo.me/docs&quot; target=&quot;_blank&quot;&gt;Introduction to WebSockets&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Chegamos a um ponto de tecnologias e exigências, onde, as aplicações estão cada vez mais complexas, mais inteligêntes, mais isoladas de acordo com suas responsabilidades. O tema do qual eu escrevi está sendo utilizado cada vez mais nas aplicações que necessitam de atualizações instantâneas de informações.&lt;/p&gt;
+
+&lt;p&gt;Vale muito perder um tempo estudando e projetando. Um dia, você desenvolvedor, irá precisar de Web Socket.&lt;/p&gt;
+
+&lt;p&gt;Tem algo para incrementar? Utilize os comentários abaixo, agregue valor para a comunidade. Quaisquer críticas construtivas, serão bem-vindas.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 29 May 2016 00:00:00 -0300</pubDate>
+      </item>
+    
+      <item>
+        <title>Porque me mudei para Joinville</title>
+        <link>/development/2016/05/02/porque-me-mudei-para-joinville.html</link>
+        <guid isPermaLink="true">/development/2016/05/02/porque-me-mudei-para-joinville.html</guid>
+        <description>&lt;p&gt;Saudação méro mortal, lembra o post maroto que escrevi há alguns meses? (caso não tenha efetuado uma sábia leitura, clique aqui). Então, nele eu me desculpei e argumentei que estou em uma viagem pela galáxia. Pois bem, este post é para conversarmos sobre essa incrível viagem.&lt;/p&gt;
+
+&lt;p&gt;Enquanto escrevo, vou ouvindo o set &lt;a href=&quot;https://www.youtube.com/watch?v=v0X_tOCY_yQ&quot; target=&quot;_blank&quot;&gt;Vegas Deep&lt;/a&gt; do DJ Paulo Arruda.&lt;/p&gt;
+
+&lt;p&gt;Chega de bla, bla, bla e vem comigo.&lt;/p&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;Irei descrever os pontos que me levaram a aceitar o convite e como tal decisão impactou em minha carreira como desenvolvedor.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-origem&quot;&gt;A Origem&lt;/h2&gt;
+
+&lt;p&gt;A viagem teve início na minha cidade natal, Araraquara (a morada do sol), interior de São Paulo. O convite veio de uma agência web, localizada em Joinville, interior de Santa Catarina, donde, me foi informado que essa viagem não seria fácil, que seria longa, com grandes turbulências e muitos, muitos DESAFIOS.&lt;/p&gt;
+
+&lt;p&gt;Sim, foi necessário muitos planejamentos (no caso, a longo prazo) para aceitar o convite e deixar minha cidade natal, famíliares, amigos, por tempo indeterminado.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-decisão&quot;&gt;A Decisão&lt;/h2&gt;
+
+&lt;p&gt;A decisão foi tomada com base nas descrições da viagem (longa, grandes turbulências, muitos DESAFIOS etc).&lt;/p&gt;
+
+&lt;p&gt;Todos nós cheganos a um ponto de nossas carreiras, que precisamos tomar uma determinada decisão e tal irá modificar por completo nossas vidas profissionais, pessoais e até amorosas, pois bem, a decisão que tomei para aceitar a viagem, impactou em muitas mudanças positivas para várias áreas da minha vida.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-viagem&quot;&gt;A Viagem&lt;/h2&gt;
+
+&lt;p&gt;Desde que iniciou-se, tem sido de grande valia para minha vida profissional, de onde tem agregado conhecimentos indispensáveis e uma curva de aprendizado muito ampla.&lt;/p&gt;
+
+&lt;p&gt;Atualmente a viagem possuí uma duração de aproximadamente quatro meses e já apliquei muitos conhecimentos adquiridos e aprimorei-os.&lt;/p&gt;
+
+&lt;h2 id=&quot;pontos-positivos&quot;&gt;Pontos positivos&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ampla curva de aprendizado;&lt;/li&gt;
+  &lt;li&gt;novas amizades;&lt;/li&gt;
+  &lt;li&gt;evolução pessoal;&lt;/li&gt;
+  &lt;li&gt;adquirir novas experiências e novos conhecimentos;&lt;/li&gt;
+  &lt;li&gt;aplicação e aprimoração de experiências e conhecimentos;&lt;/li&gt;
+  &lt;li&gt;impacto da saída da zona de conforto;&lt;/li&gt;
+  &lt;li&gt;entre muitos.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Repare, alguns pontos impactam diretamente em minha vida profissional.&lt;/p&gt;
+
+&lt;h2 id=&quot;pontos-negativos&quot;&gt;Pontos negativos&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;longe de familiares e amigos;&lt;/li&gt;
+  &lt;li&gt;diversidade cultural e o clima;&lt;/li&gt;
+  &lt;li&gt;hábito com trânsito e pessoas.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Repare, os pontos não impactam diretamente em minha vida profissional.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Estou viajando há aproximadamente quatro meses e levando em consideração os meses já viajados, a curva de crescimento vem aumentando.&lt;/p&gt;
+
+&lt;p&gt;E então, qual foi a última vez que você fez algo pela primeira vez?&lt;/p&gt;
+
+&lt;p&gt;Quer compartilhar algo parecido? Use os comentários abaixo.&lt;/p&gt;
+
+&lt;p&gt;Beijos na alma!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 02 May 2016 00:00:00 -0300</pubDate>
+      </item>
+    
+      <item>
+        <title>Implementando annotations com doctrine annotation reader em PHP</title>
+        <link>/development/2016/01/22/implementando-annotations-com-doctrine-annotation-reader-em-php.html</link>
+        <guid isPermaLink="true">/development/2016/01/22/implementando-annotations-com-doctrine-annotation-reader-em-php.html</guid>
+        <description>&lt;p&gt;Saudações méros mortais, primeiro, peço desculpas pelo período sem trazer novidades para vocês (estive em uma excursão pela galáxia), em breve escreverei um artigo sobre essa viagem. Neste artigo mostrarei sobre &lt;strong&gt;annotations&lt;/strong&gt; (é claro, está no título).&lt;/p&gt;
+
+&lt;p&gt;Como disse meu amigo &lt;a href=&quot;https://medium.com/@guidiego&quot; target=&quot;_blank&quot;&gt;Guilherme Diego&lt;/a&gt; no artigo &lt;a href=&quot;https://medium.com/@guidiego/c%C3%B3digo-limpo-%C3%A9-uma-responsabilidade-blocos-5be1fdd8d341#.gbx5keq0s&quot; target=&quot;_blank&quot;&gt;Código Limpo é uma Responsabilidade — Blocos&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016-01-custom-annotations/ler-curtir-compartilhar.png&quot; alt=&quot;alt text&quot; title=&quot;Share the post.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Enquanto escrevo, vou ouvindo o álbum &lt;a href=&quot;https://open.spotify.com/album/6iJEtgHTEbVlSS5isIS71z&quot; target=&quot;_blank&quot;&gt;As Daylight Dies&lt;/a&gt; da banda Killswitch Engage, é um banda muito bacana.&lt;/p&gt;
+
+&lt;p&gt;Enfim, vamos ao que interessa, vem comigo.&lt;/p&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;Em um projeto recente do qual participei do processo de &lt;strong&gt;refactoring&lt;/strong&gt;, o que me auxiliou bastante, foi a implementação de &lt;strong&gt;annotations&lt;/strong&gt;, onde foi possível segregar informações estáticas e até atingir algumas práticas de &lt;strong&gt;clean code&lt;/strong&gt;, salientando que isso foi uma solução que funcionou bem no respectivo projeto.&lt;/p&gt;
+
+&lt;p&gt;Neste artigo eu não discutirei se é o correto, ou não, apenas demonstrarei como implementar &lt;strong&gt;custom annotations&lt;/strong&gt; com o &lt;strong&gt;doctrine reader&lt;/strong&gt;. Fica sobre teu critério meu chapa!&lt;/p&gt;
+
+&lt;h2 id=&quot;escopo&quot;&gt;Escopo&lt;/h2&gt;
+
+&lt;p&gt;No exemplo que mostrarei, utilizaremos os seguintes arquivos:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;compose.json&lt;/strong&gt;: Dependência e informações do projeto;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;PeopleAnnotation.php&lt;/strong&gt;: Será a nossa annotation, utilizaremos os atributos para receber valores de quem irá consumir a &lt;strong&gt;annotation&lt;/strong&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;People.php&lt;/strong&gt;: Iremos consumir nossa annotation e informar os respectivos valores para segregarmos informações;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ReaderAnnotation.php&lt;/strong&gt;: Neste arquivo iremos juntar tudo e fazer uma sopa de letrinhas.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Irei demonstrar os códigos no artigo, caso necessário, você poderá verificar no &lt;a href=&quot;https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9&quot; target=&quot;_blank&quot;&gt;Gist&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;dependência-sim-você-precisará-dela&quot;&gt;Dependência, sim você precisará dela.&lt;/h2&gt;
+
+&lt;p&gt;Para trabalhar com o &lt;strong&gt;Doctrine Annotation Reader&lt;/strong&gt;, será necessário possuir a dependência &lt;strong&gt;“doctrine/common”&lt;/strong&gt;, conforme o arquivo &lt;strong&gt;composer.json&lt;/strong&gt; abaixo:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=composer.json&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;desenvolvendo-a-classe-da-annotation&quot;&gt;Desenvolvendo a classe da annotation.&lt;/h2&gt;
+
+&lt;p&gt;Resumindo, esta classe será responsável pela &lt;strong&gt;annotation&lt;/strong&gt;, ou seja, os atributos &lt;strong&gt;públicos&lt;/strong&gt; da classe armazenarão informações que poderão ser informadas por quem irá consumir a &lt;strong&gt;annotation&lt;/strong&gt; em questão. Segue abaixo o arquivo &lt;strong&gt;PeopleAnnotation.php&lt;/strong&gt;, é a nossa annotation:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=PeopleAnnotation.php&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Repare que, a classe em questão possui uma &lt;strong&gt;annotation&lt;/strong&gt;, sendo ela &lt;strong&gt;@Annotation&lt;/strong&gt;, isto é necessário para informar ao &lt;strong&gt;Doctrine Annotation Reader&lt;/strong&gt; que a classe em questão, realmente é uma &lt;strong&gt;annotation&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;consumindo-a-annotation&quot;&gt;Consumindo a annotation&lt;/h2&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016-01-custom-annotations/consumindo.gif&quot; alt=&quot;alt text&quot; title=&quot;Using the annotation PeopleAnnotation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nesta etapa, iremos consumir a annotation &lt;strong&gt;PeopleAnnotation&lt;/strong&gt; e informaremos os valores que a annotation disponibiliza.&lt;/p&gt;
+
+&lt;p&gt;Salientando, é possível consumir a annotation em:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;classes;&lt;/li&gt;
+  &lt;li&gt;atributos;&lt;/li&gt;
+  &lt;li&gt;métodos.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;No exemplo abaixo, temos a classe &lt;strong&gt;People&lt;/strong&gt;, que comsumirá a &lt;strong&gt;PeopleAnnotation&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=People.php&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Repare que, a classe &lt;strong&gt;People&lt;/strong&gt; está consumindo a &lt;strong&gt;annotation&lt;/strong&gt; tanto na respectiva classe, quanto nos atributos e métodos.&lt;/p&gt;
+
+&lt;h2 id=&quot;vamos-verificar-a-people-finalizando-a-sopa-de-letrinhas&quot;&gt;Vamos verificar a &lt;strong&gt;People&lt;/strong&gt;. Finalizando a sopa de letrinhas&lt;/h2&gt;
+
+&lt;p&gt;Nesta etapa final, iremos instanciar a classe &lt;strong&gt;AnnotationReader&lt;/strong&gt; para lermos as &lt;strong&gt;annotations&lt;/strong&gt; extraídas da classe &lt;strong&gt;People&lt;/strong&gt; (que está consumindo a &lt;strong&gt;PeopleAnnotation&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;Classes nativas utilizadas no exemplo:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;http://php.net/manual/pt_BR/class.reflectionclass.php&quot; target=&quot;_blank&quot;&gt;ReflectionClass()&lt;/a&gt;&lt;/strong&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;http://php.net/manual/pt_BR/class.reflectionobject.php&quot; target=&quot;_blank&quot;&gt;ReflectionObject()&lt;/a&gt;&lt;/strong&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;http://php.net/manual/pt_BR/class.reflectionproperty.php&quot; target=&quot;_blank&quot;&gt;ReflectionProperty()&lt;/a&gt;&lt;/strong&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;http://php.net/manual/pt_BR/class.reflectionmethod.php&quot; target=&quot;_blank&quot;&gt;ReflectionMethod()&lt;/a&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Abaixo o exemplo:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=ReaderAnnotation.php&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;resultado-você-já-deve-ter-executado-os-exemplos&quot;&gt;Resultado (você já deve ter executado os exemplos)&lt;/h2&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/img/posts/2016-01-custom-annotations/happy.gif&quot; alt=&quot;alt text&quot; title=&quot;Using the annotation PeopleAnnotation&quot; /&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=result.txt&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;span class=&quot;space&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://masnun.com/2012/08/12/using-annotations-in-php-with-doctrine-annotation-reader.html&quot; target=&quot;_blank&quot;&gt;Artigo sobre o assunto em inglês&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://doctrine-common.readthedocs.org/en/latest/reference/annotations.html&quot; target=&quot;_blank&quot;&gt;Doctrine - Documentação oficial&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://php.net/&quot; target=&quot;_blank&quot;&gt;Documentação oficial PHP.net&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;A utilização de &lt;strong&gt;annotation&lt;/strong&gt; pode facilitar diversas condições, salientando que, a necessidade de implementar &lt;strong&gt;custom annotation&lt;/strong&gt; varia de situação. Use o bom senso de programador.&lt;/p&gt;
+
+&lt;p&gt;Quaisquer feedbacks serão bem-vindos, fique à vontade para comentar e/ou implementar alguma informação.&lt;/p&gt;
+
+&lt;p&gt;Até breve méros mortais e eternos aprendizes (todos somos).&lt;/p&gt;
+</description>
+        <pubDate>Fri, 22 Jan 2016 00:00:00 -0200</pubDate>
+      </item>
+    
+      <item>
+        <title>Como replicar banco de dados MySQL</title>
+        <link>/banco/de/dados/2015/11/01/como-replicar-banco-de-dados-mysql.html</link>
+        <guid isPermaLink="true">/banco/de/dados/2015/11/01/como-replicar-banco-de-dados-mysql.html</guid>
+        <description>&lt;p&gt;Saudações, atuo como desenvolvedor Full-Stack em uma empresa de Araraquara (SP), a wab.com.br. Não sou um expert em servidores e aplicações atuando como tal. Porém gosto de estudar, então pratiquei sobre o assunto a qual os escrevo.&lt;/p&gt;
+
+&lt;p&gt;Iremos abordar os seguintes tópicos:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Introdução&lt;/li&gt;
+  &lt;li&gt;Funcionamento da replicação (teoria)&lt;/li&gt;
+  &lt;li&gt;Como iremos replicar (esquema)&lt;/li&gt;
+  &lt;li&gt;Replicando um banco de dados MySQL (prática)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;A replicação de bancos de dados tem como principal objetivo a &lt;strong&gt;redundância&lt;/strong&gt;, onde torna-se uma aplicação mais segura contra falhas e &lt;strong&gt;indisponibilidades de outras aplicações (como o respectivo banco de dados)&lt;/strong&gt; e por sua vez um backup online dos dados (em tempo real). Nos tópicos abaixo estaremos abordando todos os processos de replicação.&lt;/p&gt;
+
+&lt;h2 id=&quot;como-funciona-a-replicação&quot;&gt;Como funciona a replicação?&lt;/h2&gt;
+
+&lt;p&gt;O &lt;strong&gt;MySQL&lt;/strong&gt; possui um recurso de comunicação (onde ocorrerá a replicação) modo &lt;strong&gt;Master-Slave&lt;/strong&gt;. Sendo assim, um servidor poderá possuir um banco de dados MySQL rodando como &lt;strong&gt;Master&lt;/strong&gt; e &lt;strong&gt;N&lt;/strong&gt; bancos de dados atuando como &lt;strong&gt;Slave&lt;/strong&gt; (em diferentes servidores).&lt;/p&gt;
+
+&lt;p&gt;O servidor atuando em modo &lt;strong&gt;Master&lt;/strong&gt; irá gravar todas as alterações efetuadas no banco de dados, em um arquivo de &lt;strong&gt;log binário&lt;/strong&gt;. Onde o servidor atuando em modo &lt;strong&gt;Slave&lt;/strong&gt; irá requisitar o log binário do &lt;strong&gt;Master&lt;/strong&gt; e alterará o próprio arquivo de log binário deixando-o idêntico, onde o MySQL atual aplicando as alterações em si.&lt;/p&gt;
+
+&lt;p&gt;Segue abaixo um esquema de replicação &lt;strong&gt;Master-Slave&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication.jpg&quot; alt=&quot;alt text&quot; title=&quot;MySQL Replication&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Figura 1.1&lt;/strong&gt; - Fonte: &lt;strong&gt;Google Images&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;como-iremos-replicar-esquema&quot;&gt;Como iremos replicar (esquema)&lt;/h2&gt;
+
+&lt;p&gt;Para a replicação do &lt;strong&gt;MySQL&lt;/strong&gt;, será utilizado três instâncias &lt;strong&gt;t2.micro&lt;/strong&gt; no &lt;strong&gt;Amazon AWS&lt;/strong&gt;, conforme abaixo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://leonardorifeli.com/img/posts/2015-11-01-amazon-aws.png&quot; alt=&quot;alt text&quot; title=&quot;Running on AWS&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Instâncias - Figura 1.2&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Observação:&lt;/strong&gt; Pode-se analisar na &lt;strong&gt;Figura 1.2&lt;/strong&gt; (acima) que as três instâncias encontram-se no mesmo datacenter, porém a replicação também funciona em datacenters diferentes.&lt;/p&gt;
+
+&lt;p&gt;Onde os respectivos atuarão em modo:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;leonardorifeli-001:&lt;/strong&gt; Master&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;leonardorifeli-002:&lt;/strong&gt; Slave&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;leonardorifeli-003:&lt;/strong&gt; Slave&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Conforme esquema abaixo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://leonardorifeli.com/img/posts/2015-11-01-server-aws-mysql-replication.png&quot; alt=&quot;alt text&quot; title=&quot;Server MySQL Replication&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Figura 1.3&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PS&lt;/strong&gt;: Não entrarei em detalhes sobre o Amazon AWS.&lt;/p&gt;
+
+&lt;h2 id=&quot;replicando-um-banco-de-dados-mysql&quot;&gt;Replicando um banco de dados MySQL&lt;/h2&gt;
+
+&lt;p&gt;Vamos ao tão esperado tópico.&lt;/p&gt;
+
+&lt;p&gt;As instâncias especificadas na &lt;strong&gt;Figura 1.2&lt;/strong&gt; estão rodando com o sistema operacional &lt;strong&gt;Ubuntu Server 14.04 LTS (HVM), SSD Volume Type&lt;/strong&gt;, disponibilizado pelo Amazon AWS.&lt;/p&gt;
+
+&lt;p&gt;Para a replicação do banco de dados &lt;strong&gt;MySQL&lt;/strong&gt; será necessário a instalação da respectiva aplicação (óbvio). Neste post foi utilizado o &lt;strong&gt;mysql-server-5.6&lt;/strong&gt;. &lt;a href=&quot;http://sharadchhetri.com/2014/05/07/install-mysql-server-5-6-ubuntu-14-04-lts-trusty-tahr/&quot; target=&quot;_blank&quot;&gt;Tutorial de instalação&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Iremos aplicar os seguintes passos:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Servidor Master:&lt;/strong&gt; Configurar o servidor Master (arquivo my.cnf)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Servidor Master:&lt;/strong&gt; Criar o usuário de replicação e conceder as devidas permissões&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Servidores Slaves:&lt;/strong&gt; Configurar o servidor (arquivo my.cnf)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Servidores Slaves:&lt;/strong&gt; Informar qual será o servidor &lt;strong&gt;Master&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;1-configuração-do-servidor-master&quot;&gt;1. Configuração do servidor Master&lt;/h4&gt;
+
+&lt;p&gt;Após a instalação com sucesso do &lt;strong&gt;MySQL Server 5.6&lt;/strong&gt; nas instâncias especificadas na &lt;strong&gt;Figura 1.2&lt;/strong&gt;, vamos as respectivas configurações na instância &lt;strong&gt;leonardorifeli-001&lt;/strong&gt; que atuará em modo &lt;strong&gt;Master&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Configurando:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /etc/mysql
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;nano my.cnf&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Será necessário editar o arquivo &lt;strong&gt;my.cnf&lt;/strong&gt;, ficando da seguinte maneira:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;[mysqld]
+
+server-id = 1
+log-bin = mysql-bin
+bind-address = 0.0.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Indicamos que o respectivo servidor será o &lt;strong&gt;Master&lt;/strong&gt; (pelo server-id). Após editar, executamos o comando abaixo (para reiniciar o servidor MySQL):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;service mysql restart&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;2-criar-usuário-de-replicação-e-conceder-as-permissões&quot;&gt;2. Criar usuário de replicação e conceder as permissões&lt;/h4&gt;
+
+&lt;p&gt;Agora, iremos criar o usuário para utilizarmos na replicação e conceder para tal as devidas permissões.&lt;/p&gt;
+
+&lt;p&gt;Acessando o &lt;strong&gt;MySQL&lt;/strong&gt; com usuário root e informando a senha (informado na instalação).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mysql &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; root &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-mysql&quot; data-lang=&quot;mysql&quot;&gt;CREATE USER slave IDENTIFIED BY &quot;user-rifeli&quot;;
+
+GRANT replication SLAVE, replication CLIENT ON *.* TO slave@'IP-LEONARDORIFELI-002' IDENTIFIED BY 'user-rifeli';
+
+GRANT replication SLAVE, replication CLIENT ON *.* TO slave@'IP-LEONARDORIFELI-003' IDENTIFIED BY 'user-rifeli';
+
+FLUSH PRIVILEGES;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Criamos o usuário &lt;strong&gt;slave&lt;/strong&gt; que responderá pela senha &lt;strong&gt;user-rifeli&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Enfim, o servidor &lt;strong&gt;Master&lt;/strong&gt; encontra-se configurado.&lt;/p&gt;
+
+&lt;h4 id=&quot;3-configuração-nos-servidores-que-atuarão-em-modo-slave&quot;&gt;3. Configuração nos servidores que atuarão em modo Slave&lt;/h4&gt;
+
+&lt;p&gt;O processo de configuração é análogo para ambos servidores, alterando apenas o &lt;strong&gt;server-id&lt;/strong&gt; na configuração.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /etc/mysql
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;nano my.cnf&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Será necessário editar o arquivo &lt;strong&gt;my.cnf&lt;/strong&gt;, da seguinte maneira:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;log-bin = mysql-bin
+server-id = number-slave
+relay-log = mysql-relay-bin
+log-slave-updates = 1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;O &lt;strong&gt;server-id&lt;/strong&gt; será igual a &lt;strong&gt;2&lt;/strong&gt; para a instância &lt;strong&gt;leonardorifeli-002&lt;/strong&gt; e igual a &lt;strong&gt;3&lt;/strong&gt; para a instância  &lt;strong&gt;leonardorifeli-003&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Após editar, executamos o comando abaixo (para reiniciar o servidor MySQL):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;service mysql restart&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;4-informar-para-os-servidores-slaves-qual-será-o-servidor-master&quot;&gt;4. Informar para os servidores Slaves qual será o servidor Master&lt;/h4&gt;
+
+&lt;p&gt;Acessando o MySQL com usuário root e informando a senha (informado na instalação).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mysql &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; root &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-mysql&quot; data-lang=&quot;mysql&quot;&gt;CHANGE MASTER TO MASTER_HOST='IP-LEONARDORIFELI-001',
+MASTER_USER='slave',
+MASTER_PASSWORD='user-rifeli',
+MASTER_LOG_FILE='mysql-bin.000001',
+MASTER_LOG_POS=0;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;PS:&lt;/strong&gt; Conforme já informado, este processo é análogo para ambos servidores&lt;/p&gt;
+
+&lt;h2 id=&quot;testando-a-replicação&quot;&gt;Testando a replicação&lt;/h2&gt;
+
+&lt;p&gt;No servidor &lt;strong&gt;leonardorifeli-001&lt;/strong&gt; foi criado o banco &lt;strong&gt;leonardorifeli&lt;/strong&gt;, conforme abaixo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-master.png&quot; alt=&quot;alt text&quot; title=&quot;Server MySQL Replication leonardorifeli-001&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Servidor Master (leonardorifeli-001) - Figura 1.4&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Após esse processo, foi verificado os bancos contidos nos servidores slaves, e foi relatado que a replicação foi um sucesso. Conforme abaixo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-01.png&quot; alt=&quot;alt text&quot; title=&quot;Server MySQL Replication leonardorifeli-001 and leonardorifeli-002&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Servidor Slave (leonardorifeli-002) - Figura 1.5&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-02.png&quot; alt=&quot;alt text&quot; title=&quot;Server MySQL Replication leonardorifeli-001 and leonardorifeli-003&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Servidor Slave (leonardorifeli-003) - Figura 1.6&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;referências-bibliográficas&quot;&gt;Referências Bibliográficas&lt;/h2&gt;
+
+&lt;p&gt;Abaixo seguem as referências bibliográficas utilizadas:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dev.mysql.com/doc/refman/5.6/en/replication.html&quot; target=&quot;_blank&quot;&gt;Documentação do MySQL&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.vivaolinux.com.br/dica/Configurando-acesso-remoto-em-servidores-MySQL&quot; target=&quot;_blank&quot;&gt;Configurando acesso remoto ao MySQL&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Recomenda-se o uso da replicação apenas para aplicações robustas que necessitam de redundância ou backup em tempo real e neste caso o servidor &lt;strong&gt;Slave&lt;/strong&gt; pode efetuar um backup compactado do banco de dados e enviar para um &lt;strong&gt;Storage no Amazon S3&lt;/strong&gt;, por exemplo.&lt;/p&gt;
+
+&lt;p&gt;Apenas salientando, a replicação funciona somente de &lt;strong&gt;Master&lt;/strong&gt; para &lt;strong&gt;Slave&lt;/strong&gt; (conforme &lt;strong&gt;Figura 1.1 e 1.3&lt;/strong&gt;) e não o contrário.&lt;/p&gt;
+
+&lt;h2 id=&quot;informações-adicionais&quot;&gt;Informações Adicionais&lt;/h2&gt;
+
+&lt;p&gt;Este artigo surgiu para aplicação e documentação dos assuntos abordados e como sempre, transferência de conhecimentos.&lt;/p&gt;
+
+&lt;p&gt;Espero que as informações supramencionadas sejam úteis.&lt;/p&gt;
+
+&lt;p&gt;Façam seus comentários no espaço abaixo e compartilhe este post.&lt;/p&gt;
+
+&lt;p&gt;Abraços e até o próximo post.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 01 Nov 2015 00:00:00 -0200</pubDate>
+      </item>
+    
+      <item>
+        <title>Como ir bem em cálculo 1</title>
+        <link>/dicas/2015/07/12/como-ir-bem-em-calculo-um.html</link>
+        <guid isPermaLink="true">/dicas/2015/07/12/como-ir-bem-em-calculo-um.html</guid>
+        <description>&lt;p&gt;Sim, é possível, não desista sem ao menos ter sentado a ‘bunda’ na cadeira e estudado.&lt;/p&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;Deixando claro que descreverei minhas experiências cursando bacharelado em Engenharia de Computação.&lt;/p&gt;
+
+&lt;p&gt;Em meu primeiro semestre dentro de uma instituição acadêmica deparei-me com a disciplina que mais amedontra alguns alunos de &lt;strong&gt;exatas&lt;/strong&gt;, sim, o &lt;strong&gt;cálculo&lt;/strong&gt;. Porém, ao decorrer do primeiro semestre, ainda estudando cálculo 1, percebi que não é tão difícil como todos dizem (não estou me gabando), então, decidi escrever como consegui dar-me bem (ao menos passei) em tal disciplina.&lt;/p&gt;
+
+&lt;h2 id=&quot;um-pouco-sobre-mim&quot;&gt;Um pouco sobre mim&lt;/h2&gt;
+
+&lt;p&gt;Eu estudei todo o ensino inicial (fundamental e médio) em &lt;strong&gt;escola pública&lt;/strong&gt; (E.E Ergilia Micelli), e de certa forma não foi um ensino de qualidade para preparar-me para o ensino superior, mas sempre pensei: é o aluno que define a instituição, então eu sempre me empenhei na medida do possível.&lt;/p&gt;
+
+&lt;p&gt;Tive uma preparação excelente no curso pré-vestibular &lt;a href=&quot;http://www.iq.unesp.br/#!/cuca/&quot; target=&quot;_blank&quot;&gt;CUCA&lt;/a&gt; (Curso Unificado do Câmpus de Araraquara) durante um ano (2014), onde tive contato também com outras áreas do conhecimento &lt;strong&gt;(posso descrever detalhes em outro post)&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ao deparar-me com o ensino superior, foi uma surpresa e também uma grande experiência.&lt;/p&gt;
+
+&lt;h2 id=&quot;informações-gerais&quot;&gt;Informações gerais&lt;/h2&gt;
+
+&lt;p&gt;Se você se diz não gostar de cálculo, revise seus conceitos sobre exatas. Sempre é dito nas primeiras aulas na faculdade: - &lt;strong&gt;“Será como na escola, porém, acelerado, bem acelerado”&lt;/strong&gt;. Isso eu vivênciei e consegui superar meus limites, principalmente na disciplina de cálculo, a cada aula foi algo novo para mim, a princípio poderá ser para você.&lt;/p&gt;
+
+&lt;p&gt;Tenha em mente que você terá que empenhar-se para seus objetivos serem realizados, você terá que suar muito, ler muito, e principalmente,fazer muitos exercícios.&lt;/p&gt;
+
+&lt;p&gt;Salientando se você chegou na aula de cálculo e disse não gostar da matéria, por gentileza, revise seus conceitos (é isso mesmo que você deseja?), pois isso poderá ser prejudicial ao seu futuro.&lt;/p&gt;
+
+&lt;p&gt;Agora, se você gosta, mas possui dificuldades, continue empenhando-se que conseguirá.&lt;/p&gt;
+
+&lt;h2 id=&quot;mas-como&quot;&gt;Mas como?&lt;/h2&gt;
+
+&lt;p&gt;Vá para a aula, evite faltar e caso isso aconteça, pegue a matéria urgentemente e esclareça suas dúvidas com alguém ou até mesmo com o Professor.&lt;/p&gt;
+
+&lt;p&gt;Participe das aulas, tire suas dúvidas quanto a teoria dos assuntos abordados, pegue um livro de cálculo e prátique, faça exercícios. Na área de sugestões segue alguns livros que utilizei.&lt;/p&gt;
+
+&lt;p&gt;Como meu sábio Professor &lt;strong&gt;&lt;a href=&quot;http://www.escavador.com/pessoas/5614163&quot; target=&quot;_blank&quot;&gt;Marcelo Mana&lt;/a&gt;&lt;/strong&gt; disse: - “Sente e faça cinquenta, cem, duzentos exercícios e quero ver falar que não aprendeu”.&lt;/p&gt;
+
+&lt;h2 id=&quot;algumas-dicas&quot;&gt;Algumas dicas&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Tenha foco:&lt;/strong&gt; Sua mão escreve sozinha, você não precisa ficar olhando para ela. É possível prestar atenção e escrever ao mesmo tempo. Você não anda conversando? Então.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Anotações:&lt;/strong&gt; Tente escrever palavras chaves durante a aula para não se perder quando for estudar.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Evite faltas:&lt;/strong&gt; Sim, elas prejudicam. Caso aconteça pegue a matéria que perdeu com alguém e esclareça suas dúvidas.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Presença constante na biblioteca:&lt;/strong&gt; Sabe aqueles minutos de intervalo, ou quando a aula finaliza mais cedo? Então, use-os a seu favor, vá para biblioteca e coloque às dúvidas em dia.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Faça exercícios:&lt;/strong&gt; Aproveitando a dica anterior, pegue livros respectivos de cálculo para aplicar e exercitar. Leia as sugestões de livros logo abaixo.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Persista:&lt;/strong&gt; Por mais complicado que seja a leitura dos livros de exatas, persista, leia e releia (no Youtube é possível encontrar videos que facilitam). Não desista. Se o cara teve capacidade intelectual de escrever, você terá de ler e entender.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;sugestões&quot;&gt;Sugestões&lt;/h2&gt;
+
+&lt;p&gt;Abaixo seguem alguns livros que utilizei para estudos e práticas:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.im.ufrj.br/~amadeo/guidorizzi_v1_2001.pdf&quot; target=&quot;_blank&quot;&gt;Um curso de cálculo - Volume 1&lt;/a&gt;: Hamilton Luiz Guidorizzi&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.nossoslivros.com.br/C%C3%A1lculo/Swokowski/Parte%201.pdf&quot; target=&quot;_blank&quot;&gt;Cálculo com Geometria Analítica&lt;/a&gt;: EariW. SWOKOWSKI&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.nossoslivros.com.br/C%C3%A1lculo/Calculo%20A%20-%20Fun%C3%A7%C3%B5es,%20Limite,%20Deriva%C3%A7%C3%A3o%20e%20Integra%C3%A7%C3%A3o%20(D.M.%20Flemming)%20-%206.Ed.pdf&quot; target=&quot;_blank&quot;&gt;Cálculo A&lt;/a&gt;: Diva Marília Flemming.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://problemasteoremas.wordpress.com/2012/05/15/b-demidovitch-problemas-e-exercicios-de-analise-matematica/&quot; target=&quot;_blank&quot;&gt;Problemas E Exercícios De Análise Matemática&lt;/a&gt;: B. Demidovitch. Não localizei PDF, porém no link segue um artigo sobre.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;adicional&quot;&gt;Adicional&lt;/h2&gt;
+
+&lt;p&gt;Vídeo sobre onde o Professor Dr. Clóvis de Barros Filho fala sobre Ética Kantiana e menciona o livro &lt;em&gt;&lt;a href=&quot;http://charlezine.com.br/wp-content/uploads/Fundamenta%C3%A7%C3%A3o-da-Metaf%C3%ADsica-dos-Costumes-Kant1.pdf&quot; target=&quot;_blank&quot;&gt;Fundamentação
+da Metafísica dos Costumes&lt;/a&gt;&lt;/em&gt; por se tratar de um livro difícil de entender.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Qj6mQSdBSGI&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Confira a aula completa (desejo x vontade): &lt;a href=&quot;https://www.youtube.com/watch?v=YbI7V46jCKc&quot; target=&quot;_blank&quot;&gt;clique aqui&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Eu como marinheiro de primeira viagem demorei, mas consegui pegar alguns macetes de estudo dentro da faculdade, porém o que eu fiz para ir bem pode não servir para você, tente absorver o máximo do que leu neste artigo e encontrar o que melhor enquadra-se para você.&lt;/p&gt;
+
+&lt;p&gt;Aproveite a faculdade, não tenha medo das aulas, use o cálculo ao seu favor e principalmente: &lt;strong&gt;não adianta&lt;/strong&gt; tentar colar na prova de cálculo. A maior prova será quando você se formar.&lt;/p&gt;
+
+&lt;p&gt;Abraços e até o próximo post.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 12 Jul 2015 00:00:00 -0300</pubDate>
+      </item>
+    
+      <item>
+        <title>Por que utilizar o Jekyll?</title>
+        <link>/development/2015/05/06/porque-utilizar-o-jekyll.html</link>
+        <guid isPermaLink="true">/development/2015/05/06/porque-utilizar-o-jekyll.html</guid>
+        <description>&lt;p&gt;Neste post irei descrever por que optei por utilizar o Jekyll. Mostrarei como ele é e como funciona.&lt;/p&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;p&gt;Primeiramente irei explicar o que é o Jekyll.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jekyll&lt;/strong&gt; é um gerenciador de códigos estáticos. Isso mesmo, ele não faz uso de banco de dados e não requesita um servidor robusto para funcionar, podendo utilizar o &lt;strong&gt;Github Pages&lt;/strong&gt; para hospedar o site. Você pode desenvolver páginas e até mesmo um blog de forma estática, apenas utilizando &lt;strong&gt;HTML&lt;/strong&gt; que você provavelmente já conhece. Ele é baseado em vários formatos como &lt;strong&gt;Markdown&lt;/strong&gt; para formatação de textos e posts e um padrão de template chamado &lt;strong&gt;Liquid&lt;/strong&gt; com um pouco de &lt;strong&gt;YAML&lt;/strong&gt; para exibir e guardar os dados das variáveis.&lt;/p&gt;
+
+&lt;p&gt;Mostrarei como o &lt;strong&gt;Jekyll&lt;/strong&gt; funciona (o que eu aprendi até aqui) posteriormente como iniciar um projeto utilizando-o.&lt;/p&gt;
+
+&lt;h2 id=&quot;estrutura-de-diretórios&quot;&gt;Estrutura de diretórios&lt;/h2&gt;
+
+&lt;p&gt;Todo arquivo e/ou diretório que tiver &lt;strong&gt;underscore (exemplo: _includes)&lt;/strong&gt; no começo, o &lt;strong&gt;Jekyll&lt;/strong&gt; irá ignorar no pacote final, quando rodar o &lt;strong&gt;&lt;code&gt;jekyll build&lt;/code&gt;&lt;/strong&gt; para gerar os arquivos para o site (os arquivo do site ficarão dentro do diretório &lt;strong&gt;_site&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/2015-05-05-structure-directory.png&quot; alt=&quot;Structure Directory&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;O diretório &lt;strong&gt;_includes&lt;/strong&gt; guarda arquivos que serão reutilizados nas páginas do projeto, como, &lt;strong&gt;header&lt;/strong&gt;, &lt;strong&gt;footer&lt;/strong&gt;, &lt;strong&gt;sidebar&lt;/strong&gt;, &lt;strong&gt;nav&lt;/strong&gt; ou qualquer outra coisa de acordo com o layout.&lt;/p&gt;
+
+&lt;p&gt;No diretório &lt;strong&gt;_layouts&lt;/strong&gt; você vai colocar os padrões de layout de páginas. Imagine que existam páginas com formatos de estruturas diferentes. Exemplo: &lt;strong&gt;default.html&lt;/strong&gt;, &lt;strong&gt;article.html&lt;/strong&gt;, &lt;strong&gt;post.html&lt;/strong&gt;, e assim por diante.&lt;/p&gt;
+
+&lt;p&gt;O diretório &lt;strong&gt;_site&lt;/strong&gt; é o &lt;strong&gt;build&lt;/strong&gt; do seu projeto. É ali que o &lt;strong&gt;Jekyll&lt;/strong&gt; coloca a versão final estática do site (que é gerado executando &lt;strong&gt;&lt;code&gt;jekyll build&lt;/code&gt;&lt;/strong&gt; no terminal), pronto para ser publicado.&lt;/p&gt;
+
+&lt;p&gt;Há pessoas que preferem deixar o diretório &lt;strong&gt;_site&lt;/strong&gt; versionável no GIT, e há pessoas que o colocam no &lt;strong&gt;.gitignore&lt;/strong&gt; e utilizam outro diretório (&lt;strong&gt;web&lt;/strong&gt; por exemplo). Basta executar o &lt;strong&gt;&lt;code&gt;jekyll build&lt;/code&gt;&lt;/strong&gt; copiar os arquivos gerados no diretório &lt;strong&gt;_site&lt;/strong&gt; para o diretório &lt;strong&gt;web&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;|-- _config.yml
+|-- _includes/
+|-- _layouts/
+|-- _posts/
+|-- _site/
+|-- about.md # =&amp;gt; será uma página chamada about
+|-- index.html # =&amp;gt; http://projeto.com
+└── feed.xml # =&amp;gt; http://projeto.com/feed.xml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;yaml&quot;&gt;YAML&lt;/h2&gt;
+&lt;p&gt;O formato YAML foi desenvolvido para facilidar o entendimento e a escrita dentro dos arquivos no respectivo formato.&lt;/p&gt;
+
+&lt;p&gt;Qualquer arquivo no respectivo formato e que contenha um bloco em YAML será processado pelo jekyll como um arquivo especial, o pessoal do &lt;strong&gt;Jekyll&lt;/strong&gt; o chama de &lt;strong&gt;front-matter&lt;/strong&gt;. O front-matter precisa estar em um formato válido de YAML. Toda a página no Jekyl deverá ser iniciada da seguinte maneira:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;---
+layout: default
+title: Home
+---&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Restritamente deverá começar com os três traços e finalizar com os mesmos. Sem choro nem vela. O código YAML são as variáveis &lt;strong&gt;&lt;code&gt;layout&lt;/code&gt;&lt;/strong&gt; e &lt;strong&gt;&lt;code&gt;title&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;entendendo-o-arquivo-_configyml&quot;&gt;Entendendo o arquivo _config.yml&lt;/h2&gt;
+
+&lt;p&gt;Tal arquivo é responsável por armazenar as variável que serão utilizadas dentro do site. Exemplo: Copyright do footer, link das redes sociais, e-mail, mensagens, etc.&lt;/p&gt;
+
+&lt;p&gt;Exemplo:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## SITE CONFIGURATION
+baseurl: &quot;&quot;
+url: &quot;https://leonardorifeli.com&quot;
+
+## THEME-SPECIFIC CONFIGURATION
+theme:
+  title: Leonardo Rifeli
+  email: leonardorifeli@gmail.com
+  empresa: Wab &amp;lt;wab.com.br&amp;gt;
+  facebook: false
+  twitter: true
+  twitter_base: leonardorifeli&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Para utilizar as variáveis dentro do site, segue um exemplo implementado no arquivo &lt;strong&gt;&lt;code&gt;_includes/head.html&lt;/code&gt;&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;{`{ site.theme.title }`}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{`{ /css/main.css&quot;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;prepend:&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;site&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;baseurl&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;}`}&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;Obs.:&lt;/strong&gt; Removendo as aspas simples, ele irá utilizar o valor que foi armazenado em cada respectiva variável.&lt;/p&gt;
+
+&lt;h2 id=&quot;iniciando&quot;&gt;Iniciando&lt;/h2&gt;
+
+&lt;p&gt;Bom, após uma descrição de como o Jekyll funciona (ou melhor, o que aprendi até agora). Irei demonstrar como iniciar um novo projeto utilizando o &lt;strong&gt;Jekyll&lt;/strong&gt;. Irei demonstrar utilizando um repositório no &lt;strong&gt;Github&lt;/strong&gt; e hospedando no &lt;strong&gt;Github Pages&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Acesse sua conta no Github, crie um novo repositório com o nome da organização e utilizando o sufixo &lt;b&gt;.github.io&lt;/b&gt;. Exemplo: &lt;b&gt;leonardorifeli.github.io&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;Em seguido acesse a página do repositório e vá em &lt;strong&gt;“Settings”&lt;/strong&gt; e no box &lt;strong&gt;“GitHub Pages”&lt;/strong&gt; clique em &lt;strong&gt;“Automatic page generator”&lt;/strong&gt;, na etapa seguinte clique em &lt;strong&gt;“Continue to layouts”&lt;/strong&gt;. O próximo pasos será selecionar um layout (não se preocupe muito quanto a isso), simplesmente clique em &lt;strong&gt;“Publish page”&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Após finalizar clone o repositório.&lt;/p&gt;
+
+&lt;h2 id=&quot;dependências&quot;&gt;Dependências&lt;/h2&gt;
+
+&lt;p&gt;Para iniciar um projeto com Jekyll será necessário instalar:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.ruby-lang.org/en/downloads/&quot; target=&quot;_blank&quot;&gt;Ruby&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://rubygems.org/pages/download&quot; target=&quot;_blank&quot;&gt;RubyGems&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Linux, Unix, or Mac OS X;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://nodejs.org/&quot; target=&quot;_blank&quot;&gt;NodeJS&lt;/a&gt;, or another JavaScript runtime.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;PS: Mais informações quanto a instalação das dependências, você encontra na &lt;a href=&quot;http://jekyllrb.com/docs/installation/&quot; target=&quot;_blank&quot;&gt;documentação oficial do &lt;strong&gt;Jekyll&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;instalando&quot;&gt;Instalando&lt;/h2&gt;
+
+&lt;p&gt;Após ter instalado as dependências citadas acima, instale o &lt;strong&gt;Jekyll&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;gem install jekyll&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Vá para o diretório do repositório clonado&lt;/strong&gt; remova todos os arquivos que vieram junto ao repositório, deixando o diretório vazio e inicie um projeto com o Jekyll, executando (dentro do diretório do repositório clonado):&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;jekyll new ./&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Você pode executar &lt;strong&gt;&lt;code&gt;jekyll server&lt;/code&gt;&lt;/strong&gt;, automaticamente ele executará &lt;strong&gt;&lt;code&gt;jekyll build&lt;/code&gt;&lt;/strong&gt; para gerar o diretório &lt;strong&gt;_site&lt;/strong&gt; com os arquivos estátivos. Você poderá verificar acessando &lt;strong&gt;localhost:4000&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;recomendação&quot;&gt;Recomendação&lt;/h2&gt;
+
+&lt;p&gt;Você pode apenas comitar as alterações, ou adicionar o diretório &lt;strong&gt;_site&lt;/strong&gt; no ignore do GIT, criar um diretório &lt;strong&gt;web&lt;/strong&gt; por exemplo, copiar/colar os arquivos gerados no diretório &lt;strong&gt;_site&lt;/strong&gt; para o diretório &lt;strong&gt;web&lt;/strong&gt; e comitar.&lt;/p&gt;
+
+&lt;p&gt;A primeira opção é recomendada caso vá utilizar o Github Page e a segunda opção é recomendada caso vá utilizar um servidor mesmo assim.&lt;/p&gt;
+
+&lt;h2 id=&quot;aparência&quot;&gt;Aparência&lt;/h2&gt;
+
+&lt;p&gt;Quanto ao templete/tema você pode desenvolver um, apenas fique familiarizado com o Jekyll para entender toda a estrutura e desenvolver sem impecilios. Ou, na internet existe vários sites que disponibilizam e/ou vendem templates/temas para Jekyll.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Recomendação:&lt;/strong&gt; &lt;a href=&quot;http://jekyllthemes.org/&quot; target=&quot;_blank&quot;&gt;jekyllthemes.org&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;comandos&quot;&gt;Comandos&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;jekyll build&lt;/code&gt;&lt;/strong&gt;: Irá gerar as páginas estáticas de acordo com os arquivos de configuração e os demais.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;jekyll build --watch&lt;/code&gt;&lt;/strong&gt;: Deixa o build verificando quando um arquivo é alterado gerando o build novamente. Recomendado utilizar quando estiver desenvolvendo e/ou implementando o template/tema.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;jekyll server&lt;/code&gt;&lt;/strong&gt;: Inicia um servidor, como default em http://localhost:4000/ para acesso local. Só será utilizado para quando estiver esenvolvendo e/ou implementando o template/tema.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;jekyll -h&lt;/code&gt;&lt;/strong&gt;: Todos os demais comandos disponíveis.&lt;/p&gt;
+
+&lt;h2 id=&quot;não-recomendo&quot;&gt;Não recomendo&lt;/h2&gt;
+
+&lt;p&gt;Nem pense em utiliza-lo com &lt;strong&gt;sites&lt;/strong&gt; mais &lt;strong&gt;robustos&lt;/strong&gt;, com &lt;strong&gt;internacionalização&lt;/strong&gt;, &lt;strong&gt;controle&lt;/strong&gt; disso, &lt;strong&gt;controle&lt;/strong&gt; daquilo. O &lt;strong&gt;Jekyll&lt;/strong&gt; é simples, objetivo e não é robusto nestes aspectos.&lt;/p&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Outro artigo sobre o Jekyll:&lt;/strong&gt; &lt;a href=&quot;http://tableless.com.br/jekyll-servindo-sites-estaticos/&quot; target=&quot;_blank&quot;&gt;tableless.com.br/jekyll-servindo-sites-estaticos&lt;/a&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Documentação oficial:&lt;/strong&gt; &lt;a href=&quot;http://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;jekyllrb.com&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Github pages:&lt;/strong&gt; &lt;a href=&quot;https://pages.github.com/&quot; target=&quot;_blank&quot;&gt;pages.github.com&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Repositório:&lt;/strong&gt; &lt;a href=&quot;https://github.com/leonardorifeli/leonardorifeli.github.io&quot; target=&quot;_blank&quot;&gt;utilizado no artigo&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Optei pela utilização do &lt;strong&gt;Jekyll&lt;/strong&gt; pelo fato de não necessitar de um servidor robusto para o site funcionar e pela facilidade de alteração, inclusão de novos artigos e/ou páginas. É somente criar um arquivo em &lt;strong&gt;YAML&lt;/strong&gt; e digitar o escopo utilizando &lt;strong&gt;Markdown&lt;/strong&gt;, executar o &lt;strong&gt;&lt;code&gt;jekyll build&lt;/code&gt;&lt;/strong&gt; e comitar, pronto, sem dificuldades, resolvido. O Jekyll abre um leque de opções de personalização, agilidade no desenvolvimento de sites pequenos (sim, eu disse pequenos!).&lt;/p&gt;
+
+&lt;p&gt;Futuramente irei postar um artigo com melhor aprofundamento no &lt;strong&gt;Github Pages&lt;/strong&gt;, descrevendo as funcionalidades, customizar domínio, e por aí vai.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PS:&lt;/strong&gt; Qualquer erro ortográfico e/ou digitação, reporte-os, auxilia-nos a evolução!&lt;/p&gt;
+</description>
+        <pubDate>Wed, 06 May 2015 00:00:00 -0300</pubDate>
+      </item>
+    
+      <item>
+        <title>Instalando certificado de segurança SSL</title>
+        <link>/server/security/2015/04/01/instalando-certificado-de-seguranca-ssl.html</link>
+        <guid isPermaLink="true">/server/security/2015/04/01/instalando-certificado-de-seguranca-ssl.html</guid>
+        <description>&lt;p&gt;O SSL &lt;b&gt;(Secure Socket Layer)&lt;/b&gt; é um protocolo desenvolvido para elevar a segurança dos dados transmitidos pela internet. O SSL pode ser usado em vários serviços, sendo que o mais comum é o acesso à páginas web.&lt;/p&gt;
+
+&lt;h2 id=&quot;introdução&quot;&gt;Introdução&lt;/h2&gt;
+
+&lt;h5 id=&quot;antes-de-tudo-o-que-é-ssl&quot;&gt;Antes de tudo. O que é SSL?&lt;/h5&gt;
+
+&lt;p&gt;O &lt;b&gt;SSL (Secure Socket Layer)&lt;/b&gt; é um protocolo desenvolvido para elevar a segurança dos dados transmitidos pela internet. O SSL pode ser usado em vários serviços, sendo que o mais comum é o acesso à páginas web. Neste caso o endereço dos recursos acessados passa a ser feito no formato: &lt;code&gt;https://website&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;As conexões via SSL são particularmente recomendadas para envio de informações como números de cartão de crédito, senhas e qualquer outra informação sigilosa via internet.&lt;/p&gt;
+
+&lt;p&gt;O SSL faz uso de &lt;b&gt;criptografia&lt;/b&gt; para garantir o sigilo das informações transferidas entre o navegador do usuário e o servidor web. Como consequência, mesmo que as informações sejam interceptadas elas não podem ser lidas sem que sejam &lt;b&gt;descriptografadas&lt;/b&gt;.&lt;/p&gt;
+
+&lt;h5 id=&quot;o-que-é-um-certificado-ssl&quot;&gt;O que é um certificado SSL?&lt;/h5&gt;
+
+&lt;p&gt;O certificado SSL tem a função de certificar que o site que você está acessando é realmente ele mesmo. Este processo é realizado por empresas que emitem certificados SSL. Elas fazem a validação do domínio e, dependendo do tipo de certificado, também da entidade detentora do domínio.&lt;/p&gt;
+
+&lt;p&gt;Sempre que você acessa uma página segura, isto é, protegida por um certificado SSL, é apresentada uma chave ou um cadeado na barra de status para indicar a comunicação segura. Os certificados tradicionais exigem que você clique na chave ou cadeado para ter acesso às informações do detentor do certificado SSL.&lt;/p&gt;
+
+&lt;p&gt;Texto retirado do site: centralserver.com.br clique aqui para visualizar o texto completo.&lt;/p&gt;
+
+&lt;p&gt;O domínio leonardorifeli.com possuí o certificado SSL COMODO 256bits. Efetuei a compra do certificado por fins didáticos (estudos para configuração). Estarei demonstrando como efetuei a instalação do certificado no servidor.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Obs.:&lt;/b&gt; Salientando que não demonstrarei como efetuar a compra/solicitação do certificado.&lt;/p&gt;
+
+&lt;h2 id=&quot;informações&quot;&gt;Informações&lt;/h2&gt;
+
+&lt;p&gt;Sistema Operacional (servidor): Ubuntu Server 14.04;
+Dependências: apache2, openssl e ssl-cert;&lt;/p&gt;
+
+&lt;h5 id=&quot;dependências&quot;&gt;Dependências&lt;/h5&gt;
+
+&lt;p&gt;As depências são os recursos/bibliotecas utilizadas para a gerar e configurar o certificado. Faça acesso SSH com o servidor, utilizando privilégios de root (oh my god! Yes!).&lt;/p&gt;
+
+&lt;p&gt;Execute os comandos abaixo para atualização de dependências já instaladas. Posteriormente, certifique-se que: apache2, openssl e ssl-cert encontram-se instalados no ambiente.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;apt-get update
+apt-get upgrade
+apt-get install apache2 openssl ssl-cert&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;gerando-as-chaves&quot;&gt;Gerando as chaves&lt;/h2&gt;
+
+&lt;p&gt;Criando o diretório onde os certificados serão armazenados.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;mkdir /etc/apache2/ssl/&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Acessando o diretório dos certificados.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /etc/apache2/ssl/&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Gerando as chaves. Atente-se leia os descritivos abaixo antes de acionar enter.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;openssl req &lt;span class=&quot;nt&quot;&gt;-nodes&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-newkey&lt;/span&gt; rsa:2048 &lt;span class=&quot;nt&quot;&gt;-keyout&lt;/span&gt; dominio.com.key &lt;span class=&quot;nt&quot;&gt;-out&lt;/span&gt; dominio.com.csr&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Primeiro entenderemos o que o comando acima executará.&lt;/p&gt;
+
+&lt;p&gt;O comando em questão irá gerar o arquivo &lt;b&gt;dominio.com.key&lt;/b&gt;, o qual contém a chave privada e &lt;b&gt;não deverá em hípotese alguma, ser fornecido há alguém&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;De imediato, certifique-se de fazer o backup da chave privada &lt;b&gt;(dominio.com.key)&lt;/b&gt;, pois não há meios de recuperá-la. A chave privada é utilizada como entrada no processo para gerar um &lt;b&gt;“Pedido de Assinatura de Certificado (CSR)”.&lt;/b&gt; O CSR é um arquivo contendo as informações da solicitação do certificado (logo você preencherá algumas informações), incluindo sua chave pública.&lt;/p&gt;
+
+&lt;p&gt;Agora que foi informado a função do comando citado, pode acionar enter, logo você preencherá as informações para o certificado:&lt;/p&gt;
+
+&lt;p&gt;Veja como as perguntas serão feitas e como respondê-las:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Country Name (2 letter code) [AU]: BR
+State or Province Name (full name) [Some-State]: SP
+Locality Name (eg, city) []: Araraquara
+Organization Name (eg, company) [Internet Widgits Pty Ltd]: Nome da empresa (deixe em branco caso não possua)
+Organizational Unit Name (eg, section) []: Cargo na empresa (deixe em branco caso não possua)
+Common Name (eg, YOUR name) []: dominio.com
+Email Address []: contato@dominio.com
+Please enter the following ‘extra’ attributes to be sent with your certificate request
+A challenge password []: aperte enter (deixar em branco)
+An optional company name []: aperte enter (deixar em branco)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Após a finalização, o arquivo &lt;b&gt;dominio.com.key&lt;/b&gt; será criado.
+Deixe-o com permissão de acesso 600.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;chmod 600 dominio.com.key&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Após finalizar, certifique-se que dois arquivos foram criados, &lt;b&gt;dominio.com.key&lt;/b&gt; e &lt;b&gt;dominio.com.csr&lt;/b&gt;. Lembre-se que o conteúdo do arquivo &lt;b&gt;“dominio.com.csr”&lt;/b&gt; deve ser utilizado para finalizar a solicitação de registro do certificado (colar no campo “Enter CSR”). Efetuei a compra no site Comodo.&lt;/p&gt;
+
+&lt;p&gt;Pegando o conteúdo do arquivo &lt;b&gt;dominio.com.csr&lt;/b&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;dominio.com.csr&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Após finalizar a compra, o provedor do certificado envia os seguintes arquivos para serem instalados no servidor:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;b&gt;Root CA Certificate:&lt;/b&gt; AddTrustExternalCARoot.crt&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;Intermediate CA Certificate:&lt;/b&gt; AAddTrustCA.crt&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;Intermediate CA Certificate:&lt;/b&gt; DomainValidationSecureServerCA.crt&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;Your PositiveSSL Certificate:&lt;/b&gt; (dominio).crt&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;PS: A empresa &lt;b&gt;Comodo&lt;/b&gt; enviou os arquivos acima via e-mail. Lembre-se, guarde-os com segurança.&lt;/p&gt;
+
+&lt;p&gt;Faça upload dos arquivos no diretório, &lt;code&gt;/etc/apache2/ssl&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Os três primeiros arquivos serão utilizados para gerar o arquivo que será utilizado pelo &lt;code&gt;Apache&lt;/code&gt; &lt;b&gt;(criar arquivo com extensão ”.ca-bundle”)&lt;/b&gt;. Mergeie (mesclar, juntar) os conteúdos em um único arquivo com nome “dominio.ca-bundle, utilizando o comando.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;AAddTrustCA.crt DomainValidationSecureServerCA.crt AddTrustExternalCARoot.crt &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; www.dominio.com.ca-bundle&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;configuração-no-apache&quot;&gt;Configuração no Apache&lt;/h2&gt;
+
+&lt;p&gt;Com o arquivo &lt;code&gt;.ca-bundle&lt;/code&gt; criado, efetuaremos a configuração no arquivo &lt;code&gt;.conf&lt;/code&gt; do respectivo domínio (no apache).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /etc/apache2/sites-available
+nano arquivo-configuracao-utilizado.conf&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Segue abaixo um modelo em funcionamento (você poderá utilizá-lo como base).&lt;/p&gt;
+
+&lt;h4 id=&quot;configuração-da-porta-80-para-redirecionar-os-acessos-http-para-https-porta-443&quot;&gt;Configuração da porta 80 para redirecionar os acessos http para https, porta 443;&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&amp;lt;VirtualHost &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;:80&amp;gt;
+    ServerAdmin your@dominio.com
+    ServerName dominio.com
+    ServerAlias www.dominio.com
+
+    RewriteEngine On
+    RewriteCond %&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;HTTPS&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; off
+    RewriteRule &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; https://%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;HTTP_HOST&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;REQUEST_URI&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&amp;lt;/VirtualHost&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;configuração-da-porta-443-onde-o-site-funcionará-acesso-https&quot;&gt;Configuração da porta 443, onde o site funcionará (acesso https);&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&amp;lt;VirtualHost &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;:443&amp;gt;
+    ServerName www.dominio.com:443
+    ServerAdmin your@dominio.com
+    ServerName dominio.com
+    ServerAlias www.dominio.com
+    DocumentRoot /var/www/website
+    DirectoryIndex index.php index.htm index.html
+    TransferLog /var/log/apache2/website.log
+    SSLEngine on
+    SSLCertificateKeyFile /etc/apache2/ssl/www.dominio.com.key
+    SSLCertificateFile /etc/apache2/ssl/www.dominio.com.crt
+    SSLCertificateChainFile /etc/apache2/ssl/www.dominio.com.ca-bundle
+    ServerSignature off
+
+    &amp;lt;Directory &lt;span class=&quot;s2&quot;&gt;&quot;/var/www/website&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+        AllowOverride All
+    &amp;lt;/Directory&amp;gt;
+
+    ErrorLog &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;APACHE_LOG_DIR&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/error.log
+    CustomLog &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;APACHE_LOG_DIR&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/access.log combined
+&amp;lt;/VirtualHost&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Após finalizar a configuração.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;service apache2 restart&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Caso dê algum erro, verifique os logs (pois é para isso que eles existem). Brincadeiras, entre em contato, ficarei feliz em dar auxilio na medida do possível.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;A utilização de certificado de segurança em sites/sistemas que possuem tráfego de informações privilegiadas é imprescindível. Portanto, certifique-se que as informações contídas nas áreas restritas, encontram-se seguras.&lt;/p&gt;
+
+&lt;p&gt;Espero ter-lhe auxiliado em algum aspecto. Até o próximo post.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 01 Apr 2015 00:00:00 -0300</pubDate>
+      </item>
+    
+      <item>
+        <title>PHP Experience 2015 - iMasters</title>
+        <link>/event/2015/03/21/php-experience-2015.html</link>
+        <guid isPermaLink="true">/event/2015/03/21/php-experience-2015.html</guid>
+        <description>&lt;p&gt;PHP Experience 2015! Um dos maiores eventos sobre PHP da América Latina, contando com a presença de mais de 1000 programadores.&lt;/p&gt;
+
+&lt;p&gt;Saudações.&lt;/p&gt;
+
+&lt;p&gt;Venho compartilhar com vocês mais uma edição do evento, o qual tive o privilégio de ir no ano passado (interconphp.imasters.com.br).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PHP Experience 2015!&lt;/strong&gt; Um dos maiores eventos sobre PHP da América Latina, contará com a presença de mais de 1000 programadores.&lt;/p&gt;
+
+&lt;p&gt;A edição desse ano ocorrerá no dia 25 de abril, sábado, das 8h às 18h30min. O valor para participar é R$ 149,00. Este valor só vale até o dia 22 de abril, então corra e garanta a sua vaga! O local será no Hotel Renaissance, na Alameda Santos, em São Paulo.&lt;/p&gt;
+
+&lt;p&gt;Segue uma série de vídeos do &lt;strong&gt;InterCon PHP 2014&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/jN24jEdoV_4?list=PLASrXUpwQG6fxO9eoTu47JIxCht_CqxW9&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;PS: O evento foi sensacional. &lt;a href=&quot;http://imasters.com.br/noticia/php-experience-acontece-hoje-em-sao-paulo/&quot; target=&quot;_blank&quot;&gt;Confira aqui&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 21 Mar 2015 00:00:00 -0300</pubDate>
+      </item>
+    
+      <item>
+        <title>Série de Hangouts sobre OOD</title>
+        <link>/development/2015/03/20/serie-de-hangouts-sobre-ood-principles-solid.html</link>
+        <guid isPermaLink="true">/development/2015/03/20/serie-de-hangouts-sobre-ood-principles-solid.html</guid>
+        <description>&lt;p&gt;Quando o assunto &lt;strong&gt;Orientação a Objetos (paradigma orientado a objetos)&lt;/strong&gt; é abordado, é imprescindível falarmos sobre &lt;strong&gt;OOD (object-oriented design)&lt;/strong&gt;. Temos o SOLID na aplicação de Padrões de Projetos.&lt;/p&gt;
+
+&lt;p&gt;Descrevendo a sigla temos:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;[S]ingle Responsability Principle;&lt;/li&gt;
+  &lt;li&gt;[O]pen/Closed Principle;&lt;/li&gt;
+  &lt;li&gt;[L]iskov Substitution Principle;&lt;/li&gt;
+  &lt;li&gt;[I]nterface Segregation Principle;&lt;/li&gt;
+  &lt;li&gt;[D]ependency Inversion Principle.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Segue uma série de hangouts gravados pelo &lt;strong&gt;PHP Brasil&lt;/strong&gt; para maior aprofundamento:&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/ea6d1Pf8bOE?list=PLRX4OtWY_G7N518US48x-EZxXt6h0pr3V&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+</description>
+        <pubDate>Fri, 20 Mar 2015 00:00:00 -0300</pubDate>
+      </item>
+    
+  </channel>
+</rss>

@@ -1,63 +1,27 @@
 ---
 layout: default
 ---
-<div class="wrapper style1">
-    <article class="container">
-        <header class="major">
-            <h2 class="post-title">{{ page.title }}</h2>
-            <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
-        </header>
+<article {% if page.feature-img %}class="feature-image"{% endif %}>
+  <header style="background-image: url('{{ site.baseurl }}/{{ page.feature-img }}')">
+    <h1 class="title">{{ page.title }}</h1>
+    {% if page.subtitle %}<h2 class="subtitle">{{ page.subtitle }}</h2>{% endif %}
+    <p class="meta">
+      {{ page.date | date: "%B %-d, %Y" }}
+      {% if page.author %} - {{ page.author }}{% endif %}
+    </p>
+  </header>
+  <section class="post-content">{{ content }}</section>
+  {% include tags_list.html tags=page.tags tag_count=page.tags.size %}
+</article>
 
-        <section class="post-content">
-            {{ content }}
-        </section>
+<!-- Disqus -->
+{% if site.theme_settings.disqus_shortname %}
+<div class="comments">
+  {% include disqus.html %}
+</div>
+{% endif %}
 
-        <footer>
-            {% if page.previous %}
-            <a href="{{ page.previous.url }}" class="float-left">&larr; Previous post</a> {% endif %}
-            {% if page.next %}
-            <a href="{{ page.next.url }}" class="float-right">Next post &rarr;</a> {% endif %}
-        </footer>
-
-        <br/><br/><br/>
-
-        <ul class="icons">
-            <li><a href="{{ site.theme_settings.linkedin }}" target="_blank" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-            <li><a href="https://github.com/{{ site.theme_settings.github }}" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
-            <li><a href="https://twitter.com/{{ site.theme_settings.twitter }}" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="https://www.facebook.com/{{ site.theme_settings.facebook }}" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-        </ul>
-
-    </article>
-
-    <div class="notepad-author-info">
-        <div class="container">
-            <div class="row">
-                <section class="notepad-post-author columns">
-                    <div class="author-1">
-                        <img src="/img/website-avatar-new.png" class="notepad-post-author-avatar" alt="Hossain Mohd Faysal's photo">
-                    </div>
-
-                    <div class="author-2">
-                        <h2>About Author</h2>
-
-                        <p>
-                            My name is Leonardo Rifeli and I'm 21 years old and I live in Joinville (SC) and I'm currently a software engineer developer at the ContaAzul. I'm studying a BA in Computer Engineering.
-                            I Contribute to opensource projects and web community as a whole.
-                        </p>
-
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-
-    <article class="container">
-
-        {% if site.theme_settings.disqus_shortname and page.comments == true %}
-        <div class="comments">
-            {% include disqus.html %}
-        </div>
-        {% endif %}
-
-    </div>
+<!-- Post navigation -->
+{% if site.theme_settings.post_navigation %}
+  {% include post_nav.html %}
+{% endif %}

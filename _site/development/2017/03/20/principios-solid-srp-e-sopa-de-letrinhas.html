@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Princípios SOLID: SRP e sopa de letrinhas | Leonardo Rifeli</title>
+	<meta name="description" content="Em programação de software a sigla SOLID tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por Robert C. Martin (o Uncle Bob), onde...">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="//assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/development/2017/03/20/principios-solid-srp-e-sopa-de-letrinhas.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Leonardo Rifeli" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+</head>
+
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<a href="//">
+			<img class="avatar" src="//assets/img/avatar.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="http://localhost:4000/">Leonardo Rifeli</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled -->
+			
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/leonardorifeli" title="Follow on Facebook">
+		<i class="fa fa-fw fa-facebook"></i>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/leonardorifeli" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://br.linkedin.com/in/leonardorifeli" title="Follow on LinkedIn">
+		<i class="fa fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/leonardorifeli" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+		</ul>
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header style="background-image: url('//')">
+    <h1 class="title">Princípios SOLID: SRP e sopa de letrinhas</h1>
+    
+    <p class="meta">
+      March 20, 2017
+       - Leonardo Rifeli
+    </p>
+  </header>
+  <section class="post-content"><p>Em programação de software a sigla <strong>SOLID</strong> tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por <strong>Robert C. Martin</strong> (o Uncle Bob), onde cada letra representa um dos cinco princípios do OOD (object-oriented design) que, quando aplicados em conjunto ou isoladamente, possibilitam a criação de códigos com facilidade de manter e de se estender ao longo do tempo.</p>
+
+<p>Esse é o primeiro post de uma série onde abordaremos todos os cinco princípios do <strong>SOLID</strong>. O primeiro é sobre “Single responsibility principle”, abreviado por <strong>SRP</strong>, e significa literalmente “Princípio da Responsabilidade Única”.</p>
+
+<p>Para começar: falar de SOLID é falar de programação orientada a objetos e design (OOD). Tendo isso em mente, o Princípio de Responsabilidade única traz uma perspectiva diferente para a orientação a objeto: a <strong>coesão</strong>.</p>
+
+<h1 id="tá-e-o-que-é-coesão">Tá, e o que é coesão?</h1>
+
+<p>Segundo o dicionário online <a href="https://www.dicio.com.br/coesao/">Dicio</a>:</p>
+
+<blockquote>
+  <ul>
+    <li>Cujas partes estão ligadas harmonicamente entre si: coesão do governo.
+União; harmonia; associação íntima: a coesão das partes de um Estado.</li>
+    <li>Uso correto dos aspectos gramaticais que conectam os elementos de um texto, tornando-o claro e compreensível.</li>
+    <li>[Figurado] Coerência de pensamento; fundamento que dá sentido a uma obra.
+Aderência; força que une as moléculas e/ou átomos às partes constituintes de um corpo, fazendo com que eles não se partam.
+(Etm. do francês: cohésion)</li>
+  </ul>
+</blockquote>
+
+<p>Fonte: <a href="https://www.dicio.com.br/coesao/">dicio.com.br/coesao</a>.</p>
+
+<p>E no mundo do desenvolvimento de software, o que é coesão?</p>
+
+<p>Algo que faça sentido para alguém. E este alguém, é quem irá consumir uma determinada classe e seus métodos. Cada participante deve ter somente um propósito para existir. Ou seja, coesão é consequência de ter-se um bom design e não violar SRP.</p>
+
+<p>E as vantagens de se ter alta coesão (ou “coesão forte”)?</p>
+
+<p>Redução da complexidade das classes e métodos (eles ficam mais simples, com menos operações).</p>
+
+<h1 id="definição-de-responsabilidade">Definição de responsabilidade</h1>
+
+<p>Segundo o dicionário online <a href="https://www.dicio.com.br/responsabilidade/">Dicio</a>:</p>
+
+<blockquote>
+  <ul>
+    <li>Obrigação; dever de arcar, de se responsabilizar pelo próprio comportamento ou pelas ações de outra(s) pessoa(s).</li>
+    <li>[Por Extensão] Sensatez; competência para se comportar de maneira sensata.</li>
+    <li>Natureza ou condição de responsável; capacidade de responder por seus próprios atos; qualidade de quem presta contas as autoridades.</li>
+    <li>[Jurídico] Obrigação jurídica que resulta do desrespeito de algum direito, através de uma ação contrária ao ordenamento jurídico.</li>
+  </ul>
+</blockquote>
+
+<p>Fonte: <a href="https://www.dicio.com.br/responsabilidade/">dicio.com.br/responsabilidade</a>.</p>
+
+<p>E no contexto de um código?</p>
+
+<p><strong>Robert C. Martin</strong>, em seu livro (Agile Software Development, Principles, Patterns, and Practices), define responsabilidade como: <strong>uma classe deve ter apenas uma razão para ser alterada</strong>.</p>
+
+<h1 id="problemas-da-violação-do-srp">Problemas da violação do SRP</h1>
+
+<p>Se uma classe possui mais que uma razão para ser alterada, entende-se que ela possui mais que uma responsabilidade, tornando-a desconexa (não coesa).</p>
+
+<h4 id="quais-problemas-uma-classe-desconexa-poderá-causar-para-a-aplicação">Quais problemas uma classe desconexa poderá causar para a aplicação?</h4>
+
+<ul>
+  <li>Dificuldade no reuso de suas responsabilidades;</li>
+  <li>Dificuldades na manutenção (dificuldade em manter e/ou evoluir por conta do excesso de responsabilidades);</li>
+  <li>Aumento na rigidez e fragilidade: quando alterar uma responsabilidade, outra pode ser comprometida;</li>
+  <li>Alto acoplamento da classe.</li>
+</ul>
+
+<h1 id="exemplos">Exemplos</h1>
+
+<p>Os códigos dos exemplos serão exibidos somente com as assinaturas, para reforçar a idéia que <strong>Uncle Bob</strong> traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.</p>
+
+<h4 id="exemplo-1">Exemplo 1</h4>
+
+<p>Considere o arquivo abaixo, onde temos a classe <strong><code class="highlighter-rouge">PopulationStandardDeviation</code></strong> e a sua responsabilidade é calcular o desvio padrão populacional.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">leonardorifeli</span><span class="o">.</span><span class="na">article</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PopulationStandardDeviation</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">mean</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculate</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">deviationSumSquare</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Perceba que, o nome da classe diz exatamente qual é a sua responsabilidade, calcular o desvio padrão populacional.</p>
+
+<p>Com o exemplo acima, podemos ver rapidamente a violação do princípio, onde ela expõem o método <strong><code class="highlighter-rouge">mean()</code></strong> e quem implementa esta classe não espera que ela faça cálculo da média. Apesar da média fazer parte do algoritmo para calcular o <strong>desvio padrão populacional</strong>, ela não faz parte da responsabilidade da classe, logo, a exposição do método <strong><code class="highlighter-rouge">mean()</code></strong> mesmo fazendo parte do algoritmo, viola o princípio. O método <strong><code class="highlighter-rouge">mean()</code></strong> não deveria ser exposto. Mesmo problema com o método <strong><code class="highlighter-rouge">deviationSumSquare()</code></strong>.</p>
+
+<p>Neste caso, para que não haja a violação do SRP, deve-se deixar ambos os métodos (<strong><code class="highlighter-rouge">mean()</code></strong> e <strong><code class="highlighter-rouge">deviationSumSquare()</code></strong>) como <strong><code class="highlighter-rouge">private</code></strong> ou isolar eles em outras classes, injetando-as como dependência na <strong><code class="highlighter-rouge">PopulationStandardDeviation</code></strong>.</p>
+
+<h4 id="exemplo-2">Exemplo 2</h4>
+
+<p>Neste segundo exemplo, considere o arquivo abaixo, onde temos a classe <strong><code class="highlighter-rouge">Report</code></strong> e a sua responsabilidade é gerar relatório.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">leonardorifeli</span><span class="o">.</span><span class="na">article</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Report</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">find</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">proccess</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>O nome da classe também diz exatamente qual a sua responsabilidade, gerar relatório.</p>
+
+<p>Na visão do usuário, gerar relatório é apenas fazer com que os dados sejam exibidos em tela (ou impressos), de modo organizado. No nível de desenvolvimento de software, gerar relatório engloba vários fatores, sendo eles: buscar os dados, processá-los, organizá-los e exibi-los em tela (ou impressos).</p>
+
+<p>Perceba que para gerar  um relatório são envolvidas várias responsabilidades. A classe <strong><code class="highlighter-rouge">Report</code></strong>, por exemplo, possui várias razões para ser alterada: como mudar o método <strong><code class="highlighter-rouge">find()</code></strong> para buscar os dados em outro lugar, mudar o método <strong><code class="highlighter-rouge">proccess()</code></strong> para alterar uma regra de domínio e até mesmo alterar o método <strong><code class="highlighter-rouge">print()</code></strong>.</p>
+
+<h5 id="como-poderíamos-melhorar-essa-classe">Como poderíamos melhorar essa classe?</h5>
+
+<p>Inicialmente, precisaríamos isolar o método <strong><code class="highlighter-rouge">find()</code></strong> em um contexto de repositório (outra classe que faça somente a busca dos dados no banco). Depois, poderíamos isolar o método <strong><code class="highlighter-rouge">proccess()</code></strong> noutra classe e que teria apenas uma responsabilidade, processar os dados que vieram do banco de dados e tratá-los de acordo com o domínio em questão. Finalmente, deixaremos a classe <strong><code class="highlighter-rouge">Report</code></strong> com a injeção das suas dependências, tendo somente o método <strong><code class="highlighter-rouge">generate()</code></strong>.</p>
+
+<h1 id="referências">Referências</h1>
+
+<ul>
+  <li><a href="https://www.amazon.com/dp/0135974445/">Livro - Agile Software Development, Principles, Patterns, and Practices</a>;</li>
+  <li><a href="https://en.wikipedia.org/wiki/Cohesion_(computer_science)">Article Cohesion - Computer Science</a>;</li>
+  <li><a href="http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin">SOLID Principles with Uncle Bob - Robert C. Martin</a>;</li>
+  <li><a href="https://www.youtube.com/watch?v=dzawoPISdHc">Robert C Martin The Single Responsibility Principle</a>.</li>
+</ul>
+
+<h1 id="conclusão">Conclusão</h1>
+
+<p>O SRP é um dos princípios mais importantes da orientação a objetos. Atentando-se a ele, seus códigos ficarão mais coesos, simples e manuteníveis. É um princípio bem extenso e os exemplos tendem ao infinito.</p>
+
+<p>Podemos continuar as discussões sobre este princípio nos comentários?</p>
+
+<p>Compartilhe conosco seus aprendizados.</p>
+
+<h1 id="agradecimentos">Agradecimentos</h1>
+
+<p>A ContaAzul, por proporcionar o espaço e me dar a oportunidade de compartilhar meu conhecimento.
+Ao <strong>Leonardo Camacho</strong>, pelo auxílio nas correções e incentivo para escrever.
+Para Carlos Becker, Lucas Merencia, Marcos Ferreira, Marcelo Ed. Junior e Jeferson Kersten pelo incentivo e auxílio dos assuntos aqui descritos.</p>
+
+<p>Post originalmente postado em: <a href="https://engineering.contaazul.com/princ%C3%ADpios-solid-srp-e-sopa-de-letrinhas-d569fd0f80d9">engineering.contaazul.com</a></p>
+</section>
+  
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+<footer class="site-footer">
+	<p class="text">
+		Copyright &copy; Leonardo Rifeli | E-mail: <a href="mailto: leonardorifeli@gmail.com">leonardorifeli@gmail.com</a> | License: <a href="http://leonardorifeli.mit-license.org/" target="_blank">MIT License</a> | Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+	</p>
+</footer>
+
+  </body>
+</html>
