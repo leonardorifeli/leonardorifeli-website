@@ -43,7 +43,7 @@ theme_settings:
 
   # Scripts
   google_analytics: # Tracking ID, e.g. "UA-000000-01"
-  disqus_shortname:
+  disqus_shortname: leonardorifeli
   katex: true # Enable if using math markup
 
   # Localization strings
