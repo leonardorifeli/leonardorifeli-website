@@ -12,11 +12,17 @@ Este é o segundo post de uma série onde abordaremos todos os cinco princípios
 
 O primeiro post foi sobre "Single responsibility principle", abreviado por SRP, e você pode [ler aqui](http://leonardo.rifeli.tech/development/2017/03/20/principios-solid-srp-e-sopa-de-letrinhas.html).
 
-Para começar: falar de SOLID é falar de programação orientada a objetos e design (OOD). Tendo isso em mente, o Princípio aberto-fechado traz uma perspectiva importante: os participantes devem ser abertos para extensão e fechadas para modicação.
+Para começar: falar de SOLID é falar de programação orientada a objetos e design (OOD). Tendo isso em mente, o princípio aberto-fechado traz uma perspectiva importante: os participantes precisam ser abertos para extensão e fechadas para modicação.
+
+# Antes de tudo, os conceitos SOLID estão atrelados?
+
+De maneira ou outra, sim! No primeiro post, discutimos sobre [SRP](http://leonardo.rifeli.tech/development/2017/03/20/principios-solid-srp-e-sopa-de-letrinhas.html) onde os participantes devem possuir somente uma razão para mudança; adicionar uma nova feature irá violar tanto SRP como OCP. Ou seja, quanto maior o número de responsabilidade de um participante, maior a probabilidade de violar OCP.
+
+Portanto, um código que segue SRP tende a estar mais próximo de seguir OCP, por consequência.
 
 # Tá! E o que é ser aberto para extensão?
 
-Após um software estar em produção, este possui grande probabilidade de sofrer alterações, evoluir, ter novas features, etc. Este conceito defende que à partir do momento que o software está em produção, os participantes em questão não poderão sofrer alterações. Com isso, diminuindo a chance de algum bug ser causado.
+Após um software estar em produção, há grande probabilidade de sofrer alterações, evoluir, ter novas features, etc. OCP defende que à partir do momento que o software está em produção, os participantes em questão não poderão sofrer modificações, diminuindo a chance de algum bug ser causado.
 
 Aberto para extensão significa que não podemos modificar o participante que já está em produção e sim exterder as suas funcionalidades atuais e implementar as novas features.
 
@@ -24,26 +30,20 @@ Ou seja, o OCP nos força a desenvolver códigos extensíveis, tornando-os escal
 
 Com isso, é importante ter a definição de herança bem clara. Você pode ler um pouco sobre no artigo [Herança ou Composição](https://leonardo.rifeli.tech/development/2016/08/19/heranca-ou-composicao-qual-utilizar.html).
 
-# Mas, os conceitos SOLID estão atrelados?
-
-De maneira ou outra, sim! No primeiro post, discutimos sobre [SRP](http://leonardo.rifeli.tech/development/2017/03/20/principios-solid-srp-e-sopa-de-letrinhas.html) onde os participantes devem possuir somente uma razão para mudança; adicionar uma nova feature irá violar tanto SRP como OCP.
-
-Portanto, um código que segue SRP tende a estar mais próximo de seguir OCP, por consequência.
-
 # Problemas da violação do OCP
 
 - Quebrar outros princípios SOLID;
 - Maior probabilidade de causar bug;
-- Um código não escalável;
+- Um código não escalável e provavelmente menos extensível;
 - Entre outros.
 
 # Exemplos
 
-Conforme falamos no primeiro post, os exemplos serão exibidos somente com as assinaturas, para refornçar a ideia que *Uncle Bob* traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.
+Seguindo o mesmo padrão do primeiro post, os exemplos serão exibidos somente com as assinaturas, para refornçar a ideia que *Uncle Bob* traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.
 
 #### Exemplo com violação
 
-Observe o exemplo abaixo, onde temos a classe *`Debit`* e ela precisará debitar um determinado valor de um tipo de conta.
+Observe o exemplo abaixo, onde temos a classe *`Debit`* e ela precisará debitar um determinado valor de um tipo de débito.
 
 ```php
 <?php
@@ -55,16 +55,16 @@ use namespace Leonardo\Rifeli\Article\Business\DebitType;
 class Debit
 {
     public function execute(int value, DebitType debitType) { }
-}    
+}
 
 ?>
 ```
 
-Com o exemplo acima, será necessário ter condições para controlar os tipos de débitos. Considerando que tenhamos os tipos: *`Savings`* e *`CheckingAccount`*, teríamos duas condições e caso novas surgem, novas condições surgiriam, violando OCP.
+Com o exemplo acima, será necessário ter condições para controlar e implementar as regras de negócio dos tipos de débitos. Considerando que tenhamos os tipos: *`Savings`* e *`CheckingAccount`*, teríamos condições para estes dois tipos e caso novos tipos de détibo surgem, violaríamos OCP.
 
 #### Exemplo sem violação
 
-No exemplo abaixo, a classe *`Debit`* virará uma *abstract class* (poderia ser uma interface). E os tipos de conta, serão classes derivadas de *`Debit`*.
+No exemplo abaixo, a classe *`Debit`* virará uma *`abstract class`*, e os tipos de conta, serão classes derivadas de *`Debit`*.
 
 ```php
 <?php
@@ -79,7 +79,7 @@ abstract class Debit
 ?>
 ```
 
-Caso novos tipos de conta surgem, precisando executar a função de débito, basta extender *`Debit`* e executar a transação com as regras de negócio necessárias.
+Caso novos tipos de débito surgem, basta extender *`Debit`* e executar a transação com as regras de negócio necessárias.
 
 Com isso, a cada novo tipo, teremos novos códigos e não códigos alterados.
 
@@ -98,7 +98,7 @@ class CheckingAccount extends Debit
 ?>
 ```
 
-Para ampliar nossos exemplo, podemos criar uma classe *`SomeDebit`* tendo os métodos *`setDebit`* e *`execute`*, conforme exemplo abaixo. 
+Para ampliar nossos exemplo, podemos criar uma classe *`SomeDebit`* tendo os métodos *`setDebit`* e *`execute`*, conforme exemplo abaixo.
 
 ```php
 <?php
@@ -125,7 +125,7 @@ class SomeDebit
 ?>
 ```
 
-Conforme novos tipos forem surgindo, basta criá-lo extendendo Debit, e utilizar o SameDebit para executar. Aqui, no final, estamos aplicando o padrão de projeto *`Strategy`*.
+Conforme novos tipos forem surgindo, basta criá-lo extendendo *`Debit`*, e utilizar o *`SameDebit`* para executar. Aqui, no final, estamos aplicando o padrão de projeto *`Strategy`*.
 
 # Referências
 
@@ -146,4 +146,4 @@ Vale lembrar que softwares OO evoluem por meio de novos códigos, e não por edi
 
 Podemos continuar as discussões sobre este princípio nos comentários?
 
-Compartilhe conosco seus aprendizados.
+Compartilhe seus aprendizados.
