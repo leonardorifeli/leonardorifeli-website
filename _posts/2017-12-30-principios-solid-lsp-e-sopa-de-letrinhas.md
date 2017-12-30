@@ -18,7 +18,7 @@ Para começar: falar de SOLID é falar de programação orientada a objetos e de
 
 # Contexto histórico
 
-Este conceito foi apresentado por (Barbara Liskov)[https://pt.wikipedia.org/wiki/Barbara_liskov] numa conferência em 1987, e depois foi publicado em um artigo científico, com o nome, (`Family Values: A Behavioral Notion of Subtyping`)[http://reports-archive.adm.cs.cmu.edu/anon/1999/CMU-CS-99-156.ps], junto de (Jeannette Wing)[https://en.wikipedia.org/wiki/Jeannette_Wing], em 1993. Com a seguinte definição original:
+Este conceito foi apresentado por [Barbara Liskov](https://pt.wikipedia.org/wiki/Barbara_liskov) numa conferência em 1987, e depois foi publicado em um artigo científico, com o nome, [`Family Values: A Behavioral Notion of Subtyping`](http://reports-archive.adm.cs.cmu.edu/anon/1999/CMU-CS-99-156.ps), junto de [Jeannette Wing](https://en.wikipedia.org/wiki/Jeannette_Wing), em 1993. Com a seguinte definição original:
 
 > Se q(x) é uma propriedade demonstrável dos objetos x de tipo T. Então q(y) deve ser verdadeiro para objetos y de tipo  S onde S é um subtipo de T.
 
@@ -165,8 +165,8 @@ Por isso viola LSP, dificilmente substituímos a subclasse pela base para analis
 
 # Referências
 
-- (Hangout sobre OOD - Princípio da Substituição de Liskov)[https://www.youtube.com/watch?list=PLRX4OtWY_G7N518US48x-EZxXt6h0pr3V&time_continue=397&v=QJB1jp8bReY]
-- (SOLID - Liskov Substitution Interface Segregation Principles)[https://code.tutsplus.com/pt/tutorials/solid-part-3-liskov-substitution-interface-segregation-principles--net-36710]
+- [Hangout sobre OOD - Princípio da Substituição de Liskov](https://www.youtube.com/watch?list=PLRX4OtWY_G7N518US48x-EZxXt6h0pr3V&time_continue=397&v=QJB1jp8bReY)
+- [SOLID - Liskov Substitution Interface Segregation Principles](https://code.tutsplus.com/pt/tutorials/solid-part-3-liskov-substitution-interface-segregation-principles--net-36710)
 - [SOLID Principles with Uncle Bob - Robert C. Martin](http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin);
 - [Casa do Código - Orientação a Objetos e SOLID para Ninjas](https://www.casadocodigo.com.br/products/livro-oo-solid).
 
