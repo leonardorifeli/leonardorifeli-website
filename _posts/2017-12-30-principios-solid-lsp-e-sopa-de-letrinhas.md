@@ -12,13 +12,11 @@ Este é o terceiro post de uma série onde abordaremos todos os cinco princípio
 - O primeiro post foi sobre "Single responsibility principle", abreviado por SRP, e você pode [ler aqui](http://leonardo.rifeli.tech/development/2017/03/20/principios-solid-srp-e-sopa-de-letrinhas.html).
 - O segundo post foi sobre "Open closed principle", abreviado por OCP, e você deve [ler aqui](http://leonardo.rifeli.tech/development/2017/12/05/principios-solid-ocp-e-sopa-de-letrinhas.html).
 
-![alt text](http://leonardo.rifeli.tech/img/posts/2016-01-custom-annotations/ler-curtir-compartilhar.png "Share the post.")
-
 Para começar: falar de SOLID é falar de programação orientada a objetos e design (OOD). Tendo isso em mente, o princípio de substituição de Liskov traz outra perspectiva importante: classes filhas nunca deveriam inflingir as definições de tipo da classe pai.
 
 # Contexto histórico
 
-Este conceito foi apresentado por [Barbara Liskov](https://pt.wikipedia.org/wiki/Barbara_liskov) numa conferência em 1987, e depois foi publicado em um artigo científico, com o nome, [`Family Values: A Behavioral Notion of Subtyping`](http://reports-archive.adm.cs.cmu.edu/anon/1999/CMU-CS-99-156.ps), junto de [Jeannette Wing](https://en.wikipedia.org/wiki/Jeannette_Wing), em 1993. Com a seguinte definição original:
+Este conceito foi apresentado por [Barbara Liskov](https://pt.wikipedia.org/wiki/Barbara_liskov) numa conferência em 1987, e depois foi publicado em um artigo científico, com o nome [`Family Values: A Behavioral Notion of Subtyping`](http://reports-archive.adm.cs.cmu.edu/anon/1999/CMU-CS-99-156.ps), junto de [Jeannette Wing](https://en.wikipedia.org/wiki/Jeannette_Wing), em 1993. Com a seguinte definição original:
 
 > Se q(x) é uma propriedade demonstrável dos objetos x de tipo T. Então q(y) deve ser verdadeiro para objetos y de tipo  S onde S é um subtipo de T.
 
@@ -38,11 +36,11 @@ Simples, uma subclasse deve poder sobrescrever os métodos da classe base, de mo
 
 Seguindo o mesmo padrão do primeiro e segundo post, os exemplos (com exceções de alguns participantes) serão exibidos somente com as assinaturas, para reforçar a ideia que Uncle Bob traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.
 
-Neste post, usaremos o clássico exemplo do `quadrado` e do `retângulo`.
+Usaremos o clássico exemplo do `quadrado` e do `retângulo`.
 
 #### Exemplo do quadrado e retângulo
 
-No participante abaixo, temos a classe `Rectangle` e ela compõe as propriedades de um retângulo, sendo `width` (largura) e `height` (altura).
+No participante abaixo, temos a classe **`Rectangle`** e ela compõe as propriedades `width` (largura) e `height` (altura).
 
 ```php
 namespace Leonardo\Rifeli\Article; 
@@ -61,7 +59,7 @@ class Rectangle
 }
 ```
 
-Abaixo temos a classe `RectangleArea`, responsável por efetuar o cálculo da área de um `Rectangle`.
+Abaixo temos a classe **`RectangleArea`**, responsável por efetuar o cálculo da área de um retângulo.
 
 ```php
 namespace Leonardo\Rifeli\Article; 
@@ -77,9 +75,9 @@ class RectangleArea
 }
 ```
 
-Até aqui tudo dentro do esperado. Temos dois participantes (`Rectangle` e `RectangleArea`) e eles funcionam como esperado, pelo menos, por enquanto.
+Até aqui tudo dentro do esperado. Temos dois participantes (**`Rectangle`** e **`RectangleArea`**) e eles funcionam como esperado, pelo menos por enquanto.
 
-Vamos escrever agora um teste para nossos participantes (neste caso teremos implementação para as coisas não ficarem tão abstrato).
+Vamos escrever agora um teste para nossos participantes (neste caso teremos implementação para as coisas não ficarem tão abstratas).
 
 ```php
 namespace Leonardo\Rifeli\Article\Test; 
@@ -107,11 +105,11 @@ class TestRectangleArea
 }
 ```
 
-A ideia deste teste não é testar a unidade e sim mostrar que ao passar uma derivação o teste será quebrado. E vale ressaltar que a orientação a objetos não é composta de unidade e sim por participantes que se relacionam através de seus comportamentos.
+A ideia deste teste não é testar a unidade e sim mostrar que ao passar uma derivação o teste será quebrado. E vale ressaltar que a orientação a objetos não é composta por unidade e sim por participantes que se relacionam através de seus comportamentos.
 
-Portanto, todos os testes que fizermos para o `Rectangle` irão passar e nossa aplicação estará funcionando conforme o esperado. Mas, o software evolui e a extensão precisará ocorrer. Consideramos que nossa aplicação está em utilização por vários clientes e precisaremos agora manipular quadrados.
+Todos os testes que fizermos para o **`Rectangle`** irão passar e nossa aplicação estará funcionando conforme o esperado. Porém, o software evolui e a extensão precisará acontecer. Consideramos que nossa aplicação está em utilização por vários clientes e precisaremos manipular quadrados.
 
-Na geometria, um quadrado é um tipo especial de retângulo, então poderemos criar um participante `Square` que derive o `Rectangle`.
+Na geometria, um quadrado **é um** tipo especial de retângulo, então poderemos criar um participante `Square` que derive o `Rectangle`.
 
 Teríamos o seguinte (também com as implementações para melhor compreensão).
 
@@ -138,7 +136,7 @@ class Square extends Rectangle
 }
 ```
 
-Uma observação, perceba que precondição do participante `Square` é **mais forte** que da `Square`. Em um quadrado, ambos os lados precisam ser iguais.
+Perceba que precondição do participante `Square` é **mais forte** que da `Rectangle`. Em um quadrado, ambos os lados precisam ser iguais.
 
 Agora vamos entender o todo, vamos executar o teste unitário.
 
@@ -157,11 +155,11 @@ $test->testCalc($rectangle);
 $test->testCalc($square);
 ```
 
-Ressaltando, aqui estamos tratando com testes unitários, mas a orientação a objetos não é composta por unidade e sim participantes e seus comportamentos.
+Salientando que,aqui estamos tratando de testes unitários, mas a orientação a objetos não é composta por unidade e sim por participantes e seus comportamentos.
 
-Para o teste do `Square`, uma excessão será lançada. Se passar valores de altura e largura iguais, o teste passará normalmente. Matematicamente, um quadrado é um retângulo. Aqui estamos com relação de herança `é-um` e em orientação a objetos, por comportamento, um quadrado não é um retângulo.
+Para o teste do `Square`, uma excessão será lançada. Se passar valores de altura e largura iguais, o teste passará normalmente. Na matemática um quadrado é um retângulo. Aqui estamos com relação de herança **`é-um`** e em orientação a objetos, por comportamento, um quadrado não é um retângulo.
 
-Por isso viola LSP, dificilmente substituímos a subclasse pela base para analisar se o comportamento ainda será o mesmo, sem quebrar o cliente.
+Por isso viola LSP. Dificilmente substituímos a subclasse pela base para analisar se o comportamento ainda será o mesmo, sem quebrar o cliente.
 
 # Referências
 
