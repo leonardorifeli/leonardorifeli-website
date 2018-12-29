@@ -6,7 +6,7 @@ author: leonardorifeli
 categories: [ development ]
 comments: true
 featured: false
-hidden: true
+hidden: false
 ---
 
 Quando o assunto **Orientação a Objetos (paradigma orientado a objetos)** é abordado, é imprescindível falarmos sobre **OOD (object-oriented design)**. Temos o SOLID na aplicação de Padrões de Projetos.
