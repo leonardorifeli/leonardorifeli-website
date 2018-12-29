@@ -2,12 +2,12 @@
 layout: post
 title:  "Herança ou composição? Qual utilizar?"
 date: 2016-08-19
-categories: Development
-subcategorie: Java
+categories: [development, java]
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: Atualmente, um dos assuntos mais abordados e importantes, na programação orientada a objetos, sendo, herança e Composição. Porém é visivel que muitos programados(as) optam por utilizar a herança sem mesmo validar as alternativas dentro de cada contexto.
+featured: true
+hidden: true
+image: /img/posts/2016/08/19/composition.png
+author: leonardorifeli
 ---
 
 Olá dev sapiens, desta vez o artigo será mais teórico (comparado ao último: [Web Socket no PHP](https://leonardorifeli.com/development/2016/05/29/socket-no-php.html)) e será sobre dois assuntos que possuem demasiada importância no meio da programação orientada a objetos, a herança e a composição.
@@ -16,10 +16,7 @@ Sim, na internet existem vários artigos sobre o assunto, porém, resolvi descre
 
 Enquanto escrevo este magnífico artigo, vou ouvindo um set **Progressive House** do **[Progressive House ](https://www.youtube.com/watch?v=N7DEv-QP_Zk){:target="_blank"}**.
 
-## Herança ou composição? E agora, José?
-
-{:.center}
-![Composition](/img/posts/2016/08/19/composition.png){:style="width: 500px;"}
+Herança ou composição? E agora, José?
 
 ## Introdução
 

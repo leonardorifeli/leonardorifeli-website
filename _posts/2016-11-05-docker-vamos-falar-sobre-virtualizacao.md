@@ -2,12 +2,10 @@
 layout: post
 title:  "Docker: Vamos falar sobre virtualização"
 date: 2016-11-05
-categories: Development
+categories: [development, docker]
 subcategorie: Docker
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: No desenvolvimento de aplicações, podemos optar por usar máquinas virtuais (VMs) para facilitar o gerenciamento e provisionamento de serviços. Para isso, podemos citar o Vagrant. Mas, o provisionamento de máquinas virtuais demanda grande quantidade de tempo, além do fato do consumo demasiado de espaço em disco, recursos em geral da máquina que será o host.
+author: leonardorifeli
 ---
 
 No desenvolvimento de aplicações, podemos optar por usar máquinas virtuais (VMs) para facilitar o gerenciamento e provisionamento de serviços. Para isso, podemos citar o Vagrant. Mas, o provisionamento de máquinas virtuais demanda grande quantidade de tempo, além do fato do consumo demasiado de espaço em disco, recursos em geral da máquina que será o host.

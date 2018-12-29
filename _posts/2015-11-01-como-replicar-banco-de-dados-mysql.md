@@ -2,11 +2,9 @@
 layout: post
 title:  "Como replicar banco de dados MySQL"
 date: 2015-11-01
-categories: Banco de dados
+categories: [databases, mysql, devops]
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: A replicação de bancos de dados tem como principal objetivo a redundância, onde torna-se uma aplicação mais segura contra falhas e indisponibilidades de outras aplicações (como o respectivo banco de dados) e por sua vez um backup online dos dados (em tempo real).
+author: leonardorifeli
 ---
 
 Saudações, atuo como desenvolvedor Full-Stack em uma empresa de Araraquara (SP), a wab.com.br. Não sou um expert em servidores e aplicações atuando como tal. Porém gosto de estudar, então pratiquei sobre o assunto a qual os escrevo.

@@ -2,11 +2,11 @@
 layout: post
 title:  "Série de Hangouts sobre OOD"
 date: 2015-03-20
-categories: Development
+author: leonardorifeli
+categories: [ development ]
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: Quando o assunto <b>Orientação a Objetos (paradigma orientado a objetos)</b> é abordado, é imprescindível falarmos sobre <b>OOD (object-oriented design)</b>. Temos o SOLID na aplicação de Padrões de Projetos.
+featured: false
+hidden: true
 ---
 
 Quando o assunto **Orientação a Objetos (paradigma orientado a objetos)** é abordado, é imprescindível falarmos sobre **OOD (object-oriented design)**. Temos o SOLID na aplicação de Padrões de Projetos.

@@ -2,12 +2,12 @@
 layout: post
 title:  "Princípios SOLID: SRP e sopa de letrinhas"
 date: 2017-03-20
-categories: Development
-subcategorie: Tip
+categories: [development, solid]
+author: leonardorifeli
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: este post abordarei sobre o primeiro dos 5 princípios, nomeados com o acrônimo SOLID após a popularização por Robert C. Martin (aka Uncle Bob).
+featured: true
+hidden: true
+image: https://cdn-images-1.medium.com/max/800/1*mZg735tK49B6LDzk7UvIrQ.jpeg
 ---
 
 Em programação de software a sigla **SOLID** tem ganhado cada vez mais importância. Trata-se de um acrônimo popularizado por **Robert C. Martin** (o Uncle Bob), onde cada letra representa um dos cinco princípios do OOD (object-oriented design) que, quando aplicados em conjunto ou isoladamente, possibilitam a criação de códigos com facilidade de manter e de se estender ao longo do tempo.

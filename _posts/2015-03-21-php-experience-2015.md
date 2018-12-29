@@ -2,11 +2,9 @@
 layout: post
 title:  "PHP Experience 2015 - iMasters"
 date: 2015-03-21
-categories: Event
+author: leonardorifeli
+categories: [event]
 comments: false
-author: Leonardo Rifeli
-isResume: 1
-resume: PHP Experience 2015! Um dos maiores eventos sobre PHP da América Latina, contando com a presença de mais de 1000 programadores.
 ---
 
 PHP Experience 2015! Um dos maiores eventos sobre PHP da América Latina, contando com a presença de mais de 1000 programadores.

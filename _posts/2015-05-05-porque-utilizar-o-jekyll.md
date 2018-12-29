@@ -2,11 +2,9 @@
 layout: post
 title:  "Por que utilizar o Jekyll?"
 date: 2015-05-06
-categories: Development
+categories: [development]
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: Neste post irei descrever por que optei por utilizar o Jekyll. Mostrarei como ele é e como funciona.
+author: leonardorifeli
 ---
 
 Neste post irei descrever por que optei por utilizar o Jekyll. Mostrarei como ele é e como funciona.

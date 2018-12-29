@@ -2,11 +2,9 @@
 layout: post
 title:  "Instalando certificado de segurança SSL"
 date: 2015-04-01
-categories: Server/Security
+categories: [security]
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: O SSL <b>(Secure Socket Layer)</b> é um protocolo desenvolvido para elevar a segurança dos dados transmitidos pela internet. O SSL pode ser usado em vários serviços, sendo que o mais comum é o acesso à páginas web.
+author: leonardorifeli
 ---
 
 O SSL <b>(Secure Socket Layer)</b> é um protocolo desenvolvido para elevar a segurança dos dados transmitidos pela internet. O SSL pode ser usado em vários serviços, sendo que o mais comum é o acesso à páginas web.

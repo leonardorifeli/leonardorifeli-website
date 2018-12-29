@@ -2,10 +2,12 @@
 layout: post
 title:  "Princípios SOLID: OCP e sopa de letrinhas"
 date: 2017-12-05
-categories: Development
-subcategorie: Tip
+categories: [development, solid]
+author: leonardorifeli
 comments: true
-author: Leonardo Rifeli
+featured: true
+hidden: true
+image: https://cdn-images-1.medium.com/max/800/1*mZg735tK49B6LDzk7UvIrQ.jpeg
 ---
 
 Este é o segundo post de uma série onde abordaremos todos os cinco princípios do SOLID. Neste, falaremos sobre "Open closed principle", abreviado por OCP, e significa literalmente "Princípio aberto-fechado".

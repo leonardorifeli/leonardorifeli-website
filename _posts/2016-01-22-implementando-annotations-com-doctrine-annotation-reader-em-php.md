@@ -2,13 +2,12 @@
 layout: post
 title:  "Implementando annotations com doctrine annotation reader em PHP"
 date: 2016-01-22
-categories: Development
+categories: [development, php, annotations]
 subcategorie: PHP
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: Em geral, é possível utilizar annotations para facilitar informações estáticas dentro de classes, atributos e/ou métodos. Podendo assim, tentar (eu escrevi TENTAR) atingir maior legibilidade do seu código. Vem comigo para essa aventura!
+author: leonardorifeli
 ---
+
 Saudações méros mortais, primeiro, peço desculpas pelo período sem trazer novidades para vocês (estive em uma excursão pela galáxia), em breve escreverei um artigo sobre essa viagem. Neste artigo mostrarei sobre **annotations** (é claro, está no título).
 
 Como disse meu amigo [Guilherme Diego](https://medium.com/@guidiego){:target="_blank"} no artigo [Código Limpo é uma Responsabilidade — Blocos](https://medium.com/@guidiego/c%C3%B3digo-limpo-%C3%A9-uma-responsabilidade-blocos-5be1fdd8d341#.gbx5keq0s){:target="_blank"}:

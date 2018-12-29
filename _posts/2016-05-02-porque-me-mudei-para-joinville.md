@@ -2,12 +2,9 @@
 layout: post
 title:  "Porque me mudei para Joinville"
 date: 2016-05-02
-categories: Development
-subcategorie: Carrier
+categories: [tips, mindset]
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: A viagem teve inicio na minha cidade natal, Araraquara (a morada do sol), interior de São Paulo. O convite veio de uma agência web, localizada em Joinville, interior de Santa Catarina, donde, me foi informado que essa viagem não seria fácil, que seria longa, com grandes turbulências e muitos, muitos DESAFIOS.
+author: leonardorifeli
 ---
 
 Saudação méro mortal, lembra o post maroto que escrevi há alguns meses? (caso não tenha efetuado uma sábia leitura, clique aqui). Então, nele eu me desculpei e argumentei que estou em uma viagem pela galáxia. Pois bem, este post é para conversarmos sobre essa incrível viagem.

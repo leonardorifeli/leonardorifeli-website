@@ -2,12 +2,9 @@
 layout: post
 title:  "Web Socket no PHP"
 date: 2016-05-29
-categories: Development
-subcategorie: PHP
+categories: [development, websocket, php]
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: Web Sockets são um full-duplex, conexão persistente bi-direcional de um navegador web para um servidor. Depois que uma conexão socket é estabelecida a conexão permanece aberta até que o cliente ou servidor decide encerrar. Com esta conexão aberta, o cliente ou servidor pode enviar uma mensagem a qualquer outro cliente conectado.
+author: leonardorifeli
 ---
 
 Olá homo sapiens, desta vez o artigo será um pouco mais técnico. Falarei sobre **web socket com PHP**, claro, também com Javascript.

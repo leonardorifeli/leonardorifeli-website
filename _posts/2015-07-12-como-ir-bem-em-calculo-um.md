@@ -2,11 +2,9 @@
 layout: post
 title:  "Como ir bem em cálculo 1"
 date: 2015-07-12
-categories: dicas
+categories: [tips]
 comments: true
-author: Leonardo Rifeli
-isResume: 1
-resume: Sim, é possível, não desista sem ao menos ter sentado a 'bunda' na cadeira e estudado.
+author: leonardorifeli
 ---
 
 Sim, é possível, não desista sem ao menos ter sentado a 'bunda' na cadeira e estudado.
