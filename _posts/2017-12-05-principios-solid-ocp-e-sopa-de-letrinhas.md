@@ -5,8 +5,8 @@ date: 2017-12-05
 categories: [development, solid]
 author: leonardorifeli
 comments: true
-featured: true
-hidden: true
+featured: false
+hidden: false
 image: https://cdn-images-1.medium.com/max/800/1*mZg735tK49B6LDzk7UvIrQ.jpeg
 ---
 
