@@ -2,8 +2,9 @@
 layout: post
 title:  "Porque me mudei para Joinville"
 date: 2016-05-02
-categories: [tips, mindset]
-comments: true
+categories: [tips]
+image: https://livreembarque.com.br/wp-content/uploads/2017/12/IMG_0200-1160x770.jpg
+comments: false
 author: leonardorifeli
 ---
 

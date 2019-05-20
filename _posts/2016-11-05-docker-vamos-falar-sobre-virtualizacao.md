@@ -2,9 +2,9 @@
 layout: post
 title:  "Docker: Vamos falar sobre virtualização"
 date: 2016-11-05
-categories: [development, docker]
-subcategorie: Docker
-comments: true
+categories: [docker, devops]
+comments: false
+image: https://cdn-images-1.medium.com/max/2600/1*JAJ910fg52ODIRZjHXASBQ.png
 author: leonardorifeli
 ---
 
@@ -39,8 +39,9 @@ Sem mais delongas, chega mais que vai ser muito foda!
 
 Corre lá e pegue um pouco de café, o assunto será bem interessante.
 
-{:.center}
-![get your coffee](/img/posts/2016/11/03/get-coffee.gif){:style="width: 400px;"}
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/get-coffee.gif"/>
+</div>
 
 ## Um pouco sobre Virtualização
 
@@ -53,15 +54,17 @@ Tendo como precursor, o comando [chroot](https://en.wikipedia.org/wiki/Chroot){:
 
 Com relação à virtualização, a diferença está no fato do **LXC** não necessitar de uma camada de sistema operacional para cada aplicação. Como você pode verificar na imagem abaixo.
 
-{:.center}
-![vms vs contêineres](/img/posts/2016/11/03/c-structure.png){:style="width: 80%;"}
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/c-structure.png"/>
+</div>
 
 Ao compararmos o **LXC** com a **virtualização tradicional**, fica mais claro que uma aplicação sendo executada em um LXC demanda muito menos recursos, consumindo menos espaço em disco e com um nível de portabilidade muito mais abrangente.
 
 ## O que é o Docker?
 
-{:.center}
-![docker](/img/posts/2016/11/03/docker.png)
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/docker.png"/>
+</div>
 
 Nasceu como um projeto da [DotCloud](https://cloud.docker.com/){:target="_blank"}, uma empresa **PaaS** (Platform as a Service).
 
@@ -73,15 +76,17 @@ Em outras palavras, o Docker é uma ferramenta de empacotamento de uma aplicaç�
 
 Não, contêineres docker possuem uma arquitetura diferente que permite maior portabilidade e eficiência.
 
-{:.center}
-![docker](/img/posts/2016/11/03/docker-system.png){:style="width: 100%;"}
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/docker-system.png"/>
+</div>
 
 ## Tecnologias e ideias utilizadas
 
 Cara, contêiner não é nada novo, Docker surgiu para facilitar o uso deles. Abaixo um resumo de tecnologia e o ano da primeira versão:
 
-{:.center}
-![docker](/img/posts/2016/11/03/technologies-year.png){:style="width: 50%;"}
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/technologies-year.png"/>
+</div>
 
 ## O que é um contêiner?
 
@@ -126,8 +131,9 @@ O Docker utiliza os recursos de [Namespaces](https://en.wikipedia.org/wiki/Names
 
 E uma das principais:
 
-{:.center}
-![docker](/img/posts/2016/11/03/dependency-hell.png){:style="width: 30%;"}
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/dependency-hell.png"/>
+</div>
 
 - **Evita Dependency Hell**: um dos maiores problemas que os desenvolvedores de software convivem, é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.
 

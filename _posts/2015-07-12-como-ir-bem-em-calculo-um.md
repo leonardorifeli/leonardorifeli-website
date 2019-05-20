@@ -2,9 +2,11 @@
 layout: post
 title:  "Como ir bem em cálculo 1"
 date: 2015-07-12
-categories: [tips]
+categories: [mathematics]
 comments: true
 author: leonardorifeli
+image: https://www.lernsys.com/content/images/thumbs/0004452_calculus-1-part-1-limits-and-derivatives_700.jpeg
+tags: [featured]
 ---
 
 Sim, é possível, não desista sem ao menos ter sentado a 'bunda' na cadeira e estudado.
@@ -65,7 +67,7 @@ Abaixo seguem alguns livros que utilizei para estudos e práticas:
 Vídeo sobre onde o Professor Dr. Clóvis de Barros Filho fala sobre Ética Kantiana e menciona o livro *[Fundamentação
 da Metafísica dos Costumes](http://charlezine.com.br/wp-content/uploads/Fundamenta%C3%A7%C3%A3o-da-Metaf%C3%ADsica-dos-Costumes-Kant1.pdf){:target="_blank"}* por se tratar de um livro difícil de entender.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Qj6mQSdBSGI" frameborder="0" allowfullscreen></iframe>
+<iframe width="100%" height="415" src="https://www.youtube.com/embed/Q-MO_i8KjAg" frameborder="0" allowfullscreen></iframe>
 
 Confira a aula completa (desejo x vontade): [clique aqui](https://www.youtube.com/watch?v=YbI7V46jCKc){:target="_blank"}.
 

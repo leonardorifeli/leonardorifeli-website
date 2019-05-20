@@ -5,8 +5,7 @@ date: 2018-07-27
 categories: [development, serverless]
 author: leonardorifeli
 comments: true
-featured: true
-hidden: true
+tags: [featured]
 image: https://cdn-images-1.medium.com/max/1600/0*4ruGoRh2LUk7pvNq.jpg
 ---
 
@@ -17,7 +16,9 @@ Conosco aqui na **reviewr** não foi diferente. Uma parte da nossa arquitetura �
 O que é Serverless?
 Sempre que entramos neste assunto, utilizamos muito os argumentos e definições do mestre Mike Roberts:
 
-![mike-roberts](https://cdn-images-1.medium.com/max/1200/1*KaiUEw1va-CTT1KvfK5QVQ.png)
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/1200/1*KaiUEw1va-CTT1KvfK5QVQ.png"/>
+</div>
 
 Ou seja, serverless possui duas possíveis definições: aplicações que dependem significativamente de serviços de terceiro (Backend como serviço, também conhecido na sigla BaaS). Como também, um contêiner efêmero para execução de um código personalizado (as famosas functions).
 
@@ -25,7 +26,9 @@ Não tem o porque reescrevermos a roda por aqui. Caso ainda tenha ficado alguma 
 
 ## Monolitos vs Micro serviços
 
-![](https://cdn-images-1.medium.com/max/800/0*_73VNYOeSqDk_y84.png)
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/0*_73VNYOeSqDk_y84.png"/>
+</div>
 
 Arquitetura monolito vs micro serviços
 De um lado da moeda temos a arquitetura monolítica, normalmente são grandes e complexas e todos os módulos do seu software ficam na mesma aplicação. Não necessariamente se utiliza uma única base de dados, mas não se assuste se assim encontrar. Com essa arquitetura temos que os monolitos são:
@@ -36,8 +39,10 @@ De um lado da moeda temos a arquitetura monolítica, normalmente são grandes e 
 - Alguns casos são complexos e difíceis de escalar;
 - E a parte mais difícil, eles crescem e podem resultar em caos.
 
-![](https://cdn-images-1.medium.com/max/800/0*WQ_tX2yue3_kCDSf.jpg)
-Monolito tende a causar problemas
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/0*WQ_tX2yue3_kCDSf.jpg"/>
+	<i>Monolito tende a causar problemas</i>
+</div>
 
 Do outro lado da moeda temos os micro serviços, que consistem em módulos isolados, cada um rodando na linguagem core do time que o mantém ou até a linguagem que irá resolver o problema de uma maneira melhor, utilizando base de dados dedicadas e distribuídas. Com essa arquitetura temos muitos beneficíos, porém o custo costuma ser maior. Vamos aos benefícios:
 
@@ -49,7 +54,9 @@ Do outro lado da moeda temos os micro serviços, que consistem em módulos isola
 
 ## E o FaaS?
 
-![](https://cdn-images-1.medium.com/max/800/1*rUJvbf0srpg_WisZv24d6A.png)
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/1*rUJvbf0srpg_WisZv24d6A.png"/>
+</div>
 
 Aqui entram os contêineres efêmeros que falamos anteriormente. Gostamos muito do gráfico acima, onde é mostrado a evolução do serverless e onde encaixa-se a arquitetura FaaS (Função como serviço). Entendemos que com as functions, os serviços devem possuir suas responsabilidades isoladas e você não precisará se preocupar com a escalabilidade dessas execuções. O provedor irá escalar até o infinito (na verdade, até o limite do seu cartão de crédito). Esta arquitetura também possui alguns benefícios:
 
@@ -66,7 +73,9 @@ A cereja do bolo desta arquitetura é sem dúvidas o custo. No caso da AWS Lambd
 
 Para melhor compreensão, é importante você ter conhecimento sobre o que fazemos aqui na reviewr. [Aqui você encontra mais informações](http://reviewr.me/site/).
 
-![](https://cdn-images-1.medium.com/max/800/1*0ZrpBnNqEIPSlI6ZIsKBHw.png)
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/1*0ZrpBnNqEIPSlI6ZIsKBHw.png"/>
+</div>
 
 Alguns canais que recebem avaliações online (reviews)
 A grosso modo: A reviewr faz gestão da reputação online de grandes marcas e seus estabelecimentos, através de um meio muito interessante: os famosos reviews. Com esses dados coletados e processados, centralizamos tudo em uma única plataforma, disponibilizando um sistema de gestão e publicação de respostas, indicadores e inteligência para os estabelecimentos.
@@ -79,7 +88,9 @@ Vamos para a parte mais esperada (ou não). Trazemos as sete principais lições
 
 ### Previsibilidade de Custos
 
-![](https://cdn-images-1.medium.com/max/800/1*1VAl9J4Vo2x-wP4kyHcA5A.png)
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/1*1VAl9J4Vo2x-wP4kyHcA5A.png"/>
+</div>
 
 Como calcular o custo de uma AWS Lambda em produção
 Com os recursos de FaaS, é possível prever quanto custará aproximadamente uma Lambda em produção. Você só precisa de 2 informações: quantidade de invocações e média do tempo de duração das execuções (para calcular quanto tempo você alocará de memória em gigabytes).
@@ -96,26 +107,36 @@ Sem isso, trabalhar com funções será algo tão complexo que não fará sentid
 
 Aqui na reviewr, nossas funções são em **NodeJS** e **Golang**. Para todas, temos deploy automatizado com o CircleCI (fez merge do PR, está em prod meu amigo). Para o versionamento, utilizamos o semantic-release para os projetos em NodeJS e fazemos versionamento manual das functions em Golang (caso conheça algo, indique nos comentários). Como fica isso?
 
-![](https://cdn-images-1.medium.com/max/800/0*xPQHttxaAG3DNoWt)
-Functions em NodeJS com pacotes NPM privados
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/0*xPQHttxaAG3DNoWt"/>
+	<i>Functions em NodeJS com pacotes NPM privados</i>
+</div>
 
-![](https://cdn-images-1.medium.com/max/800/0*_bOZ6BtNjsVRjbcR)
-Builds e deploys com CircleCI
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/0*_bOZ6BtNjsVRjbcR"/>
+	<i>Builds e deploys com CircleCI</i>
+</div>
 
-![](https://cdn-images-1.medium.com/max/800/0*gNpnFZ6egTkssZ6M)
-Semantic-release rodando lindo
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/0*gNpnFZ6egTkssZ6M"/>
+	<i>Semantic-release rodando lindo</i>
+</div>
 
 ### Monitoramento e Alerta
 
 Não poderíamos deixar de falar destes assuntos, não é mesmo? Aqui na reviewr, encontramos uma startup da Estónia que lançou o [Dashbird](http://dashbird.io/). O sistema deles integra com o seu **AWS Cloud Watch** e coleta todos os dados, métricas e indicadores. Ainda auxilia nos alertas, confira abaixo:
 
-![](https://cdn-images-1.medium.com/max/1000/1*YH6X2_AA33om-yIQb2SQtA.png)
-Dashboard do Dashbird (é, usamos bastante FaaS por aqui)
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/1000/1*YH6X2_AA33om-yIQb2SQtA.png"/>
+	<i>Dashboard do Dashbird (é, usamos bastante FaaS por aqui)</i>
+</div>
 
 E além de você ter os seus alertas, você precisa confiar neles:
 
-![](https://cdn-images-1.medium.com/max/800/1*TrTaHWnIhRXy5Ro8ucG87A.png)
-Slack alerts
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/1*TrTaHWnIhRXy5Ro8ucG87A.png"/>
+	<i>Slack alerts</i>
+</div>
 
 ### Serviços Secundários
 
@@ -129,7 +150,9 @@ Aqui tivemos que utilizar o Kineses Firehose pra resolver o problema do Redshift
 
 Este é mais para conhecimento, no decorrer dos nossos estudos, conhecemos este recurso da AWS (eles quase não tem recursos escondidos). O Step-function resolve o problema de gerenciamento e orquestração das functions. Ele é uma espécie de workflow que funciona como um middleware para você gerenciar as lambdas, que juntas, executam um fluxo específico.
 
-![](https://cdn-images-1.medium.com/max/800/0*9eASZU5hFyDkyBPn)
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/800/0*9eASZU5hFyDkyBPn"/>
+</div>
 
 Você literalmente desenha (através de um JSON) o seu fluxo e o que ele deverá fazer, desde chamar uma lambda até validar um output de um evento.
 
@@ -141,8 +164,10 @@ Vale salientar algo: cuidado! O Step-function faz a cobrança por mudança de es
 
 É um estado que a função passa quando é iniciada pela primeira vez. O provedor provisiona um container para executa-la (como se aquecesse a função) e nas próximas chamadas (dentro de um período de tempo próximo) ele utiliza a que foi previamente aquecida. No nosso caso, chamamos a mesma função N vezes de maneira paralela, ou seja, todas ficam com o estado **cold-start** e isso impacta na duração da execução. E faz acontecer isso:
 
-![](https://cdn-images-1.medium.com/max/1000/0*ebBghue8pb-Hx88x)
-Lambdas em cold-start com durations consideravelmente altas
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/1000/0*ebBghue8pb-Hx88x"/>
+	<i>Lambdas em cold-start com durations consideravelmente altas</i>
+</div>
 
 Resolvemos de maneira parcial, configurando um cloud watch para ficar “conversando com as lambdas”. A cada 1min ele dispara um evento de PING para elas, onde validamos e respondemos um PONG \o/.
 
@@ -150,8 +175,6 @@ Resolvemos de maneira parcial, configurando um cloud watch para ficar “convers
 
 A conclusão é que para usar funções no seu sistema depende muito do cenário da sua aplicação/arquitetura. De maneira geral, as lambdas podem resolver muitos problemas se forem bem utilizadas. É necessário um pensamento aguçado, simplista e disruptivo parar utilizar tudo o que elas podem oferecer.
 
-Se você tiver dúvidas ou precisar de alguma coisa, pode me contactar pelo e-mail **leonardo.rifeli@reviewr.me** ou o Marcelo**marcelo.andrade@reviewr.me**.
+Se você tiver dúvidas ou precisar de alguma coisa, pode me contactar pelo e-mail **leonardo.rifeli@reviewr.me** ou o Marcelo **marcelo.andrade@reviewr.me**.
 
 Compartilhe as suas experiências com Serverless e FaaS nos comentários!
-
-Artigo publicado originalmente em: [medium.com/reviewr](https://medium.com/reviewr/por-que-utilizamos-uma-arquitetura-faas-2934e71879bf)

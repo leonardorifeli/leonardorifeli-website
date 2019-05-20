@@ -2,9 +2,9 @@
 layout: post
 title:  "Implementando annotations com doctrine annotation reader em PHP"
 date: 2016-01-22
-categories: [development, php, annotations]
-subcategorie: PHP
-comments: true
+image: https://miro.medium.com/max/1055/1*5sG-H5JM750kkEYhkE6BAA.jpeg
+categories: [development, php]
+comments: false
 author: leonardorifeli
 ---
 
@@ -12,8 +12,9 @@ Saudações méros mortais, primeiro, peço desculpas pelo período sem trazer n
 
 Como disse meu amigo [Guilherme Diego](https://medium.com/@guidiego){:target="_blank"} no artigo [Código Limpo é uma Responsabilidade — Blocos](https://medium.com/@guidiego/c%C3%B3digo-limpo-%C3%A9-uma-responsabilidade-blocos-5be1fdd8d341#.gbx5keq0s){:target="_blank"}:
 
-{:.center}
-![alt text](/img/posts/2016-01-custom-annotations/ler-curtir-compartilhar.png "Share the post.")
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016-01-custom-annotations/ler-curtir-compartilhar.png"/>
+</div>
 
 Enquanto escrevo, vou ouvindo o álbum [As Daylight Dies](https://open.spotify.com/album/6iJEtgHTEbVlSS5isIS71z){:target="_blank"} da banda Killswitch Engage, é um banda muito bacana.
 
@@ -54,8 +55,9 @@ Repare que, a classe em questão possui uma **annotation**, sendo ela **@Annotat
 
 ## Consumindo a annotation
 
-{:.center}
-![alt text](/img/posts/2016-01-custom-annotations/consumindo.gif "Using the annotation PeopleAnnotation")
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016-01-custom-annotations/consumindo.gif"/>
+</div>
 
 Nesta etapa, iremos consumir a annotation **PeopleAnnotation** e informaremos os valores que a annotation disponibiliza.
 
@@ -88,10 +90,11 @@ Abaixo o exemplo:
 <script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=ReaderAnnotation.php"></script>
 <span class="space">&nbsp;</span>
 
-## Resultado (você já deve ter executado os exemplos)
+## Resultados
 
-{:.center}
-![alt text](/img/posts/2016-01-custom-annotations/happy.gif "Using the annotation PeopleAnnotation")
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016-01-custom-annotations/happy.gif"/>
+</div>
 
 <script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=result.txt"></script>
 <span class="space">&nbsp;</span>

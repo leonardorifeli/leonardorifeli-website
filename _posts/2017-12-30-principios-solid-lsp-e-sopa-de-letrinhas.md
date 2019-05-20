@@ -4,9 +4,7 @@ title:  "Princípios SOLID: LSP e sopa de letrinhas"
 date: 2017-12-30
 categories: [development, solid]
 author: leonardorifeli
-comments: true
-featured: false
-hidden: false
+comments: false
 image: https://cdn-images-1.medium.com/max/800/1*mZg735tK49B6LDzk7UvIrQ.jpeg
 ---
 Este é o terceiro post de uma série onde abordaremos todos os cinco princípios do SOLID. Neste, falaremos sobre "Liskov substitution  principle", abreviado por LSP, e significa literalmente "Princípio da substituição de Liskov".

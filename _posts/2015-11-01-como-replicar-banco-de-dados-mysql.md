@@ -2,9 +2,11 @@
 layout: post
 title:  "Como replicar banco de dados MySQL"
 date: 2015-11-01
-categories: [databases, mysql, devops]
+image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiVek5vOursfqsSleIm2QU0lhTjYW3UrubYT2EPkAjxZJmb6kc_Q
+categories: [devops]
 comments: true
 author: leonardorifeli
+tags: [featured]
 ---
 
 Saudações, atuo como desenvolvedor Full-Stack em uma empresa de Araraquara (SP), a wab.com.br. Não sou um expert em servidores e aplicações atuando como tal. Porém gosto de estudar, então pratiquei sobre o assunto a qual os escrevo.
@@ -28,17 +30,20 @@ O servidor atuando em modo **Master** irá gravar todas as alterações efetuada
 
 Segue abaixo um esquema de replicação **Master-Slave**:
 
-![alt text](https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication.jpg "MySQL Replication")
-
-**Figura 1.1** - Fonte: **Google Images**
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2015-11-01-mysql-replication.jpg"/>
+	<b>Figura 1.1 - Fonte: Google Images</b>
+</div>
 
 ## Como iremos replicar (esquema)
 
 Para a replicação do **MySQL**, será utilizado três instâncias **t2.micro** no **Amazon AWS**, conforme abaixo:
 
-![alt text](https://leonardorifeli.com/img/posts/2015-11-01-amazon-aws.png "Running on AWS")
-
-**Instâncias - Figura 1.2**
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2015-11-01-amazon-aws.png"/>
+	<br/>
+	<b>Instâncias - Figura 1.2</b>
+</div>
 
 **Observação:** Pode-se analisar na **Figura 1.2** (acima) que as três instâncias encontram-se no mesmo datacenter, porém a replicação também funciona em datacenters diferentes.
 
@@ -50,9 +55,11 @@ Onde os respectivos atuarão em modo:
 
 Conforme esquema abaixo:
 
-![alt text](https://leonardorifeli.com/img/posts/2015-11-01-server-aws-mysql-replication.png "Server MySQL Replication")
-
-**Figura 1.3**
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2015-11-01-server-aws-mysql-replication.png"/>
+	<br/>
+	<b>Figura 1.3</b>
+</div>
 
 **PS**: Não entrarei em detalhes sobre o Amazon AWS.
 
@@ -170,19 +177,25 @@ MASTER_LOG_POS=0;
 
 No servidor **leonardorifeli-001** foi criado o banco **leonardorifeli**, conforme abaixo:
 
-![alt text](https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-master.png "Server MySQL Replication leonardorifeli-001")
-
-**Servidor Master (leonardorifeli-001) - Figura 1.4**
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2015-11-01-mysql-replication-master.png"/>
+	<br/>
+	<b>Servidor Master (leonardorifeli-001) - Figura 1.4</b>
+</div>
 
 Após esse processo, foi verificado os bancos contidos nos servidores slaves, e foi relatado que a replicação foi um sucesso. Conforme abaixo:
 
-![alt text](https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-01.png "Server MySQL Replication leonardorifeli-001 and leonardorifeli-002")
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2015-11-01-mysql-replication-slave-01.png"/>
+	<br/>
+	<b>Servidor Slave (leonardorifeli-002) - Figura 1.5</b>
+</div>
 
-**Servidor Slave (leonardorifeli-002) - Figura 1.5**
-
-![alt text](https://leonardorifeli.com/img/posts/2015-11-01-mysql-replication-slave-02.png "Server MySQL Replication leonardorifeli-001 and leonardorifeli-003")
-
-**Servidor Slave (leonardorifeli-003) - Figura 1.6**
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2015-11-01-mysql-replication-slave-02.png"/>
+	<br/>
+	<b>Servidor Slave (leonardorifeli-003) - Figura 1.6</b>
+</div>
 
 ## Referências Bibliográficas
 

@@ -4,9 +4,7 @@ title:  "Princípios SOLID: SRP e sopa de letrinhas"
 date: 2017-03-20
 categories: [development, solid]
 author: leonardorifeli
-comments: true
-featured: false
-hidden: false
+comments: false
 image: https://cdn-images-1.medium.com/max/800/1*mZg735tK49B6LDzk7UvIrQ.jpeg
 ---
 

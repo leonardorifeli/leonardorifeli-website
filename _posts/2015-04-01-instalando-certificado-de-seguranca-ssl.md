@@ -2,6 +2,7 @@
 layout: post
 title:  "Instalando certificado de segurança SSL"
 date: 2015-04-01
+image: https://tudosobrehospedagemdesites.com.br/site/wp-content/uploads/2016/06/https-728x273.png
 categories: [security]
 comments: true
 author: leonardorifeli

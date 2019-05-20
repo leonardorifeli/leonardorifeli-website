@@ -3,8 +3,10 @@ layout: post
 title:  "Por que utilizar o Jekyll?"
 date: 2015-05-06
 categories: [development]
-comments: true
+comments: false
+image: https://cdn-images-1.medium.com/max/1200/0*N8RG95bKJnnF-wpL.png
 author: leonardorifeli
+tags: [featured]
 ---
 
 Neste post irei descrever por que optei por utilizar o Jekyll. Mostrarei como ele é e como funciona.
@@ -21,7 +23,9 @@ Mostrarei como o **Jekyll** funciona (o que eu aprendi até aqui) posteriormente
 
 Todo arquivo e/ou diretório que tiver **underscore (exemplo: _includes)** no começo, o **Jekyll** irá ignorar no pacote final, quando rodar o **<code>jekyll build</code>** para gerar os arquivos para o site (os arquivo do site ficarão dentro do diretório **_site**).
 
-![Structure Directory](/img/posts/2015-05-05-structure-directory.png)
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2015-05-05-structure-directory.png"/>
+</div>
 
 O diretório **_includes** guarda arquivos que serão reutilizados nas páginas do projeto, como, **header**, **footer**, **sidebar**, **nav** ou qualquer outra coisa de acordo com o layout.
 
@@ -31,7 +35,7 @@ O diretório **_site** é o **build** do seu projeto. É ali que o **Jekyll** co
 
 Há pessoas que preferem deixar o diretório **_site** versionável no GIT, e há pessoas que o colocam no **.gitignore** e utilizam outro diretório (**web** por exemplo). Basta executar o **<code>jekyll build</code>** copiar os arquivos gerados no diretório **_site** para o diretório **web**.
 
-{% highlight text %}
+```
 |-- _config.yml
 |-- _includes/
 |-- _layouts/
@@ -40,19 +44,19 @@ Há pessoas que preferem deixar o diretório **_site** versionável no GIT, e h�
 |-- about.md # => será uma página chamada about
 |-- index.html # => http://projeto.com
 └── feed.xml # => http://projeto.com/feed.xml
-{% endhighlight %}
+```
 
 ## YAML
 O formato YAML foi desenvolvido para facilidar o entendimento e a escrita dentro dos arquivos no respectivo formato.
 
 Qualquer arquivo no respectivo formato e que contenha um bloco em YAML será processado pelo jekyll como um arquivo especial, o pessoal do **Jekyll** o chama de **front-matter**. O front-matter precisa estar em um formato válido de YAML. Toda a página no Jekyl deverá ser iniciada da seguinte maneira:
 
-{% highlight text %}
+```
 ---
 layout: default
 title: Home
 ---
-{% endhighlight %}
+```
 
 Restritamente deverá começar com os três traços e finalizar com os mesmos. Sem choro nem vela. O código YAML são as variáveis **<code>layout</code>** e **<code>title</code>**
 
@@ -62,7 +66,7 @@ Tal arquivo é responsável por armazenar as variável que serão utilizadas den
 
 Exemplo:
 
-{% highlight text %}
+```
 ## SITE CONFIGURATION
 baseurl: ""
 url: "https://leonardorifeli.com"
@@ -75,14 +79,14 @@ theme:
   facebook: false
   twitter: true
   twitter_base: leonardorifeli
-{% endhighlight %}
+```
 
 Para utilizar as variáveis dentro do site, segue um exemplo implementado no arquivo **<code>_includes/head.html</code>**:
 
-{% highlight html %}
+```html
 <title>{`{ site.theme.title }`}</title>
 <link rel="stylesheet" href="{`{ /css/main.css" | prepend: site.baseurl }`}">
-{% endhighlight %}
+```
 
 **Obs.:** Removendo as aspas simples, ele irá utilizar o valor que foi armazenado em cada respectiva variável.
 
@@ -111,11 +115,15 @@ PS: Mais informações quanto a instalação das dependências, você encontra n
 
 Após ter instalado as dependências citadas acima, instale o **Jekyll**:
 
-**<code>gem install jekyll</code>**
+```bash
+gem install jekyll
+```
 
 **Vá para o diretório do repositório clonado** remova todos os arquivos que vieram junto ao repositório, deixando o diretório vazio e inicie um projeto com o Jekyll, executando (dentro do diretório do repositório clonado):
 
-**<code>jekyll new ./</code>**
+```bash
+jekyll new ./
+```
 
 Você pode executar **<code>jekyll server</code>**, automaticamente ele executará **<code>jekyll build</code>** para gerar o diretório **_site** com os arquivos estátivos. Você poderá verificar acessando **localhost:4000**.
 

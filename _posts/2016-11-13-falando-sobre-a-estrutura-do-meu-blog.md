@@ -1,10 +1,12 @@
 ---
 layout: post
-title:  "Falando sobre a estrutura do meu blog"
+title: "Falando sobre a estrutura do meu blog"
 date: 2016-11-13
-categories: [development, tips]
-comments: true
+categories: [development]
+comments: false
+image: https://cdn-images-1.medium.com/max/1200/0*N8RG95bKJnnF-wpL.png
 author: leonardorifeli
+tags: [featured]
 ---
 
 Neste artigo, falarei sobre a estrutura do meu blog, um resumo geral de como ele funciona, como faço as publicações, os macetes envolvidos, etc. Recentemente, recebi várias perguntas sobre isso e decidir fazer este artigo para compartilhar isso com você.
@@ -57,8 +59,9 @@ Salientando que, todos os pushs que eu efetuo, são na branch `gh-pages` e não 
 
 ## Resumo sobre o Jekyll
 
-{:.center}
-![docker](https://jekyllrb.com/img/logo-2x.png){:style="width: 30%;"}
+<div style="text-align:center">
+	<img class="image" src="https://jekyllrb.com/img/logo-2x.png"/>
+</div>
 
 Jekyll é um gerenciador de códigos estáticos. Isso mesmo, ele não faz uso de banco de dados e não requesita um servidor robusto para funciona. Um dos benefécios é poder utilizar o Github Pages para hospedar o site. Ou seja, você pode desenvolver páginas e até mesmo um blog de forma estática, apenas utilizando HTML (e claro, Markdown) que você provavelmente já conhece. Ele é baseado em vários formatos como Markdown (conforme já dito) para formatação de textos e posts e um padrão de template chamado Liquid com um pouco de **YAML** para os arquivos de configurações.
 
@@ -106,7 +109,7 @@ Vamos ao que interessa, você precisará acessar as configurações das zonas de
 - Entrada do tipo A: `192.30.252.154`
 - Entrada do tipo CNAME: `dominio-do-repositorio.github.io`
 
-Feito isso, agora é moleza, basta criar um arquivo chamado CNAME (em maiúsculo) e dentro deste arquivo, você irá colocar o seu domínio, sem nenhum protocolo ou **www**, apenas o domínio. Exemplo [meu CNAME](https://github.com/leonardorifeli/leonardorifeli.github.io/blob/gh-pages/CNAME){:target="_blank"}.
+Feito isso, agora é moleza, basta criar um arquivo chamado CNAME (em maiúsculo) e dentro deste arquivo, você irá colocar o seu domínio, sem nenhum protocolo ou **www**, apenas o domínio. Exemplo [meu CNAME](https://github.com/leonardorifeli/leonardorifeli.github.io/blob/master/CNAME){:target="_blank"}.
 
 Feito isso, é só esperar propagar.
 
@@ -114,15 +117,17 @@ Alguns links adicionais estão nas referências, aventure-se!
 
 ## Como automatizar o build
 
-{:.center}
-![travis ci logo](https://cdn.travis-ci.com/images/logos/TravisCI-Full-Color-7f5db09495c8b09c21cb678c4de18d21.png){:style="width: 50%;"}
+<div style="text-align:center">
+	<img class="image" src="https://cdn-images-1.medium.com/max/1200/1*VXdK53mBfr27iT8LiHNAbg.png"/>
+</div>
 
 Como eu falei, no tópico **Resumo da estrutura**, eu utilizo duas branchs no projeto (gh-pages e master). A branch **master** é a principal do projeto, quando alguém acessar meu blog, o **Github Pages** puxa os arquivos da **master**. Ou seja, sempre que eu faço alterações no blog (incrementais ou novos artigos) eu efetuo o `git push` para a **gh-pages** e abro um **PR** (pull request) para a **master**.
 
 Aqui vai uma observação interessante, por **default**, o Github Pages puxa os arquivos da `gh-pages`, mas, você pode mudar isso, através das `setting` do repositório, conforme a imagem abaixo.
 
-{:.center}
-![branch default to githug pages](/img/posts/2016/11/13/setting-master.png){:style="width: 70%;text-align:center"}
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/13/setting-master.png"/>
+</div>
 
 Mas, a branch default do projeto é a `gh-pages`. Isso você pode mudar nas `settings` do repositório também.
 
@@ -134,8 +139,9 @@ E como configurar o [travis](https://travis-ci.org/){:target="_blank"}?
 
 Quando você estiver logado, você verá algo como a imagem abaixo, onde poderá habilitar o travis para os repositório e ver um mini tutorial de como automatizar as tarefas com o travis.
 
-{:.center}
-![travis example](/img/posts/2016/11/13/travis-build.png){:style="width: 70%;"}
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/13/travis-build.png"/>
+</div>
 
 O próximo passo é simples. Como você percebeu na imagem acima, é simples, basta criar um arquivo com o nome **.travis.yml** (onde você especificará o que irá acontecer quando efetuar algum push em alguma branch) e enviá-lo para o repositório.
 
@@ -155,8 +161,9 @@ Com esse build, o travis que irá gerar os arquivos estáticos quando você merg
 
 ## Como configurar https
 
-{:.center}
-![cloud flare logo](/img/posts/2016/11/13/cloud-flare.png){:style="width: 50%;"}
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/13/cloud-flare.png"/>
+</div>
 
 Este tópico é um adicional que eu aprendi recentemente, lendo o artigo [HTTPS no Github Pages com Custom Domain](https://willianjusten.com.br/https-no-github-pages-com-custom-domain/){:target="_blank"}, do Willian Justen. Ah, ele tem um [curso sobre Jekyll](http://willianjusten.teachable.com/p/criando-sites-estaticos-com-jekyll){:target="_blank"}, gratuito, corre lá.
 
@@ -168,13 +175,15 @@ A [Google fez um post](https://webmasters.googleblog.com/2014/08/https-as-rankin
 
 Quanto a CDN, eu não cheguei a medir o quanto tive de ganho. Porém, a Cloud Flare disponibiliza alguns relatórios super interessantes, abaixo mostro alguns.
 
-{:.center}
-![requests report](/img/posts/2016/11/13/requests.png){:style="width: 100%;"}
-Relatório de requests e arquivos cacheados/não cacheados.
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/13/requests.png"/>
+	Relatório de requests e arquivos cacheados/não cacheados.
+</div>
 
-{:.center}
-![performance report](/img/posts/2016/11/13/performance.png){:style="width: 100%;"}
-Relatório sobre performance.
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/13/performance.png"/>
+	Relatório sobre performance.
+</div>
 
 Concluindo, eu adicionei este tópico como um adicional, propondo algo diferente para você utilizar nas páginas que for fazer com Jekyll. O interessante, é que, se for um blog pequeno, como o meu, o plano da Cloud Flare pode ser o gratuito.
 

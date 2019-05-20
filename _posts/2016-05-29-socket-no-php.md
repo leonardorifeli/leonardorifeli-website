@@ -2,8 +2,10 @@
 layout: post
 title:  "Web Socket no PHP"
 date: 2016-05-29
+image: https://questdot.com/wp-content/uploads/2016/06/socket-programming-p-720x340.png
 categories: [development, websocket, php]
-comments: true
+comments: false
+tags: [featured]
 author: leonardorifeli
 ---
 
@@ -13,8 +15,9 @@ Enquanto escrevo este magnífico artigo, vou ouvindo um **Tech House** do **[Tre
 
 Bom, segue a primeira dica; o artigo será bem extenso, ou seja, corra e pegue uma caneca com muito café (o elixir da vida) e vem comigo que será bem divertido.
 
-{:.center}
-![Need coffee](https://media.giphy.com/media/6heBQSjt2IoA8/giphy.gif "Need Coffee")
+<div style="text-align:center">
+	<img class="image" src="https://media.giphy.com/media/6heBQSjt2IoA8/giphy.gif"/>
+</div>
 
 ## Introdução
 
@@ -40,8 +43,9 @@ Neste artigo, acompanharemos a pauta abaixo:
 
 Sim, eles devem ser um grande ponto de atenção, não são todos os navegadores que dão suporte a **web socket**, você deve avaliar este ponto antes de qualquer outro. Para isso, o site [caniuse](http://caniuse.com/#feat=websockets) informa todos os navegadores bem como suas respectivas versões que possuem suporte a web socket. Como atalho, os navegadores e versões são esboçados na figura abaixo.
 
-{:.center}
-![Suporte dos navegadores](/img/posts/2016/05/11/support-websocket.png "Suporte dos navegadores")
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/05/11/support-websocket.png"/>
+</div>
 
 Como você observou, dependendo do seu público, este tópico não será uma pedra no seu sapato.
 
@@ -73,8 +77,9 @@ Fluxo de uma conexão:
 
 ## 5. OK, Show me the code!
 
-{:.center}
-![Fluxo de funcionamento](https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif "Fluxo de funcionamento"){:style="width: 50%"}
+<div style="text-align:center">
+	<img class="image" src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif"/>
+</div>
 
 Como um amigo (o [Lucas Teles](https://www.facebook.com/lucasvst?fref=ts){:target="_blank"}) sempre fala nos eventos, **show me the code**, apresenta o código cara! No exemplo que irei demonstrar (com base na documentação do Ratchet), iremos seguir as implementações abaixo:
 

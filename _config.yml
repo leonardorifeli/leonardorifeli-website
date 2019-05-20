@@ -1,35 +1,63 @@
-name: "leonardorifeli"
-description: ""
-meta_description: "Leonardo Rifeli - Head of Engineering & Partner at reviewr.me and studying mathematics."
-baseurl: /
-google_analytics: 'UA-57154869-2'
+name: 'Leonardo Rifeli'
+description: "It's my personal website and blog. More than 8 years of experience. Graduating in Mathematics at UNINTER. Head of Engineering at reviewr.me, a startup incubated at MIDITEC, the 5th best startup incubator in the world and now accelerated by Darwin Startups. Reviewr is the first online review management plataform in Brazil."
+logo: 'assets/images/logo-favicon.png'
+favicon: 'assets/images/logo-favicon.png'
+baseurl: ''
 disqus: 'leonardorifeli'
+email: 'leonardorifeli@gmail.com'
 mailchimp-list: 'https://mailchi.mp/fbb22a1deb63/leonardorifeli'
+google_analytics: "UA-57154869-2"
 
-authors:
-  leonardorifeli:
-    name: Leonardo Rifeli
-    display_name: Leonardo Rifeli
-    gravatar: 9797bddafe284a0d23b4e92dd1ce0043
-    email: leonardorifeli@gmail.com
-    web: https://leonardorifeli.tech
-    twitter: https://twitter.com/leonardorifeli
-    github: https://github.com/leonardorifeli
-    description: "Head of Engineering & Partner at reviewr.me and studying mathematics."
+title: Leonardo Rifeli
+keywords: "leonardorifeli.tech, nodejs, spark, hadoop, engineering blog, Leonardo Rifeli, developer, php, joinville, back-end, php, developers brazil, developer, desenvolvedor araraquara, desenvolvedor web, conhecimento, engenharia de computação, engenharia, automação, programação, desenvolvimento, robotica, i.a, inteligencia artificial, dicas de desenvolvimento, dicas de engenharia, logatti, leonardo, leonardo rifeli, augusto rifeli, rifeli, Rifeli"
+author: "Leonardo Rifeli"
+reply: "leonardorifeli@gmail.com"
 
+include: ["_pages"]
+permalink: /:title/
+
+# Plugins
 plugins: 
+  - jekyll-feed
+  - jekyll-sitemap
   - jekyll-paginate
-  - jekyll-archives
+  - jekyll-seo-tag
+  
+authors:
+    leonardorifeli:
+      name:           Leonardo Rifeli
+      site:           https://leonardorifeli.tech
+      avatar:         assets/images/leonardorifeli.jpg
+      bio:            "Head of Engineering & Partner at @Reviewr and studying mathematics."
+      email:          leonardorifeli@gmail.com
+      twitter:        https://twitter.com/leonardorifeli
+      github:         https://github.com/leonardorifeli
+ 
+# Defaults
+defaults:
 
-jekyll-archives:
-  enabled:
-    - categories
-  layout: archive
-  permalinks:
-    category: '/category/:name/'
-
-paginate: 6
-paginate_path: /page:num/
-
+  # all posts
+  - scope:
+      path: "_posts"
+    values:
+      layout: post
+      author: leonardorifeli
+      avatar: assets/images/leonardorifeli.jpg
+      
+  # all pages
+  - scope:
+      path: "_pages"
+    values:
+      layout: page
+      
+# Syntax
 markdown: kramdown
 highlighter: rouge
+
+# Paginate
+paginate: 10
+
+
+
+# Exclude metadata and development time dependencies (like Grunt plugins)
+exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
