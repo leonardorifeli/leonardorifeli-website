@@ -1,3 +1,4 @@
 _site
 vendor
 Gemfile.lock
+.sass-cache
