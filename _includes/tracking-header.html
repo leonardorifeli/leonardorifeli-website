@@ -8,15 +8,17 @@
 <meta name="author" content="{% if site.autor %} {{ site.autor }} {% endif %}"/>
 <meta name="reply-to" content="{% if site.reply %} {{ site.reply }} {% endif %}"/>
 
-<meta property="og:image" content="https://leonardorifeli.tech/assets/logo-favicon.png"/>
-<link rel="image_src" href="https://leonardorifeli.tech/assets/logo-favicon.png"/>
+<meta property="og:image" content="https://rifeli.me/assets/logo-favicon.png"/>
+<link rel="image_src" href="https://rifeli.me/assets/logo-favicon.png"/>
 
 <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}"/>
 <meta property="og:type" content="Website"/>
 <meta property="og:description" content="{% if page.resume %}{{ page.resume | strip_html | strip_newlines }}{% else %}{{ site.description|raw }}{% endif %}"/>
-<meta property="og:url" content="https://leonardorifeli.tech/"/>
+<meta property="og:url" content="https://rifeli.me/"/>
 
-<link rel="canonical" href="https://leonardorifeli.tech">
+<link rel="canonical" href="https://rifeli.me">
+
+<script data-ad-client="ca-pub-9581313029852193" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 {% if jekyll.environment == 'production' %}
 <script>
