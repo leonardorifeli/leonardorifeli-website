@@ -1,0 +1,16 @@
+I"<p>Quando o assunto <strong>Orientação a Objetos (paradigma orientado a objetos)</strong> é abordado, é imprescindível falarmos sobre <strong>OOD (object-oriented design)</strong>. Temos o SOLID na aplicação de Padrões de Projetos.</p>
+
+<p>Descrevendo a sigla temos:</p>
+
+<ol>
+  <li>[S]ingle Responsability Principle;</li>
+  <li>[O]pen/Closed Principle;</li>
+  <li>[L]iskov Substitution Principle;</li>
+  <li>[I]nterface Segregation Principle;</li>
+  <li>[D]ependency Inversion Principle.</li>
+</ol>
+
+<p>Segue uma série de hangouts gravados pelo <strong>PHP Brasil</strong> para maior aprofundamento:</p>
+
+<iframe width="100%" height="515" src="https://www.youtube.com/embed/ea6d1Pf8bOE?list=PLRX4OtWY_G7N518US48x-EZxXt6h0pr3V" frameborder="0" allowfullscreen=""></iframe>
+:ET

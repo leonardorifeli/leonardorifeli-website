@@ -1,0 +1,118 @@
+I"C<p>Saudações méros mortais, primeiro, peço desculpas pelo período sem trazer novidades para vocês (estive em uma excursão pela galáxia), em breve escreverei um artigo sobre essa viagem. Neste artigo mostrarei sobre <strong>annotations</strong> (é claro, está no título).</p>
+
+<p>Como disse meu amigo <a href="https://medium.com/@guidiego" target="_blank">Guilherme Diego</a> no artigo <a href="https://medium.com/@guidiego/c%C3%B3digo-limpo-%C3%A9-uma-responsabilidade-blocos-5be1fdd8d341#.gbx5keq0s" target="_blank">Código Limpo é uma Responsabilidade — Blocos</a>:</p>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016-01-custom-annotations/ler-curtir-compartilhar.png" />
+</div>
+
+<p>Enquanto escrevo, vou ouvindo o álbum <a href="https://open.spotify.com/album/6iJEtgHTEbVlSS5isIS71z" target="_blank">As Daylight Dies</a> da banda Killswitch Engage, é um banda muito bacana.</p>
+
+<p>Enfim, vamos ao que interessa, vem comigo.</p>
+
+<h2 id="introdução">Introdução</h2>
+
+<p>Em um projeto recente do qual participei do processo de <strong>refactoring</strong>, o que me auxiliou bastante, foi a implementação de <strong>annotations</strong>, onde foi possível segregar informações estáticas e até atingir algumas práticas de <strong>clean code</strong>, salientando que isso foi uma solução que funcionou bem no respectivo projeto.</p>
+
+<p>Neste artigo eu não discutirei se é o correto, ou não, apenas demonstrarei como implementar <strong>custom annotations</strong> com o <strong>doctrine reader</strong>. Fica sobre teu critério meu chapa!</p>
+
+<h2 id="escopo">Escopo</h2>
+
+<p>No exemplo que mostrarei, utilizaremos os seguintes arquivos:</p>
+
+<ol>
+  <li><strong>compose.json</strong>: Dependência e informações do projeto;</li>
+  <li><strong>PeopleAnnotation.php</strong>: Será a nossa annotation, utilizaremos os atributos para receber valores de quem irá consumir a <strong>annotation</strong>;</li>
+  <li><strong>People.php</strong>: Iremos consumir nossa annotation e informar os respectivos valores para segregarmos informações;</li>
+  <li><strong>ReaderAnnotation.php</strong>: Neste arquivo iremos juntar tudo e fazer uma sopa de letrinhas.</li>
+</ol>
+
+<p>Irei demonstrar os códigos no artigo, caso necessário, você poderá verificar no <a href="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9" target="_blank">Gist</a>.</p>
+
+<h2 id="dependência-sim-você-precisará-dela">Dependência, sim você precisará dela.</h2>
+
+<p>Para trabalhar com o <strong>Doctrine Annotation Reader</strong>, será necessário possuir a dependência <strong>“doctrine/common”</strong>, conforme o arquivo <strong>composer.json</strong> abaixo:</p>
+
+<script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=composer.json"></script>
+
+<p><span class="space"> </span></p>
+
+<h2 id="desenvolvendo-a-classe-da-annotation">Desenvolvendo a classe da annotation.</h2>
+
+<p>Resumindo, esta classe será responsável pela <strong>annotation</strong>, ou seja, os atributos <strong>públicos</strong> da classe armazenarão informações que poderão ser informadas por quem irá consumir a <strong>annotation</strong> em questão. Segue abaixo o arquivo <strong>PeopleAnnotation.php</strong>, é a nossa annotation:</p>
+
+<script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=PeopleAnnotation.php"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Repare que, a classe em questão possui uma <strong>annotation</strong>, sendo ela <strong>@Annotation</strong>, isto é necessário para informar ao <strong>Doctrine Annotation Reader</strong> que a classe em questão, realmente é uma <strong>annotation</strong>.</p>
+
+<h2 id="consumindo-a-annotation">Consumindo a annotation</h2>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016-01-custom-annotations/consumindo.gif" />
+</div>
+
+<p>Nesta etapa, iremos consumir a annotation <strong>PeopleAnnotation</strong> e informaremos os valores que a annotation disponibiliza.</p>
+
+<p>Salientando, é possível consumir a annotation em:</p>
+
+<ul>
+  <li>classes;</li>
+  <li>atributos;</li>
+  <li>métodos.</li>
+</ul>
+
+<p>No exemplo abaixo, temos a classe <strong>People</strong>, que comsumirá a <strong>PeopleAnnotation</strong>:</p>
+
+<script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=People.php"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Repare que, a classe <strong>People</strong> está consumindo a <strong>annotation</strong> tanto na respectiva classe, quanto nos atributos e métodos.</p>
+
+<h2 id="vamos-verificar-a-people-finalizando-a-sopa-de-letrinhas">Vamos verificar a <strong>People</strong>. Finalizando a sopa de letrinhas</h2>
+
+<p>Nesta etapa final, iremos instanciar a classe <strong>AnnotationReader</strong> para lermos as <strong>annotations</strong> extraídas da classe <strong>People</strong> (que está consumindo a <strong>PeopleAnnotation</strong>).</p>
+
+<p>Classes nativas utilizadas no exemplo:</p>
+
+<ul>
+  <li><strong><a href="http://php.net/manual/pt_BR/class.reflectionclass.php" target="_blank">ReflectionClass()</a></strong>;</li>
+  <li><strong><a href="http://php.net/manual/pt_BR/class.reflectionobject.php" target="_blank">ReflectionObject()</a></strong>;</li>
+  <li><strong><a href="http://php.net/manual/pt_BR/class.reflectionproperty.php" target="_blank">ReflectionProperty()</a></strong>;</li>
+  <li><strong><a href="http://php.net/manual/pt_BR/class.reflectionmethod.php" target="_blank">ReflectionMethod()</a></strong>.</li>
+</ul>
+
+<p>Abaixo o exemplo:</p>
+
+<script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=ReaderAnnotation.php"></script>
+
+<p><span class="space"> </span></p>
+
+<h2 id="resultados">Resultados</h2>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016-01-custom-annotations/happy.gif" />
+</div>
+
+<script src="https://gist.github.com/leonardorifeli/9c12f94b109cb7859ca9.js?file=result.txt"></script>
+
+<p><span class="space"> </span></p>
+
+<h2 id="referências">Referências</h2>
+
+<ol>
+  <li><a href="http://masnun.com/2012/08/12/using-annotations-in-php-with-doctrine-annotation-reader.html" target="_blank">Artigo sobre o assunto em inglês</a></li>
+  <li><a href="http://doctrine-common.readthedocs.org/en/latest/reference/annotations.html" target="_blank">Doctrine - Documentação oficial</a></li>
+  <li><a href="http://php.net/" target="_blank">Documentação oficial PHP.net</a></li>
+</ol>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>A utilização de <strong>annotation</strong> pode facilitar diversas condições, salientando que, a necessidade de implementar <strong>custom annotation</strong> varia de situação. Use o bom senso de programador.</p>
+
+<p>Quaisquer feedbacks serão bem-vindos, fique à vontade para comentar e/ou implementar alguma informação.</p>
+
+<p>Até breve méros mortais e eternos aprendizes (todos somos).</p>
+:ET

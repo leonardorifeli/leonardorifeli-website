@@ -1,0 +1,174 @@
+I":<p>Este é o terceiro post de uma série onde abordaremos todos os cinco princípios do SOLID. Neste, falaremos sobre “Liskov substitution  principle”, abreviado por LSP, e significa literalmente “Princípio da substituição de Liskov”.</p>
+
+<ul>
+  <li>O primeiro post foi sobre “Single responsibility principle”, abreviado por SRP, e você pode <a href="http://leonardo.rifeli.tech/development/2017/03/20/principios-solid-srp-e-sopa-de-letrinhas.html">ler aqui</a>.</li>
+  <li>O segundo post foi sobre “Open closed principle”, abreviado por OCP, e você deve <a href="http://leonardo.rifeli.tech/development/2017/12/05/principios-solid-ocp-e-sopa-de-letrinhas.html">ler aqui</a>.</li>
+</ul>
+
+<p>Para começar: falar de SOLID é falar de programação orientada a objetos e design (OOD). Tendo isso em mente, o princípio de substituição de Liskov traz outra perspectiva importante: classes filhas nunca deveriam inflingir as definições de tipo da classe pai.</p>
+
+<h1 id="contexto-histórico">Contexto histórico</h1>
+
+<p>Este conceito foi apresentado por <a href="https://pt.wikipedia.org/wiki/Barbara_liskov">Barbara Liskov</a> numa conferência em 1987, e depois foi publicado em um artigo científico, com o nome <a href="http://reports-archive.adm.cs.cmu.edu/anon/1999/CMU-CS-99-156.ps"><code class="highlighter-rouge">Family Values: A Behavioral Notion of Subtyping</code></a>, junto de <a href="https://en.wikipedia.org/wiki/Jeannette_Wing">Jeannette Wing</a>, em 1993. Com a seguinte definição original:</p>
+
+<blockquote>
+  <p>Se q(x) é uma propriedade demonstrável dos objetos x de tipo T. Então q(y) deve ser verdadeiro para objetos y de tipo  S onde S é um subtipo de T.</p>
+</blockquote>
+
+<p>E após a publicação do livro <a href="https://www.amazon.com/dp/0135974445/">Agile Software Development, Principles, Patterns, and Practices</a>, está definição ficou conhecida como Princípio de Substituição de Liskov. O que nos leva para a definição de Uncle Bob:</p>
+
+<blockquote>
+  <p>Subclasses devem ser substituíveis pelas classes base.</p>
+</blockquote>
+
+<p>Simples, uma subclasse deve poder sobrescrever os métodos da classe base, de modo com que não quebre suas funcionalidades, do ponto de vista do cliente.</p>
+
+<h1 id="problemas-da-violação-do-lsp">Problemas da violação do LSP</h1>
+
+<ul>
+  <li>Geração de problemas na classe cliente (pariticipante que está consumindo outro participante);</li>
+  <li>Comportamentos inesperados no software por suposições equivocadas;</li>
+  <li>Quebra de outros princípios.</li>
+</ul>
+
+<h1 id="exemplo">Exemplo</h1>
+
+<p>Seguindo o mesmo padrão do primeiro e segundo post, os exemplos (com exceções de alguns participantes) serão exibidos somente com as assinaturas, para reforçar a ideia que Uncle Bob traz, de que a implementação dos métodos é irrelevante para a análise. Somente com as assinaturas, conseguimos perceber se existe (ou não) a violação do princípio.</p>
+
+<p>Usaremos o clássico exemplo do <code class="highlighter-rouge">quadrado</code> e do <code class="highlighter-rouge">retângulo</code>.</p>
+
+<h4 id="exemplo-do-quadrado-e-retângulo">Exemplo do quadrado e retângulo</h4>
+
+<p>No participante abaixo, temos a classe <strong><code class="highlighter-rouge">Rectangle</code></strong> e ela compõe as propriedades <code class="highlighter-rouge">width</code> (largura) e <code class="highlighter-rouge">height</code> (altura).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Leonardo\Rifeli\Article</span><span class="p">;</span> 
+
+<span class="kd">class</span> <span class="nc">Rectangle</span>
+<span class="p">{</span>
+
+    <span class="k">private</span> <span class="nv">$width</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$height</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getWidth</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getHeight</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setWidth</span><span class="p">(</span><span class="nv">$width</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setHeigth</span><span class="p">(</span><span class="nv">$heigth</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Abaixo temos a classe <strong><code class="highlighter-rouge">RectangleArea</code></strong>, responsável por efetuar o cálculo da área de um retângulo.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Leonardo\Rifeli\Article</span><span class="p">;</span> 
+
+<span class="kn">use</span> <span class="nn">Leonardo\Rifeli\Article\Rectangle</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">RectangleArea</span>
+<span class="p">{</span>
+
+    <span class="c1">// calc rectangle area: $rectangle-&gt;getWidth() * $rectangle-&gt;getHeight().</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">calc</span><span class="p">(</span><span class="nx">Rectangle</span> <span class="nv">$rectangle</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Até aqui tudo dentro do esperado. Temos dois participantes (<strong><code class="highlighter-rouge">Rectangle</code></strong> e <strong><code class="highlighter-rouge">RectangleArea</code></strong>) e eles funcionam como esperado, pelo menos por enquanto.</p>
+
+<p>Vamos escrever agora um teste para nossos participantes (neste caso teremos implementação para as coisas não ficarem tão abstratas).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Leonardo\Rifeli\Article\Test</span><span class="p">;</span> 
+
+<span class="kn">use</span> <span class="nn">Leonardo\Rifeli\Article\Rectangle</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Leonardo\Rifeli\Article\RectangleArea</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">TestRectangleArea</span>
+<span class="p">{</span>
+
+    <span class="k">const</span> <span class="no">WIDTH</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="k">const</span> <span class="no">HEIGHT</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">testCalc</span><span class="p">(</span><span class="nx">Rectangle</span> <span class="nv">$rectangle</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="nv">$rectangle</span><span class="o">-&gt;</span><span class="na">setWidth</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">WIDTH</span><span class="p">);</span>
+        <span class="nv">$rectangle</span><span class="o">-&gt;</span><span class="na">setHeight</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">HEIGHT</span><span class="p">);</span>
+
+        <span class="nv">$rectangleArea</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RectangleArea</span><span class="p">();</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nv">$rectangleArea</span><span class="o">-&gt;</span><span class="na">calc</span><span class="p">(</span><span class="nv">$rectangle</span><span class="p">)</span> <span class="o">!==</span> <span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">WIDTH</span> <span class="o">*</span> <span class="nx">self</span><span class="o">::</span><span class="na">HEIGHT</span><span class="p">))</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">\Exception</span><span class="p">(</span><span class="s1">'Violated LSP.'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A ideia deste teste não é testar a unidade e sim mostrar que ao passar uma derivação o teste será quebrado. E vale ressaltar que a orientação a objetos não é composta por unidade e sim por participantes que se relacionam através de seus comportamentos.</p>
+
+<p>Todos os testes que fizermos para o <strong><code class="highlighter-rouge">Rectangle</code></strong> irão passar e nossa aplicação estará funcionando conforme o esperado. Porém, o software evolui e a extensão precisará acontecer. Consideramos que nossa aplicação está em utilização por vários clientes e precisaremos manipular quadrados.</p>
+
+<p>Na geometria, um quadrado <strong>é um</strong> tipo especial de retângulo, então poderemos criar um participante <code class="highlighter-rouge">Square</code> que derive o <code class="highlighter-rouge">Rectangle</code>.</p>
+
+<p>Teríamos o seguinte (também com as implementações para melhor compreensão).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Leonardo\Rifeli\Article</span><span class="p">;</span> 
+
+<span class="kn">use</span> <span class="nn">Leonardo\Rifeli\Article\Rectangle</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Square</span> <span class="k">extends</span> <span class="nx">Rectangle</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setWidth</span><span class="p">(</span><span class="nv">$width</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">setWidth</span><span class="p">(</span><span class="nv">$width</span><span class="p">);</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">setHeigth</span><span class="p">(</span><span class="nv">$width</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setHeigth</span><span class="p">(</span><span class="nv">$heigth</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">setWidth</span><span class="p">(</span><span class="nv">$height</span><span class="p">);</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">setHeigth</span><span class="p">(</span><span class="nv">$height</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Perceba que precondição do participante <code class="highlighter-rouge">Square</code> é <strong>mais forte</strong> que da <code class="highlighter-rouge">Rectangle</code>. Em um quadrado, ambos os lados precisam ser iguais.</p>
+
+<p>Agora vamos entender o todo, vamos executar o teste unitário.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Leonardo\Rifeli\Article\Square</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nn">Leonardo\Rifeli\Article\Rectangle</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Leonardo\Rifeli\Article\Square</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Leonardo\Rifeli\Article\Test\TestRectangleArea</span><span class="p">;</span>
+
+<span class="nv">$rectangle</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rectangle</span><span class="p">();</span>
+<span class="nv">$square</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Square</span><span class="p">();</span>
+<span class="nv">$test</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TestRectangleArea</span><span class="p">();</span>
+
+<span class="nv">$test</span><span class="o">-&gt;</span><span class="na">testCalc</span><span class="p">(</span><span class="nv">$rectangle</span><span class="p">);</span>
+<span class="nv">$test</span><span class="o">-&gt;</span><span class="na">testCalc</span><span class="p">(</span><span class="nv">$square</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Salientando que,aqui estamos tratando de testes unitários, mas a orientação a objetos não é composta por unidade e sim por participantes e seus comportamentos.</p>
+
+<p>Para o teste do <code class="highlighter-rouge">Square</code>, uma excessão será lançada. Se passar valores de altura e largura iguais, o teste passará normalmente. Na matemática um quadrado é um retângulo. Aqui estamos com relação de herança <strong><code class="highlighter-rouge">é-um</code></strong> e em orientação a objetos, por comportamento, um quadrado não é um retângulo.</p>
+
+<p>Por isso viola LSP. Dificilmente substituímos a subclasse pela base para analisar se o comportamento ainda será o mesmo, sem quebrar o cliente.</p>
+
+<h1 id="referências">Referências</h1>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?list=PLRX4OtWY_G7N518US48x-EZxXt6h0pr3V&amp;time_continue=397&amp;v=QJB1jp8bReY">Hangout sobre OOD - Princípio da Substituição de Liskov</a></li>
+  <li><a href="https://code.tutsplus.com/pt/tutorials/solid-part-3-liskov-substitution-interface-segregation-principles--net-36710">SOLID - Liskov Substitution Interface Segregation Principles</a></li>
+  <li><a href="http://www.hanselminutes.com/145/solid-principles-with-uncle-bob-robert-c-martin">SOLID Principles with Uncle Bob - Robert C. Martin</a>;</li>
+  <li><a href="https://www.casadocodigo.com.br/products/livro-oo-solid">Casa do Código - Orientação a Objetos e SOLID para Ninjas</a>.</li>
+</ul>
+
+<h1 id="conclusão">Conclusão</h1>
+
+<p>LSP reforça que devemos pensar muito antes de sairmos implementando os participantes. Nem sempre o que escrevemos com base nas definições dos comportamentos, serão o que são, em orientação a objetos.</p>
+
+<p>Podemos continuar as discussões sobre este princípio nos comentários?</p>
+
+<p>Compartilhe seus aprendizados.</p>
+:ET

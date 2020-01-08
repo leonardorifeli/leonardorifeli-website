@@ -1,0 +1,186 @@
+I"1<p>Olá homo sapiens, desta vez o artigo será um pouco mais técnico. Falarei sobre <strong>web socket com PHP</strong>, claro, também com Javascript.</p>
+
+<p>Enquanto escrevo este magnífico artigo, vou ouvindo um <strong>Tech House</strong> do <strong><a href="https://www.youtube.com/watch?v=qhmf1PnLvlw" target="_blank">Trevor Nygaard</a></strong>.</p>
+
+<p>Bom, segue a primeira dica; o artigo será bem extenso, ou seja, corra e pegue uma caneca com muito café (o elixir da vida) e vem comigo que será bem divertido.</p>
+
+<div style="text-align:center">
+	<img class="image" src="https://media.giphy.com/media/6heBQSjt2IoA8/giphy.gif" />
+</div>
+
+<h2 id="introdução">Introdução</h2>
+
+<p>Atualmente a web possuí um tema que é pouco estudado e há poucos artigos e informações na internet. O respectivo tema é <strong>web socket</strong>. Acredito que o tema é pouco falado, devido a sua complexidade. Portanto, não darei uma abordagem profunda neste artigo, será na prática, uma introdução.</p>
+
+<h2 id="objetivo">Objetivo</h2>
+
+<p>Este artigo tem como objetivo, descrever uma breve introducão teórica e prática sobre web socket.</p>
+
+<h2 id="pauta">Pauta</h2>
+
+<p>Neste artigo, acompanharemos a pauta abaixo:</p>
+
+<ol>
+  <li>suporte dos navegadores;</li>
+  <li>um breve resumo sobre HTTP;</li>
+  <li>o que é web socket;</li>
+  <li>sobre o Ratchet;</li>
+  <li>exemplo e detalhes;</li>
+  <li>casos de uso;</li>
+  <li>conclusão.</li>
+</ol>
+
+<h2 id="1-navegadores">1. Navegadores</h2>
+
+<p>Sim, eles devem ser um grande ponto de atenção, não são todos os navegadores que dão suporte a <strong>web socket</strong>, você deve avaliar este ponto antes de qualquer outro. Para isso, o site <a href="http://caniuse.com/#feat=websockets">caniuse</a> informa todos os navegadores bem como suas respectivas versões que possuem suporte a web socket. Como atalho, os navegadores e versões são esboçados na figura abaixo.</p>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/05/11/support-websocket.png" />
+</div>
+
+<p>Como você observou, dependendo do seu público, este tópico não será uma pedra no seu sapato.</p>
+
+<h2 id="2-um-pouco-sobre-http">2. Um pouco sobre HTTP</h2>
+
+<p>Atualmente as requisições HTTP funcionam da seguinte maneira: o navegador abre uma porta de comunicação em um domínio específico, envia uma solicitação de cabeçalho HTTP para o servidor (apache ou nginx), o servidor envia a mensagem para a aplicação, que por sua vez, processa as informações, gera um documento (<strong>HTML</strong>, <strong>JSON</strong>, <strong>XML</strong> etc) e envia o respectivo documento para o servidor. Em seguida, o servidor adiciona os cabeçalhos HTTP apropriados para a requisição, envia de volta para o navegar e encerra a conexão.</p>
+
+<p>Mais informações: <a href="https://pt.wikipedia.org/wiki/Hypertext_Transfer_Protocol#M.C3.A9todos_de_solicita.C3.A7.C3.A3o" target="_blank">Wikipedia</a></p>
+
+<p>E o socket, como funciona? Veja abaixo.</p>
+
+<h2 id="3-o-que-é-web-socket">3. O que é Web Socket?</h2>
+
+<p>Web Sockets são um full-duplex, conexão persistente <strong>bi-direcional</strong> de um navegador web para um servidor. Depois que uma conexão socket é estabelecida a conexão permanece aberta até que o cliente ou servidor decide encerrar. Com esta conexão aberta, o cliente ou servidor pode enviar uma mensagem a qualquer outro cliente conectado.  Sendo assim, neste momento, uma única aplicação de servidor em execução estará ciente de todas as conexões abertas, o que lhe permite comunicar com qualquer outra conexão aberta e a qualquer momento.</p>
+
+<p>Adicional:</p>
+
+<blockquote>
+  <p>Web Socket foi desenvolvido para ser implementado em browsers web e servidores web, mas pode ser usado por qualquer cliente ou aplicação servidor. O protocolo Websocket é um protocolo independente baseado em TCP. Sua única relação com o HTTP é que seu handshake é interpretado por servidores HTTP como uma requisição de upgrade.
+Fonte: <a href="https://pt.wikipedia.org/wiki/WebSocket" target="_blank">Wikipedia</a></p>
+</blockquote>
+
+<h2 id="4-sobre-o-ratchet">4. Sobre o Ratchet</h2>
+
+<p>As aplicações de socket para servidor não tem acompanhado os navegadores. É aí que surgiu o <strong>Ratchet</strong>, uma ferramenta fantástica para a implementação de um servidor, por protocolo <strong>TCP</strong>. Você pode iniciar um servidor com o <strong>Ratchet I/O Component Server</strong>, tendo um código que implementa o respectivo componente e poderá gerenciar todas as conexões.</p>
+
+<p>Fluxo de uma conexão:</p>
+
+<p class="center"><img src="/img/posts/2016/05/11/RatchetFlow.png" alt="Fluxo de funcionamento" title="Fluxo de funcionamento" /></p>
+
+<h2 id="5-ok-show-me-the-code">5. OK, Show me the code!</h2>
+
+<div style="text-align:center">
+	<img class="image" src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" />
+</div>
+
+<p>Como um amigo (o <a href="https://www.facebook.com/lucasvst?fref=ts" target="_blank">Lucas Teles</a>) sempre fala nos eventos, <strong>show me the code</strong>, apresenta o código cara! No exemplo que irei demonstrar (com base na documentação do Ratchet), iremos seguir as implementações abaixo:</p>
+
+<ul>
+  <li>dependência do ratchet;</li>
+  <li>recursos para o servidor de socket;</li>
+  <li>o gerenciador de conexões;</li>
+  <li>consumir o web socket, utilizando o lindo Javascript.</li>
+</ul>
+
+<h2 id="51-a-dependência">5.1 A Dependência</h2>
+
+<p>Sim, iremos utilizar uma dependência, afinal, quem vive sozinho?</p>
+
+<script src="https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=composer.json"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Como você pode observar no arquivo <strong>composer.json</strong>, é requerido a dependência <strong>“cboden/ratchet”: “0.3.*“</strong>.</p>
+
+<h2 id="52-implementando-o-servidor">5.2 Implementando o servidor</h2>
+
+<p>Analise o código abaixo, nele é implementado os recursos do Ratchet.</p>
+
+<script src="https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=server.php"></script>
+
+<p><span class="space"> </span></p>
+
+<p>O que é implementado no arquivo <strong>server.php</strong>, é explicado abaixo:</p>
+
+<ol>
+  <li><strong>Ratchet\Server\IoServer</strong>: Cria um socket aberto para escutar uma porta específica, para conexões de entrada. Os eventos são delegados através deste para as aplicações anexadas.</li>
+  <li><strong>Ratchet\Http\HttpServer</strong>: Implementa os métodos da interface <strong>MessageComponentInterface</strong> e gerencia as conexões.</li>
+  <li><strong>Ratchet\WebSocket\WsServer</strong>: Um adaptador para lidar com as requisições e respostas do web socket. Este é o mediador entre o servidor e o cliente, para lidar com as mensagens em tempo real, por intermédio de um navegador web.</li>
+  <li><strong>Hermes\Business\Service\SocketService</strong>: Este será nosso gerenciador de conexões, mensagens, erros e encerramentos.</li>
+</ol>
+
+<p>Dos itens que serão implementados, só entrarei em detalhes sobre o item quatro, do qual realmente nos interessa. Caso tenha curiosidade, procure como cada item funciona.</p>
+
+<h2 id="53-gerenciador-das-conexões">5.3 Gerenciador das conexões</h2>
+
+<p>Muito bem, o código abaixo, será o gerenciador das conexões, mensagens, encerramentos e erros.</p>
+
+<script src="https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=SocketService.php"></script>
+
+<p><span class="space"> </span></p>
+
+<p>Como pode-se observar, a classe <strong>SocketService</strong> implementa a interface <strong>MessageComponentInterface</strong> e possui os métodos: <strong>__construct(), onOpen(), onMessage(), onClose(), onError()</strong>. Bem como, o atributo estático; <strong>$connections</strong>.</p>
+
+<p>Vamos falar sobre a responsabilidade de cada método. Primeiro, o construct; ao iniciar o servidor (explicado no tópico 5.2), o atributo estático $connections, recebe uma instância de <strong>SplObjectStorage</strong> e será responsável por armazenar todas as conexões.</p>
+
+<p><strong>onOpen()</strong>: É o método executado a cada nova conexão, nele você poderá resgatar informações da conexão, como: sala, nome etc, enviadas pelo protocolo GET. O método depende do serviço <strong><a href="#connectionInformationService">ConnectionInformationService</a></strong> (exibido abaixo), que será o responsável por tratar as informações recebidas, via GET e retorna em um objeto. Ao receber o objeto, o método envia uma mensagem ao método <strong>getNewUser()</strong> ao serviço <strong>UserService</strong> requisitando uma nova instância de <strong>user</strong> e a adiciona ao storage de objetos.</p>
+
+<h3 id="-o-serviço-connection-information"><a name="connectionInformationService"></a> O serviço Connection Information</h3>
+
+<script src="https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=ConnectionInformationService.php"></script>
+
+<p><span class="space"> </span></p>
+
+<p>O serviço em questão, verifica os parâmetros enviados por GET e valida se o parâmetro <strong>name</strong> e <strong>room</strong> foram informados.</p>
+
+<p>PS.: O serviço <strong>UserService</strong>, pode ser visualizado <a href="https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7#file-userservice-php" target="_blank">clicando aqui</a>.</p>
+
+<p><strong>onMessage()</strong>: Este método é executado, sempre que, um cliente envia uma mensagem ao servidor, dependendo do domínio da aplicação, a mensagem poderá ser transferida para conexões da mesma sala ou para todas as conexões. No exemplo em questão, a mensagem é transferida para as conexões que estão na mesma sala do remetente.</p>
+
+<p><strong>onClose()</strong>: Sempre que uma conexão for encerrada, o método removerá a conexão do storage de objetos.</p>
+
+<p><strong>onError()</strong>: Este método é para fins bem exclusivos, depende do domínio da aplicação, ele será executado sempre que uma conexão lançar uma exceção. Neste caso, a conexão é finalizada pelo servidor.</p>
+
+<h2 id="consumindo-o-web-socket">Consumindo o web socket.</h2>
+
+<p>Para consumir o servidor de web socket, será utilizado o construtor <strong>WebSocket</strong>. Conforme o exemplo abaixo.</p>
+
+<script src="https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7.js?file=server.js"></script>
+
+<p><span class="space"> </span></p>
+
+<p><strong>Repare o ws:</strong> Há um novo esquema de URL para conexões Web Socket. Existe também <strong>wss:</strong> para uma conexão Web Socket é usado para conexões HTTP seguras.</p>
+
+<p>Com isso, você pode manipular mensagens para o servidor e, ele por sua vez, repassar para outras conexões.</p>
+
+<h2 id="casos-de-uso">Casos de uso</h2>
+
+<p>Sempre que precisar de uma conexão quase em tempo real de baixa latência entre o cliente e o servidor, você terá que implementar Web Socket. Isso pode envolver a reformulação do modo como você desenvolve as aplicações de servidor com um novo foco em tecnologias como filas de eventos.</p>
+
+<p>Alguns exemplos de casos de uso:</p>
+
+<ul>
+  <li>usuários editando um mesmo registro;</li>
+  <li>chats;</li>
+  <li>links que precisam de rápida atualização;</li>
+  <li>jogos on-line de vários players;</li>
+  <li>atualização em tempo real de redes sociais.</li>
+</ul>
+
+<h2 id="referências">Referências</h2>
+
+<ul>
+  <li><a href="http://www.html5rocks.com/pt/tutorials/websockets/basics/" target="_blank">Apresentando WebSockets: trazendo soquetes para a web</a></li>
+  <li><a href="https://gist.github.com/leonardorifeli/037db591223698b96379935a2379f6b7" target="_blank">Gist Completo</a></li>
+  <li><a href="http://socketo.me/docs" target="_blank">Introduction to WebSockets</a></li>
+</ul>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>Chegamos a um ponto de tecnologias e exigências, onde, as aplicações estão cada vez mais complexas, mais inteligêntes, mais isoladas de acordo com suas responsabilidades. O tema do qual eu escrevi está sendo utilizado cada vez mais nas aplicações que necessitam de atualizações instantâneas de informações.</p>
+
+<p>Vale muito perder um tempo estudando e projetando. Um dia, você desenvolvedor, irá precisar de Web Socket.</p>
+
+<p>Tem algo para incrementar? Utilize os comentários abaixo, agregue valor para a comunidade. Quaisquer críticas construtivas, serão bem-vindas.</p>
+
+:ET

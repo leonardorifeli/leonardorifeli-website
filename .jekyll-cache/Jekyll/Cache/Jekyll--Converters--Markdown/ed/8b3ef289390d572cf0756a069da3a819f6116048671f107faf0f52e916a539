@@ -1,0 +1,209 @@
+I"�:<p>No desenvolvimento de aplicações, podemos optar por usar máquinas virtuais (VMs) para facilitar o gerenciamento e provisionamento de serviços. Para isso, podemos citar o Vagrant. Mas, o provisionamento de máquinas virtuais demanda grande quantidade de tempo, além do fato do consumo demasiado de espaço em disco, recursos em geral da máquina que será o host.</p>
+
+<h2 id="sumário">Sumário</h2>
+
+<ul>
+  <li>Introdução;</li>
+  <li>Um pouco sobre virtualização;</li>
+  <li>O que é Docker;</li>
+  <li>O que é um contêiner;</li>
+  <li>Namespaces;</li>
+  <li>Algumas vantagens do Docker;</li>
+  <li>Principais funcionalidades;</li>
+  <li>Docker image;</li>
+  <li>Dockerfile;</li>
+  <li>Docker compose;</li>
+  <li>Referências;</li>
+  <li>Conclusão.</li>
+</ul>
+
+<h2 id="introdução">Introdução</h2>
+
+<p>Sim, eu fiquei alguns meses sem escrever! Sorry!</p>
+
+<p>Sem ressentimentos, o assunto deste artigo é muito importante. Falaremos sobre virtualização, isso mesmo. Sim, eu sei que se fôssemos descrevê-lo em muitos detalhes, levaríamos longos e diversos artigos. Portanto, o objetivo deste artigo é trazer um “resumão” sobre este assunto. Falarei sobre <strong>virtualização tradicional</strong>, <strong>virtualização por contêineres</strong> e apresentarei o <strong><a href="https://www.docker.com/" target="_blank">Docker</a></strong> (caso não o conheça).</p>
+
+<p>O objetivo deste artigo é descrever as teorias por volta do tema, farei um segundo artigo, que será um <strong>na prática</strong> com o Docker.</p>
+
+<p>Sem mais delongas, chega mais que vai ser muito foda!</p>
+
+<h2 id="pegue-um-café">Pegue um café</h2>
+
+<p>Corre lá e pegue um pouco de café, o assunto será bem interessante.</p>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/get-coffee.gif" />
+</div>
+
+<h2 id="um-pouco-sobre-virtualização">Um pouco sobre Virtualização</h2>
+
+<p>No desenvolvimento de aplicações, podemos optar por usar máquinas virtuais (VMs) para facilitar o gerenciamento e provisionamento de serviços. Para isso, podemos citar o <a href="https://www.vagrantup.com/" target="_blank">Vagrant</a>. Mas, o provisionamento de máquinas virtuais demanda grande quantidade de tempo, além do fato do consumo demasiado de espaço em disco, recursos em geral da máquina que será o host.</p>
+
+<p>Assim surgiu o <a href="https://en.wikipedia.org/wiki/LXC" target="_blank">LXC</a>. O Linux Container, ou LXC, foi lançado em 2008 e é uma tecnologia que permite a criação de múltiplas instâncias isoladas de um determinado sistema operacional. Ou seja, uma maneira de virtualizar aplicações dentro de uma máquina (hospedeira) usando todos os recursos disponíveis no mesmo Kernel da máquina
+hospedeira.</p>
+
+<p>Tendo como precursor, o comando <a href="https://en.wikipedia.org/wiki/Chroot" target="_blank">chroot</a>, que foi lançado em 1979 pelo <a href="https://en.wikipedia.org/wiki/Version_7_Unix" target="_blank">Unix V7</a>, como intuito de segregar acessos de diretórios e evitar que os usuários possam acessar à estrutura raiz <strong>(/)</strong>. Este conceito evoluiu alguns anos, com o lançamento do comando <a href="https://www.freebsd.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports" target="_blank">jail</a>, no SO <a href="https://www.freebsd.org/releases/4.0R/announce.html" target="_blank">FreeBSD 4</a>.</p>
+
+<p>Com relação à virtualização, a diferença está no fato do <strong>LXC</strong> não necessitar de uma camada de sistema operacional para cada aplicação. Como você pode verificar na imagem abaixo.</p>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/c-structure.png" />
+</div>
+
+<p>Ao compararmos o <strong>LXC</strong> com a <strong>virtualização tradicional</strong>, fica mais claro que uma aplicação sendo executada em um LXC demanda muito menos recursos, consumindo menos espaço em disco e com um nível de portabilidade muito mais abrangente.</p>
+
+<h2 id="o-que-é-o-docker">O que é o Docker?</h2>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/docker.png" />
+</div>
+
+<p>Nasceu como um projeto da <a href="https://cloud.docker.com/" target="_blank">DotCloud</a>, uma empresa <strong>PaaS</strong> (Platform as a Service).</p>
+
+<p>Basicamente, Docker é uma plataforma open-source, escrita em <strong>Go</strong>, tendo como finalidade, criar e gerenciar ambientes isolados para aplicações. O Docker garante que, cada contêiner tenha tudo que uma aplicação precisa para ser executada.</p>
+
+<p>Em outras palavras, o Docker é uma ferramenta de empacotamento de uma aplicação e suas dependências em um contêiner virtual que pode ser executado em um servidor linux.</p>
+
+<h2 id="então-docker-é-uma-vm">Então, Docker é uma VM?</h2>
+
+<p>Não, contêineres docker possuem uma arquitetura diferente que permite maior portabilidade e eficiência.</p>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/docker-system.png" />
+</div>
+
+<h2 id="tecnologias-e-ideias-utilizadas">Tecnologias e ideias utilizadas</h2>
+
+<p>Cara, contêiner não é nada novo, Docker surgiu para facilitar o uso deles. Abaixo um resumo de tecnologia e o ano da primeira versão:</p>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/technologies-year.png" />
+</div>
+
+<h2 id="o-que-é-um-contêiner">O que é um contêiner?</h2>
+
+<p>Vamos fazer uma comparação prática. Contêiner nada mais é que uma caixa de metal, onde é colocado tudo o que couber. Contêineres possuem dimensões e interfaces comuns, onde guindastes e guinchos podem ser acoplados para colocá-los em navios ou caminhões.</p>
+
+<p>Beleza e, no contexto do artigo?</p>
+
+<p>A virtualização em contêineres é muito mais leve, onde, temos cada contêiner como uma instância isolada em um kernel de sistema operacional. Os contêineres possuem interfaces de redes virtuais, processos e sistemas de arquivos independentes.</p>
+
+<p>Algumas características de um contêiner Docker:</p>
+
+<ul>
+  <li>Dependente de uma imagem (falaremos logo abaixo);</li>
+  <li>Geram novas imagens;</li>
+  <li>Conectividade com o host e outros contêineres;</li>
+  <li>Execuções controladas, CPU, RAM, I/O, etc.</li>
+</ul>
+
+<h2 id="namespaces">Namespaces</h2>
+
+<p>O Docker utiliza os recursos de <a href="https://en.wikipedia.org/wiki/Namespace" target="_blank">Namespaces</a> para dispor um espaço de funcionamento isolado para os contêineres. Contudo, quando um contêiner é criado, também é criado um conjunto de namespaces e este, por sua vez, cria uma camada para isolamento para os grupos de processos. Abaixo seguem os tipos de namespaces:</p>
+
+<ul>
+  <li><strong>PID:</strong> isolamento de processos.</li>
+  <li><strong>NET:</strong> controle de interfaces de rede.</li>
+  <li><strong>IPC:</strong> controle dos recursos de IPC (InterProcess Communication).</li>
+  <li><strong>MNT:</strong> gestão de pontos de montagem.</li>
+  <li><strong>UTC (Unix Timesharing System):</strong> provém todo o isolamento de recursos do kernel (justamente a camada de abstração como mostra a imagem).</li>
+</ul>
+
+<h2 id="algumas-vantagens-do-docker">Algumas Vantagens do Docker</h2>
+
+<ul>
+  <li>Baixo overhead e tempo de boot;</li>
+  <li>Kernel compartilhado com o Host;</li>
+  <li>Contêineres rodam isoladamente;</li>
+  <li>Facilidade de configuração do ambiente de desenvolvimento para novos membros do time;</li>
+  <li>Acabar com a história do “na minha máquina funcionava”.</li>
+</ul>
+
+<h2 id="principais-funcionalidades">Principais Funcionalidades</h2>
+
+<ul>
+  <li><strong>Versionamento</strong>: o Docker permite que você versione as alterações de um contêiner. Isto permite verificar as diferenças entre versões, fazer commit de novas versões e até mesmo fazer rollback (isso é muito importante haha).</li>
+  <li><strong>Compartilhamento de imagens</strong>: sim, existe um repositório de contêineres. O <strong>Docker Hub</strong>. Ele possui milhares de imagens com as mais diversas aplicações. Você pode rapidamente criar sua aplicação com uma base já desenvolvida e ainda criar sua base e compartilhá-la na comunidade.</li>
+  <li><strong>Licença open-source</strong>: licenciado como <strong>Apache License 2.0</strong>, mantém os códigos fonte disponíveis para facilitar o desenvolvimento colaborativo.</li>
+  <li><strong>Hardware</strong>: exige poucos recursos de processos, memória e espaço em disco.</li>
+  <li><strong>Comunicação entre contêineres</strong>: conectar contêineres via mapeamentos de porta <strong>TCP/IP</strong> não é a única forma de disponibilizar recursos entre eles.</li>
+</ul>
+
+<p>E uma das principais:</p>
+
+<div style="text-align:center">
+	<img class="image" src="/img/posts/2016/11/03/dependency-hell.png" />
+</div>
+
+<ul>
+  <li><strong>Evita Dependency Hell</strong>: um dos maiores problemas que os desenvolvedores de software convivem, é o gerenciamento de dependências. O Docker evita problemas neste gerenciamento.</li>
+</ul>
+
+<h2 id="docker-image">Docker Image</h2>
+
+<p>Uma imagem Docker nada mais é que, um arquivo inerte, imutável, que é essencialmente instanciado por um contêiner. As imagens são criadas com o comando <strong>build</strong> (entrarei em mais detalhes na segunda parte do artigo) e elas serão consumidas por um contêiner, ou seja, um contêiner é a instância de uma imagem. Como as imagens podem ser muito grandes, as imagens são projetadas para serem compostas por camadas de outras imagens.</p>
+
+<p>Basicamente, uma imagem é um conjunto de camadas que você descreve e, quando você inicia uma imagem, você terá um contêiner em execução desta imagem e você pode ter muitos contêineres da mesma imagem. Portanto, uma imagem em execução é um contêiner.</p>
+
+<p>E como criar uma imagem, ou seja, como descrever as camadas de uma imagem? Chega mais…</p>
+
+<h2 id="dockerfile">Dockerfile</h2>
+
+<p>Bom, basicamente, <strong>Dockerfile</strong> é um arquivo (ah vá!) que contém um conjunto de instruções necessárias para se criar uma imagem <strong>Docker</strong>, ou seja, se você tiver o <strong>Dockerfile</strong> de uma imagem, basta modificar o que deseja e recriar a imagem “do zero”, sim, isso pode demorar um pouco mais, mas essa imagem será muito mais “enxuta”.</p>
+
+<p>Caso não tenha o <strong>Dockerfile</strong> (geralmente você irá cair neste caso), você pode usar uma imagem à sua escolha como base e então criar a sua imagem como uma camada acima.</p>
+
+<p><strong>Exemplo de Dockerfile:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM image[:tag] # de qual imagem irá se basear
+RUN command # o que será executado por um shel (ex: apt-get update)
+WORKDIR /src # diretório "raiz" para os comandos seguintes
+COPY . /src # copia arquivos para dentro do contêiner
+VOLUME /src # volumes compartilhados
+EXPOSE 8080 # porta liberada para fora do contêiner
+CMD [command, params]
+</code></pre></div></div>
+
+<p>Alguns links estão nas referências.</p>
+
+<h2 id="docker-compose">Docker Compose</h2>
+
+<p>Basicamente, é uma ferramenta para a criação e execução de múltiplos contêineres de aplicação.</p>
+
+<p>Você utiliza um arquivo do tipo <strong>yaml</strong> para definir como será o ambiente de sua aplicação. Sua aplicação não é sozinha, ela poderá depender de serviços como: banco de dados (MySQL, por exemplo), redis, php, java, etc (que estará em outro contêiner), imagine ter que subir todos estes contêineres (detalhe, antes de ter que subir o contêiner da sua aplicação). O Docker Compose irá facilitar isso. Ele é ótimo para desenvolvimento, testes e homologação, bem como para melhorar seu fluxo de integração continua. Por exemplo:</p>
+
+<ul>
+  <li><strong>Ambiente de desenvolvimento</strong>: você pode simular todo o ambiente de produção, ou seja, precisando de outros serviços (conforme citado acima), basta definir isso em um arquivo .yml e quando você executar o Docker Compose, todo esse ambiente estará disponível para você.</li>
+</ul>
+
+<p>Link da documentação oficial está nas referências.</p>
+
+<h2 id="gado-vs-animal-de-estimação">Gado vs Animal de Estimação</h2>
+
+<p>Pense bem nessa diferença. A sua infraestrutura deve ser composta de componentes que você possa tratar como gado: <strong>auto-suficientes</strong>, <strong>facilmente substituíveis</strong> e <strong>gerenciáveis</strong>.</p>
+
+<p>Isso mesmo, não se apegue aos seus contêineres, eles podem subir, serem replicados, destruídos e gerenciados com uma flexibilidade muito maior.</p>
+
+<h2 id="referências">Referências</h2>
+
+<ul>
+  <li><a href="https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf" target="_blank">Ebook - Docker for the virtualization admin</a></li>
+  <li><a href="https://www.digitalocean.com/community/tutorials/como-instalar-e-utilizar-o-docker-primeiros-passos-pt" target="_blank">Como Instalar e Utilizar o Docker: Primeiros passos</a></li>
+  <li><a href="https://docs.docker.com/" target="_blank">Docs about Docker</a></li>
+  <li><a href="https://infoslack.com/docker/" target="_blank">Infoslack - Docker</a></li>
+  <li><a href="http://www.slideshare.net/HugoPosca/talk-31-dockernivelandoconhecimento" target="_blank">Hugo Posca - Nivelando conhecimento</a></li>
+  <li><a href="http://www.slideshare.net/HugoPosca/talk-32-docker-compose" target="_blank">Hugo Posca - Docker Compose</a></li>
+  <li><a href="https://www.youtube.com/watch?v=0cDj7citEjE" target="_blank">LinuxTips - Docker Tutorial #1 - Docker, Containers, Images e muito mais!</a></li>
+  <li><a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/" target="_blank">Best practices for writing Dockerfiles</a></li>
+  <li><a href="https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images" target="_blank">Docker Explained: Using Dockerfiles to Automate Building of Images</a></li>
+  <li><a href="https://github.com/kstaken/dockerfile-examples" target="_blank">Exemplos de Dockerfile</a></li>
+  <li><a href="https://github.com/kstaken/dockerfile-examples/blob/master/mongodb/Dockerfile" target="_blank">Exemplo - Dockerfile do Mongodb</a></li>
+  <li><a href="https://docs.docker.com/compose/" target="_blank">Documentação oficial do Compose</a></li>
+</ul>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>Bom, estou ciente que foi um post grande (comparado aos anteriores), talvez até um pouco cansativo, mas é muito importante que se entenda a teoria para praticar. Publicarei outro post, com um conteúdo mais da prática e alguns exemplos, claro, com Docker meu amigo.</p>
+
+<p>Peço que comentem sobre o que acharam deste artigo, o que esperam da segunda parte, enfim, qualquer feedback será importante para o desenvolvimento dos outros artigos.</p>
+:ET
